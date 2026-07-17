@@ -1,0 +1,3263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceRPG4 星图工具</title>
+<style>
+  :root {
+    --bg: #0a0e17; --panel-bg: #111827; --border: #1e293b;
+    --text: #cbd5e1; --text-dim: #64748b; --text-bright: #f1f5f9;
+    --accent: #3b82f6; --accent-hover: #2563eb; --danger: #ef4444;
+    --success: #10b981; --warning: #f59e0b; --radius: 8px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); height: 100vh;
+    display: flex; flex-direction: column; overflow: hidden; user-select: none;
+  }
+  #toolbar { display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--panel-bg); border-bottom:1px solid var(--border); z-index:10; flex-shrink:0; }
+  #toolbar .title { font-size:16px; font-weight:700; color:var(--text-bright); margin-right:16px; letter-spacing:0.5px; }
+  #toolbar .title span { color:var(--accent); }
+  .mode-group { display:flex; background:var(--bg); border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); }
+  .mode-btn { padding:7px 16px; border:none; background:transparent; color:var(--text-dim); cursor:pointer; font-size:13px; font-weight:500; transition:all 0.15s; white-space:nowrap; }
+  .mode-btn:first-child { border-right:1px solid var(--border); }
+  .mode-btn.active { background:var(--accent); color:#fff; }
+  .mode-btn:hover:not(.active) { color:var(--text); }
+  .tb-sep { width:1px; height:24px; background:var(--border); margin:0 4px; }
+  .tb-btn { padding:7px 14px; border:1px solid var(--border); background:var(--bg); color:var(--text); border-radius:var(--radius); cursor:pointer; font-size:13px; transition:all 0.15s; white-space:nowrap; }
+  .tb-btn:hover { border-color:var(--accent); color:var(--text-bright); }
+  .tb-btn.danger { border-color:var(--danger); color:var(--danger); }
+  .tb-btn.danger:hover { background:var(--danger); color:#fff; }
+  .tb-btn.small { padding:4px 10px; font-size:11px; }
+  #main { display:flex; flex:1; min-height:0; }
+  #panel { width:280px; background:var(--panel-bg); border-right:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; flex-shrink:0; }
+  #panel-tabs { display:flex; border-bottom:1px solid var(--border); flex-shrink:0; }
+  .panel-tab { flex:1; padding:10px 6px; border:none; background:transparent; color:var(--text-dim); cursor:pointer; font-size:12px; font-weight:500; text-align:center; border-bottom:2px solid transparent; }
+  .panel-tab:hover { color:var(--text); }
+  .panel-tab.active { color:var(--text-bright); border-bottom-color:var(--accent); }
+  #panel-content { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:12px; }
+  #panel-content::-webkit-scrollbar { width:4px; }
+  #panel-content::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  .panel-section { display:flex; flex-direction:column; gap:8px; }
+  .panel-label { font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-dim); letter-spacing:0.5px; }
+  .color-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .color-chip { display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:var(--radius); cursor:pointer; border:2px solid transparent; font-size:11px; color:var(--text); transition:all 0.15s; background:var(--bg); }
+  .color-chip:hover { border-color:rgba(255,255,255,0.2); }
+  .color-chip.selected { border-color:#fff; box-shadow:0 0 8px rgba(255,255,255,0.2); }
+  .color-dot { width:14px; height:14px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.3); }
+  .info-row { display:flex; gap:6px; align-items:center; }
+  .info-row input, .info-row select { flex:1; padding:6px 8px; border:1px solid var(--border); background:var(--bg); color:var(--text-bright); border-radius:4px; font-size:12px; outline:none; }
+  .info-row input:focus, .info-row select:focus { border-color:var(--accent); }
+  .info-row select option { background:var(--panel-bg); color:var(--text); }
+  .panel-hint { font-size:11px; color:var(--text-dim); line-height:1.5; }
+  .panel-hint kbd { display:inline-block; padding:1px 5px; border:1px solid var(--border); border-radius:3px; background:var(--bg); font-size:10px; font-family:inherit; }
+  .facility-row { display:flex; align-items:center; gap:8px; padding:6px 8px; background:var(--bg); border-radius:4px; cursor:pointer; transition:background 0.15s; font-size:12px; }
+  .facility-row:hover { background:rgba(255,255,255,0.03); }
+  .facility-row input[type=checkbox] { accent-color:var(--accent); cursor:pointer; }
+  .facility-row.grayed { opacity:0.4; pointer-events:none; }
+  .item-list { display:flex; flex-direction:column; gap:4px; margin-top:4px; }
+  .item-chip { display:flex; align-items:center; gap:6px; padding:4px 8px; background:var(--bg); border-radius:4px; font-size:11px; }
+  .item-chip span { flex:1; }
+  .item-chip .rm-btn { cursor:pointer; color:var(--danger); font-weight:700; font-size:14px; padding:0 4px; }
+  .item-chip .rm-btn:hover { color:#ff6666; }
+  .global-item { display:flex; align-items:center; gap:6px; padding:6px 8px; background:var(--bg); border-radius:4px; font-size:11px; cursor:pointer; border:1px solid transparent; transition:all 0.15s; }
+  .global-item:hover { border-color:var(--accent); }
+  .global-item .gi-icon { font-size:14px; flex-shrink:0; }
+  .global-item .gi-info { flex:1; min-width:0; }
+  .global-item .gi-info .gi-name { font-weight:600; color:var(--text-bright); }
+  .global-item .gi-info .gi-sub { color:var(--text-dim); font-size:10px; }
+  .global-item .gi-del { color:var(--danger); cursor:pointer; font-size:13px; padding:2px 4px; display:none; }
+  .global-item:hover .gi-del { display:block; }
+  .global-item .gi-del:hover { color:#ff6666; }
+  #canvas-wrap { flex:1; position:relative; cursor:grab; overflow:hidden; background:radial-gradient(circle at 50% 50%, rgba(30,64,175,0.08) 0%, transparent 70%), var(--bg); }
+  #canvas-wrap.panning { cursor:grabbing; }
+  #canvas-wrap.map-mode { cursor:crosshair; }
+  #svg-root { width:100%; height:100%; }
+  .grid-dot { fill:rgba(255,255,255,0.04); }
+  .edge-line { stroke:rgba(255,255,255,0.25); stroke-width:2; stroke-linecap:round; transition:stroke 0.2s, stroke-width 0.2s; cursor:pointer; }
+  .edge-line:hover { stroke:rgba(255,255,255,0.5); stroke-width:3; }
+  .edge-line.path-highlight { stroke:#00ff88; stroke-width:4; filter:drop-shadow(0 0 6px rgba(0,255,136,0.5)); }
+  .node-circle { stroke-width:2.5; cursor:pointer; transition:r 0.15s, stroke-width 0.15s; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+  .node-circle:hover { stroke-width:4; }
+  .node-circle.selected { stroke:#fff; stroke-width:4; }
+  .node-circle.path-node { stroke:#00ff88; stroke-width:5; filter:drop-shadow(0 0 10px rgba(0,255,136,0.6)); }
+  .node-circle.start-node { stroke:#00ff88; stroke-width:5; }
+  .node-circle.end-node { stroke:#ff4444; stroke-width:5; }
+  .node-label { font-size:12px; fill:var(--text); text-anchor:middle; pointer-events:none; font-weight:500; paint-order:stroke; stroke:rgba(0,0,0,0.8); stroke-width:3px; stroke-linejoin:round; }
+  .node-label.path-node { fill:#00ff88; font-weight:700; }
+  .node-tag { font-size:14px; text-anchor:middle; pointer-events:none; font-weight:900; paint-order:stroke; stroke:rgba(0,0,0,0.8); stroke-width:3px; stroke-linejoin:round; }
+  .tag-start { fill:#00ff88; } .tag-end { fill:#ff4444; }
+  .fac-icon-text { font-size:11px; text-anchor:middle; pointer-events:none; }
+  .fac-icon-text.active { opacity:1; }
+  .fac-icon-text.inactive { opacity:0.2; }
+  #status-bar { display:flex; align-items:center; gap:12px; padding:8px 16px; background:var(--panel-bg); border-top:1px solid var(--border); font-size:12px; color:var(--text-dim); flex-shrink:0; min-height:38px; }
+  #status-bar .path-result { color:#00ff88; font-weight:600; }
+  #status-bar .path-result strong { color:#fff; }
+  #context-menu { position:fixed; background:var(--panel-bg); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:4px; z-index:100; display:none; min-width:140px; }
+  .ctx-item { padding:8px 12px; font-size:13px; cursor:pointer; border-radius:4px; color:var(--text); transition:background 0.1s; }
+  .ctx-item:hover { background:var(--accent); color:#fff; }
+  .ctx-item.danger { color:var(--danger); }
+  .ctx-item.danger:hover { background:var(--danger); color:#fff; }
+  #tooltip { position:fixed; pointer-events:none; padding:10px 14px; background:rgba(0,0,0,0.9); color:#fff; font-size:12px; border-radius:6px; z-index:50; display:none; border:1px solid rgba(255,255,255,0.15); max-width:280px; line-height:1.6; }
+  #tooltip .tt-name { font-size:14px; font-weight:700; margin-bottom:2px; }
+  #tooltip .tt-fac { margin-top:4px; }
+  #tooltip .tt-fac div { display:flex; align-items:flex-start; gap:4px; }
+  #detail-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:80; display:none; justify-content:center; align-items:center; }
+  #detail-panel { background:var(--panel-bg); border:1px solid var(--border); border-radius:12px; padding:24px; max-width:480px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:var(--shadow); }
+  #detail-panel h2 { font-size:18px; color:var(--text-bright); margin-bottom:4px; }
+  #detail-panel .dp-color { font-size:12px; color:var(--text-dim); margin-bottom:16px; }
+  #detail-panel .dp-section { margin-bottom:14px; }
+  #detail-panel .dp-section h3 { font-size:13px; color:var(--text-bright); margin-bottom:4px; }
+  #detail-panel .dp-section p { font-size:12px; color:var(--text); line-height:1.6; }
+  #detail-panel .dp-close { float:right; background:none; border:none; color:var(--text-dim); font-size:20px; cursor:pointer; padding:4px 8px; }
+  #detail-panel .dp-close:hover { color:#fff; }
+  #detail-panel::-webkit-scrollbar { width:4px; }
+  #detail-panel::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  #legend { position:absolute; bottom:12px; right:56px; background:rgba(0,0,0,0.75); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px 14px; font-size:11px; color:var(--text-dim); pointer-events:none; z-index:5; line-height:1.8; }
+  #legend .leg-item { display:flex; align-items:center; gap:6px; }
+  #file-input { display:none; }
+  #zoom-indicator { position:absolute; bottom:12px; right:16px; font-size:11px; color:var(--text-dim); background:rgba(0,0,0,0.6); padding:4px 8px; border-radius:4px; pointer-events:none; }
+  #news-log { position:absolute; bottom:44px; left:12px; z-index:20; max-width:350px; cursor:pointer; }
+  #ark-btn { position:fixed; right:0; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); border-right:none; border-radius:8px 0 0 8px; color:rgba(255,255,255,0.7); padding:12px 8px; cursor:pointer; z-index:150; font-size:12px; writing-mode:vertical-rl; transition:all 0.3s; }
+  #ark-btn:hover { background:rgba(59,130,246,0.3); color:#fff; transform:translateY(-50%) scale(1.05); border-color:var(--accent); }
+  #chat-panel { position:fixed; top:0; right:-420px; width:400px; height:100vh; background:var(--panel-bg); border-left:1px solid var(--border); z-index:160; display:flex; flex-direction:column; transition:right 0.3s; box-shadow:-4px 0 20px rgba(0,0,0,0.5); }
+  #chat-panel.open { right:0; }
+  #chat-header { display:flex; align-items:center; padding:10px 14px; border-bottom:1px solid var(--border); flex-shrink:0; }
+  #chat-header .ch-title { flex:1; font-weight:700; color:var(--text-bright); font-size:14px; }
+  #chat-header .ch-close { background:none; border:none; color:var(--text-dim); font-size:18px; cursor:pointer; padding:4px 8px; }
+  #chat-header .ch-close:hover { color:#fff; }
+  #chat-messages { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
+  #chat-messages::-webkit-scrollbar { width:4px; }
+  #chat-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  .chat-msg { max-width:90%; padding:8px 12px; border-radius:12px; font-size:12px; line-height:1.5; animation:fadeIn 0.2s; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(4px);} to{opacity:1;transform:translateY(0);} }
+  .chat-msg.user { align-self:flex-end; background:var(--accent); color:#fff; border-bottom-right-radius:4px; }
+  .chat-msg.ai { align-self:flex-start; background:var(--bg); color:var(--text); border:1px solid var(--border); border-bottom-left-radius:4px; }
+  .chat-msg.ai pre { font-size:10px; color:var(--text-dim); white-space:pre-wrap; margin:4px 0; }
+  .chat-msg.ai code { background:rgba(0,0,0,0.3); padding:1px 4px; border-radius:3px; font-size:10px; }
+  #chat-input-area { display:flex; gap:6px; padding:10px; border-top:1px solid var(--border); flex-shrink:0; }
+  #chat-input { flex:1; padding:8px 12px; border:1px solid var(--border); background:var(--bg); color:var(--text-bright); border-radius:20px; font-size:12px; outline:none; }
+  #chat-input:focus { border-color:var(--accent); }
+  #chat-send { padding:8px 16px; border:none; background:var(--accent); color:#fff; border-radius:20px; cursor:pointer; font-size:12px; font-weight:600; }
+  #chat-send:hover { background:var(--accent-hover); }
+  #chat-loading { display:none; align-self:flex-start; padding:6px 12px; font-size:11px; color:var(--text-dim); }
+  .news-entry { background:rgba(0,0,0,0.85); border-left:2px solid #ff8800; border-radius:0 4px 4px 0; padding:4px 10px; margin-top:3px; font-size:11px; color:#ddd; animation: newsFadeIn 0.4s ease; }
+  @keyframes newsFadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .news-entry .ne-time { color:#ff8800; font-size:10px; }
+  .news-entry .ne-system { color:#fff; font-weight:600; }
+  .news-entry .ne-items { color:#ccc; }
+  #search-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:90; display:none; justify-content:center; align-items:flex-start; padding-top:60px; }
+  #search-panel { background:var(--panel-bg); border:1px solid var(--border); border-radius:12px; width:520px; max-height:70vh; display:flex; flex-direction:column; box-shadow:var(--shadow); overflow:hidden; }
+  #search-tabs { display:flex; border-bottom:1px solid var(--border); flex-shrink:0; }
+  .search-tab { flex:1; padding:10px 8px; border:none; background:transparent; color:var(--text-dim); cursor:pointer; font-size:12px; text-align:center; border-bottom:2px solid transparent; transition:all 0.15s; }
+  .search-tab:hover { color:var(--text); }
+  .search-tab.active { color:var(--text-bright); border-bottom-color:var(--accent); }
+  #search-body { padding:16px; overflow-y:auto; flex:1; }
+  #search-input { width:100%; padding:10px 12px; border:1px solid var(--border); background:var(--bg); color:var(--text-bright); border-radius:8px; font-size:13px; outline:none; margin-bottom:8px; }
+  #search-input:focus { border-color:var(--accent); }
+  .search-mode-row { display:flex; gap:8px; margin-bottom:10px; font-size:12px; align-items:center; }
+  .search-mode-row label { cursor:pointer; display:flex; align-items:center; gap:4px; color:var(--text-dim); }
+  .search-mode-row input[type=radio] { accent-color:var(--accent); }
+  #search-results { display:flex; flex-direction:column; gap:4px; max-height:300px; overflow-y:auto; }
+  #search-results::-webkit-scrollbar { width:4px; }
+  #search-results::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  .search-result { display:flex; align-items:center; gap:8px; padding:8px 10px; background:var(--bg); border-radius:6px; border:1px solid transparent; cursor:pointer; transition:all 0.15s; }
+  .search-result:hover { border-color:var(--accent); }
+  .search-result .sr-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .search-result .sr-name { flex:1; font-size:13px; color:var(--text-bright); font-weight:500; }
+  .search-result .sr-info { font-size:11px; color:var(--text-dim); }
+  .search-result .sr-acts { display:flex; gap:4px; flex-shrink:0; }
+  .sr-btn { padding:3px 8px; border:1px solid var(--border); background:transparent; color:var(--text); border-radius:4px; cursor:pointer; font-size:10px; transition:all 0.15s; white-space:nowrap; }
+  .sr-btn:hover { border-color:var(--accent); color:var(--text-bright); }
+  .sr-btn.start:hover { border-color:#00ff88; color:#00ff88; }
+  .sr-btn.end:hover { border-color:#ff4444; color:#ff4444; }
+  .sr-btn.locate:hover { border-color:var(--warning); color:var(--warning); }
+  #search-no-results { text-align:center; color:var(--text-dim); padding:16px; font-size:13px; }
+  #search-close { position:absolute; top:12px; right:12px; background:none; border:none; color:var(--text-dim); font-size:22px; cursor:pointer; z-index:91; }
+  #search-close:hover { color:#fff; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <div class="title">🚀 Space<span>RPG4</span> 星图</div>
+  <div class="mode-group">
+    <button class="mode-btn active" data-mode="editor" id="btn-editor">✏️ 编辑器模式</button>
+    <button class="mode-btn" data-mode="map" id="btn-map">🗺️ 地图模式</button>
+  </div>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="btn-save">💾 保存</button>
+  <button class="tb-btn" id="btn-export">📤 导出</button>
+  <button class="tb-btn" id="btn-import">📥 导入</button>
+  <input type="file" id="file-input" accept=".json">
+  <div class="tb-sep"></div>
+  <button class="tb-btn" id="btn-fit">🔍 适应画面</button>
+  <button class="tb-btn" id="btn-search">🔎 搜索</button>
+  <button class="tb-btn" id="btn-territory">🗺️ 领域</button>
+  <div class="tb-sep"></div>
+  <button class="tb-btn danger" id="btn-clear">🗑 清空</button>
+</div>
+
+<div id="main">
+  <div id="panel">
+    <div id="panel-tabs">
+      <button class="panel-tab active" data-tab="planet">🪐 星球</button>
+      <button class="panel-tab" data-tab="ship">🚀 船只</button>
+      <button class="panel-tab" data-tab="product">📦 产品</button>
+    </div>
+    <div id="panel-content"></div>
+  </div>
+  <div id="canvas-wrap">
+    <svg id="svg-root"></svg>
+    <div id="zoom-indicator">100%</div>
+    <div id="legend">
+      <div class="leg-item">🍺 酒吧</div><div class="leg-item">📋 任务中心</div>
+      <div class="leg-item">🚀 船坞</div><div class="leg-item">🔧 装备中心</div>
+      <div class="leg-item">💰 贸易中心</div><div class="leg-item">🏛️ 舰队管理</div>
+    </div>
+  </div>
+</div>
+
+<div id="status-bar">
+  <span id="status-text">就绪</span>
+  <span id="status-path" class="path-result" style="display:none;"></span>
+</div>
+
+<div id="context-menu"><div class="ctx-item danger" data-action="delete-edge">🗑 删除通道</div></div>
+<div id="tooltip"></div>
+<div id="detail-overlay"><div id="detail-panel"></div></div>
+<div id="news-log"></div>
+
+<!-- Arkitect AI Chat -->
+<div id="ark-btn" onclick="toggleChat()">遇事不决？<br>问问Arkitect</div>
+<div id="chat-panel">
+  <div id="chat-header">
+    <span class="ch-title">🤖 Arkitect AI</span>
+    <button class="ch-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div id="chat-messages">
+    <div class="chat-msg ai">你好！我是Arkitect，SpaceRPG4的AI助手。我可以帮你查找星系、行星、NPC、船只、贸易信息，以及规划路径。试试问我吧！</div>
+  </div>
+  <div id="chat-loading">思考中...</div>
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button id="chat-send" onclick="sendChat()">发送</button>
+  </div>
+</div>
+<div id="search-overlay">
+  <button id="search-close">✕</button>
+  <div id="search-panel">
+    <div id="search-tabs">
+      <button class="search-tab active" data-stab="system">🌌 星系</button>
+      <button class="search-tab" data-stab="planet">🪐 星球</button>
+      <button class="search-tab" data-stab="npc">👤 NPC</button>
+      <button class="search-tab" data-stab="resource">📦 资源</button>
+    </div>
+    <div id="search-body"></div>
+  </div>
+</div>
+
+<script>
+const FACTION_COLORS = [
+  { name:'蓝色星球', fill:'#4488ff', stroke:'#2266cc' },
+  { name:'绿色星球', fill:'#44cc44', stroke:'#228822' },
+  { name:'红色星球', fill:'#ee4444', stroke:'#cc2222' },
+  { name:'黄色星球', fill:'#eebb00', stroke:'#cc8800' },
+  { name:'淡蓝色星球', fill:'#44cccc', stroke:'#229999' },
+  { name:'灰色星域', fill:'#999999', stroke:'#666666' },
+];
+const GRAY_INDEX = 5;
+const FACILITY_DEFS = [
+  { key:'bar', icon:'🍺', label:'酒吧' },
+  { key:'mission', icon:'📋', label:'任务中心' },
+  { key:'shipyard', icon:'🚀', label:'船坞' },
+  { key:'equipment', icon:'🔧', label:'装备中心' },
+  { key:'trade', icon:'💰', label:'贸易中心' },
+  { key:'fleet', icon:'🏛️', label:'舰队管理' },
+];
+const PRESET_EMOJIS = ['🏥','🍖','💎','⚙️','🔩','💊','🧪','📦','🛡️','⚡','💣','🛢️','🔫','🧬'];
+const STORAGE_KEY = 'spacerpg4_map_data';
+const NODE_RADIUS = 22;
+const PATH_COLOR = '#00ff88';
+
+const factionColorCache = {};
+function getFactionColor(factionName) {
+  if (!factionName) return null;
+  if (factionColorCache[factionName]) return factionColorCache[factionName];
+  let hash = 0;
+  for (let i = 0; i < factionName.length; i++) hash = factionName.charCodeAt(i) + ((hash << 5) - hash);
+  const h = Math.abs(hash) % 360;
+  const s = 55 + (Math.abs(hash) % 20);
+  const l = 45 + (Math.abs(hash >> 8) % 15);
+  factionColorCache[factionName] = `hsl(${h},${s}%,${l}%)`;
+  return factionColorCache[factionName];
+}
+
+let state = {
+  mode:'editor', nodes:[], edges:[], ships:[], products:[],
+  selectedNodeId:null, selectedColorIndex:0,
+  startNodeId:null, endNodeId:null, waypointIds:[],
+  pathNodeIds:[], pathEdgeIds:[], highlightedNodeIds:[],
+  showTerritory:false,
+  mapSubMode:'nav',  // 'nav' (navigation) or 'view' (inspect)
+  pathMode:'shortest', // 'shortest' or 'norefuel'
+  ftlRange:0,          // player's max FTL jumps without refuel (0=unlimited)
+  viewNodeId:null,   // node being viewed in view mode
+  viewExpanded: {},   // { 'planetId': true, 'planetId|bar': true, 'shipId': true } — tracks expanded tree nodes
+  viewX:0, viewY:0, scale:1,
+  dragging:null, panning:null, edgeSource:null, hoveredNodeId:null,
+  activePanelTab:'planet', shipEditId:null, productEditId:null, editingPlanetId:null,
+};
+
+const svgRoot = document.getElementById('svg-root');
+const canvasWrap = document.getElementById('canvas-wrap');
+const zoomIndicator = document.getElementById('zoom-indicator');
+const statusText = document.getElementById('status-text');
+const statusPath = document.getElementById('status-path');
+const contextMenu = document.getElementById('context-menu');
+const tooltip = document.getElementById('tooltip');
+const panelContent = document.getElementById('panel-content');
+const detailOverlay = document.getElementById('detail-overlay');
+const detailPanel = document.getElementById('detail-panel');
+const legendBox = document.getElementById('legend');
+
+let nextId = 1, planetNextId = 1;
+function genId(prefix='n') {
+  const all = [...state.nodes, ...state.ships, ...state.products];
+  while (all.some(x => x.id === `${prefix}${nextId}`)) nextId++;
+  return `${prefix}${nextId++}`;
+}
+function genPlanetId() { return `pl${planetNextId++}`; }
+function edgeKey(a,b) { return a<b ? `${a}|${b}` : `${b}|${a}`; }
+function getNodeById(id) { return state.nodes.find(n => n.id===id); }
+function getShipById(id) { return state.ships.find(s => s.id===id); }
+function getProductById(id) { return state.products.find(p => p.id===id); }
+function isGray(node) { return node.colorIndex === GRAY_INDEX; }
+
+function getNeighbors(nodeId) {
+  const nb = [];
+  for (const e of state.edges) { if(e.from===nodeId) nb.push(e.to); if(e.to===nodeId) nb.push(e.from); }
+  return nb;
+}
+
+function defaultPlanetFacilities() {
+  return { bar:{active:false,npcs:[]}, mission:false, shipyard:{active:false,shipIds:[]}, equipment:false, trade:{active:false,products:[]}, fleet:false };
+}
+function defaultPlanet(name) { return { id:genPlanetId(), name:name||'未命名行星', facilities:defaultPlanetFacilities() }; }
+function getPlanets(node) { if(isGray(node)||!node.planets) return []; return node.planets; }
+
+function hasAnyFacility(node) {
+  for (const p of getPlanets(node)) {
+    const f = p.facilities; if(!f) continue;
+    if(f.bar?.active||f.mission||f.shipyard?.active||f.equipment||f.trade?.active||f.fleet) return true;
+  }
+  return false;
+}
+
+function isFacilityActive(node, key) {
+  for (const p of getPlanets(node)) {
+    const f = p.facilities; if(!f) continue;
+    switch(key) {
+      case 'bar': if(f.bar?.active) return true; break;
+      case 'mission': if(f.mission) return true; break;
+      case 'shipyard': if(f.shipyard?.active) return true; break;
+      case 'equipment': if(f.equipment) return true; break;
+      case 'trade': if(f.trade?.active) return true; break;
+      case 'fleet': if(f.fleet) return true; break;
+    }
+  }
+  return false;
+}
+
+function migrateNode(node) {
+  if(node.colorIndex===undefined) node.colorIndex=0;
+  if(node.faction===undefined) node.faction='';
+  if(node.hasStation===undefined) node.hasStation=false;
+  if(node.facilities&&!node.planets){node.planets=[{id:genPlanetId(),name:node.name||'默认行星',facilities:node.facilities}];delete node.facilities;}
+  if(!node.planets) node.planets=isGray(node)?null:[];
+  if(isGray(node)) node.planets=null;
+  else if(node.planets){for(const p of node.planets) ensurePlanetFacilities(p);}
+}
+
+function ensurePlanetFacilities(planet) {
+  if(!planet.facilities) planet.facilities=defaultPlanetFacilities();
+  const f=planet.facilities;
+  if(!f.bar||!Array.isArray(f.bar.npcs)) f.bar={active:!!(f.bar?.active),npcs:Array.isArray(f.bar?.npcs)?f.bar.npcs:[]};
+  if(f.mission===undefined) f.mission=false;
+  if(!f.shipyard||!Array.isArray(f.shipyard.shipIds)) f.shipyard={active:!!(f.shipyard?.active),shipIds:Array.isArray(f.shipyard?.shipIds)?f.shipyard.shipIds:[]};
+  if(f.equipment===undefined) f.equipment=false;
+  if(!f.trade||!Array.isArray(f.trade.products)){if(f.trade&&Array.isArray(f.trade.products)&&f.trade.products.length>0&&typeof f.trade.products[0]==='string'){f.trade.products=f.trade.products.map(pid=>({productId:pid,priceMin:0,priceMax:0,trend:0}));}else{f.trade={active:!!(f.trade?.active),products:[]};}}
+  if(f.trade&&Array.isArray(f.trade.products)){for(const item of f.trade.products){if(item.trend===undefined) item.trend=0;if(item.priceMin===undefined){item.priceMin=item.price||0;item.priceMax=item.price||0;delete item.price;}}}
+  if(f.fleet===undefined) f.fleet=false;
+}
+
+function defaultShipAttrs() {
+  return { type:'',turnRate:0,maxSpeed:0,shield:0,shieldRecharge:0,cargoSpace:0,mass:0,hp:0,acceleration:0,generator:0,generatorRate:0,equipment:'',weapons:'',condition:'' };
+}
+function migrateShip(ship) { const def=defaultShipAttrs(); for(const key of Object.keys(def)){if(ship[key]===undefined) ship[key]=def[key];} }
+
+function migrateAllData() {
+  for(const node of state.nodes) migrateNode(node);
+  if(!state.ships) state.ships=[];
+  if(!state.products) state.products=[];
+  for(const ship of state.ships) migrateShip(ship);
+  const validShipIds=new Set(state.ships.map(s=>s.id));
+  const validProdIds=new Set(state.products.map(p=>p.id));
+  if(validShipIds.size>0||validProdIds.size>0){
+    for(const node of state.nodes){
+      for(const p of getPlanets(node)){
+        if(p.facilities?.shipyard?.shipIds&&validShipIds.size>0) p.facilities.shipyard.shipIds=p.facilities.shipyard.shipIds.filter(id=>validShipIds.has(id));
+        if(p.facilities?.trade?.products&&validProdIds.size>0) p.facilities.trade.products=p.facilities.trade.products.filter(x=>validProdIds.has(x.productId||x));
+      }
+    }
+  }
+}
+
+function saveData() {
+  const data={nodes:state.nodes,edges:state.edges,ships:state.ships,products:state.products,nextId,planetNextId,_version:3};
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));return true;}catch(e){console.warn('save failed',e);return false;}
+}
+function loadData() {
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);if(!raw) return false;
+    const data=JSON.parse(raw);
+    if(data.nodes&&data.edges){state.nodes=data.nodes;state.edges=data.edges;state.ships=data.ships||[];state.products=data.products||[];nextId=data.nextId||1;planetNextId=data.planetNextId||1;migrateAllData();return true;}
+  }catch(e){console.warn('load failed',e);}
+  return false;
+}
+function exportJSON() {
+  const data={nodes:state.nodes,edges:state.edges,ships:state.ships,products:state.products,nextId,planetNextId,_version:3};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`spacerpg4_map_${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);
+  setStatus('✅ 地图数据已导出');
+}
+function importJSON(file) {
+  const reader=new FileReader();
+  reader.onload=(e)=>{
+    try{
+      const data=JSON.parse(e.target.result);if(!data.nodes||!data.edges) throw new Error('无效格式');
+      state.nodes=data.nodes;state.edges=data.edges;state.ships=data.ships||[];state.products=data.products||[];nextId=data.nextId||1;planetNextId=data.planetNextId||1;
+      migrateAllData();clearSelection();clearPath();saveData();autoFitView();render();setStatus('✅ 已导入');
+    }catch(err){alert('导入失败');setStatus('❌ 导入失败');}
+  };
+  reader.readAsText(file);
+}
+
+function bfs(startId,endId) {
+  if(startId===endId) return [startId];
+  const queue=[startId],visited=new Set([startId]),parent={};
+  while(queue.length>0){const cur=queue.shift();if(cur===endId) break;for(const nb of getNeighbors(cur)){if(!visited.has(nb)){visited.add(nb);parent[nb]=cur;queue.push(nb);}}}
+  if(parent[endId]===undefined&&startId!==endId) return null;
+  const path=[];let node=endId;while(node!==undefined){path.unshift(node);node=parent[node];}
+  return path[0]===startId?path:null;
+}
+
+function isRefuelNode(node) {
+  // Blue (0) and Red (2) provide fuel
+  return node && (node.colorIndex === 0 || node.colorIndex === 2);
+}
+
+// Compute max consecutive non-refuel nodes along a path (skip start node — fleet departs with full fuel)
+function maxConsecutiveNoRefuel(path) {
+  let maxStreak = 0, curStreak = 0;
+  for (let i = 0; i < path.length; i++) {
+    if (i === 0) continue; // skip start node: fleet starts with full fuel
+    const node = getNodeById(path[i]);
+    if (isRefuelNode(node)) { curStreak = 0; }
+    else { curStreak++; maxStreak = Math.max(maxStreak, curStreak); }
+  }
+  return maxStreak;
+}
+
+// Distance from node to nearest refuel node (BFS)
+function distToNearestRefuel(nodeId) {
+  if (isRefuelNode(getNodeById(nodeId))) return 0;
+  const visited = new Set([nodeId]);
+  const queue = [{ id: nodeId, dist: 0 }];
+  while (queue.length > 0) {
+    const cur = queue.shift();
+    const node = getNodeById(cur.id);
+    if (node && isRefuelNode(node) && cur.dist > 0) return cur.dist;
+    for (const nbId of getNeighbors(cur.id)) {
+      if (!visited.has(nbId)) { visited.add(nbId); queue.push({ id: nbId, dist: cur.dist + 1 }); }
+    }
+  }
+  return Infinity;
+}
+
+function validateRefuelPath(path, startId, endId, ftl) {
+  if (ftl <= 0) return { valid: true };
+  const startNode = getNodeById(startId);
+  const endNode = getNodeById(endId);
+
+  // Rule: nearest refuel from start must be <= FTL
+  const startDist = distToNearestRefuel(startId);
+  if (startDist > ftl) return { valid: false, reason: `起点${startNode?.name}到最近补给需${startDist}跳，超过FTL(${ftl})` };
+
+  const endIsRefuel = isRefuelNode(endNode);
+
+  if (!endIsRefuel) {
+    // End is non-refuel: Jl = distance from last refuel (or start) to end, excluding start
+    let Jl = 0;
+    for (let i = path.length - 1; i >= 1; i--) { // skip i=0 (start node: fleet departs with full fuel)
+      const node = getNodeById(path[i]);
+      if (isRefuelNode(node)) break;
+      Jl++;
+    }
+    // Path before last segment must have maxStreak <= FTL
+    const restPath = path.slice(0, path.length - Jl);
+    const restMaxStreak = maxConsecutiveNoRefuel(restPath.length > 0 ? restPath : [path[0]]);
+    if (restMaxStreak > ftl) return { valid: false, reason: `路径中段最长无补给${restMaxStreak}跳>FTL(${ftl})` };
+    // Js = nearest refuel to end (anywhere on map)
+    const Js = distToNearestRefuel(endId);
+    if (Js < Jl) {
+      // Closer refuel exists elsewhere: one-way to end then go to that refuel
+      if (Js + Jl <= ftl) return { valid: true };
+      return { valid: false, reason: `终点${endNode?.name}无补给，Jl=${Jl} Js=${Js}，Js+Jl=${Js+Jl}>FTL(${ftl})` };
+    } else {
+      // Last refuel is nearest: round trip
+      if (Jl * 2 <= ftl) return { valid: true };
+      return { valid: false, reason: `终点${endNode?.name}无补给，Jl=${Jl} Js=${Js}，2×Jl=${Jl*2}>FTL(${ftl})` };
+    }
+  } else {
+    // End is refuel: longest streak in whole path <= FTL
+    const maxStreak = maxConsecutiveNoRefuel(path);
+    if (maxStreak <= ftl) return { valid: true };
+    return { valid: false, reason: `最长无补给段${maxStreak}跳>FTL(${ftl})` };
+  }
+}
+
+function computePath() {
+  if(!state.startNodeId||!state.endNodeId){state.pathNodeIds=[];state.pathEdgeIds=[];return;}
+  const order=[state.startNodeId,...state.waypointIds,state.endNodeId];
+  const fullPath=[];
+  for(let i=0;i<order.length-1;i++){const seg=bfs(order[i],order[i+1]);if(!seg){state.pathNodeIds=[];state.pathEdgeIds=[];return;}if(i>0) seg.shift();fullPath.push(...seg);}
+  state.pathNodeIds=fullPath;state.pathEdgeIds=[];
+  for(let i=0;i<fullPath.length-1;i++) state.pathEdgeIds.push(edgeKey(fullPath[i],fullPath[i+1]));
+
+}
+
+function updatePathDisplay() {
+  if(state.pathNodeIds.length>0){
+    const names=state.pathNodeIds.map(id=>getNodeById(id)?.name||'?');
+    const modeLabel=state.pathMode==='norefuel'?'⛽ 无补给':'🟢 最短';
+    statusPath.style.display='inline';
+    // Check FTL validation
+    if (state.pathMode==='norefuel' && state.ftlRange>0) {
+      const val = validateRefuelPath(state.pathNodeIds, state.startNodeId, state.endNodeId, state.ftlRange);
+      if (!val.valid) {
+        statusPath.style.color='#ff4444';
+        statusPath.innerHTML=`⚠️ <strong>FTL不足</strong> — ${val.reason} | 距离: ${names.length-1}跳`;
+        return;
+      }
+    }
+    statusPath.style.color='#00ff88';
+    statusPath.innerHTML=`${modeLabel}: <strong>${names.join(' → ')}</strong> | 距离: <strong>${names.length-1}</strong> 跳`;
+  }
+  else if(state.startNodeId&&state.endNodeId){statusPath.style.display='inline';statusPath.style.color='#ff4444';const wpMsg=state.waypointIds.length>0?'（含途径点）':'';statusPath.innerHTML='⚠️ <strong>无法到达</strong> — 路径不通'+wpMsg;}
+  else{statusPath.style.display='none';}
+}
+
+function fuzzyScore(query,target){const q=query.toLowerCase().trim(),t=target.toLowerCase();if(!q) return 0;if(t===q) return -3;if(t.startsWith(q)) return -2;if(t.includes(q)) return -1;let qi=0,dist=0,firstMatch=-1;for(let i=0;i<t.length&&qi<q.length;i++){if(t[i]===q[qi]){if(firstMatch<0) firstMatch=i;qi++;}else dist++;}if(qi===q.length) return dist+firstMatch*0.1;return 999;}
+function searchNodes(query,onlyPlanets=false){const results=[];for(const node of state.nodes){if(onlyPlanets&&isGray(node)) continue;const score=fuzzyScore(query,node.name);if(score<999) results.push({node,score});}results.sort((a,b)=>a.score-b.score);return results.slice(0,15);}
+
+// ---- Delaunay Triangulation (Bowyer-Watson) ----
+function delaunayTriangulation(points) {
+  if (points.length < 3) return [];
+  // Super-triangle that contains all points
+  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+  for(const p of points){if(p.x<minX)minX=p.x;if(p.y<minY)minY=p.y;if(p.x>maxX)maxX=p.x;if(p.y>maxY)maxY=p.y;}
+  const dx=maxX-minX,dy=maxY-minY,dm=Math.max(dx,dy)*10;
+  const midX=(minX+maxX)/2,midY=(minY+maxY)/2;
+  const s1={x:midX,y:midY-dm},s2={x:midX-dm,y:midY+dm},s3={x:midX+dm,y:midY+dm};
+  let triangles=[{a:s1,b:s2,c:s3}];
+
+  for(const p of points){
+    const bad=[];
+    for(const t of triangles){
+      if(pointInCircumcircle(p,t.a,t.b,t.c)) bad.push(t);
+    }
+    const edges=[];
+    for(const t of bad){
+      addEdgeIfUnique(edges,t.a,t.b);addEdgeIfUnique(edges,t.b,t.c);addEdgeIfUnique(edges,t.c,t.a);
+    }
+    triangles=triangles.filter(t=>!bad.includes(t));
+    for(const e of edges) triangles.push({a:e[0],b:e[1],c:p});
+  }
+  // Remove triangles using super-triangle vertices
+  return triangles.filter(t=>{
+    const verts=[t.a,t.b,t.c];
+    return !verts.some(v=>v===s1||v===s2||v===s3);
+  });
+}
+
+function pointInCircumcircle(p,a,b,c){
+  const ax=a.x,ay=a.y,bx=b.x,by=b.y,cx=c.x,cy=c.y;
+  const d=2*(ax*(by-cy)+bx*(cy-ay)+cx*(ay-by));
+  if(Math.abs(d)<1e-10) return false;
+  const ux=((ax*ax+ay*ay)*(by-cy)+(bx*bx+by*by)*(cy-ay)+(cx*cx+cy*cy)*(ay-by))/d;
+  const uy=((ax*ax+ay*ay)*(cx-bx)+(bx*bx+by*by)*(ax-cx)+(cx*cx+cy*cy)*(bx-ax))/d;
+  const r2=(ax-ux)*(ax-ux)+(ay-uy)*(ay-uy);
+  const dist2=(p.x-ux)*(p.x-ux)+(p.y-uy)*(p.y-uy);
+  return dist2<r2-1e-8;
+}
+
+function addEdgeIfUnique(edges,p1,p2){
+  for(let i=edges.length-1;i>=0;i--){
+    const e=edges[i];
+    if((e[0]===p1&&e[1]===p2)||(e[0]===p2&&e[1]===p1)){edges.splice(i,1);return;}
+  }
+  edges.push([p1,p2]);
+}
+
+// ---- Territory Rendering (Delaunay) ----
+// Compute circumcenter of triangle abc
+function circumcenter(a,b,c){
+  const d=2*(a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y));
+  if(Math.abs(d)<1e-10) return null;
+  const ax=a.x,ay=a.y,bx=b.x,by=b.y,cx=c.x,cy=c.y;
+  const ux=((ax*ax+ay*ay)*(by-cy)+(bx*bx+by*by)*(cy-ay)+(cx*cx+cy*cy)*(ay-by))/d;
+  const uy=((ax*ax+ay*ay)*(cx-bx)+(bx*bx+by*by)*(ax-cx)+(cx*cx+cy*cy)*(bx-ax))/d;
+  return {x:ux,y:uy};
+}
+
+// Build Voronoi cells from Delaunay triangulation
+function buildVoronoiCells(points, tris) {
+  const cells={};
+  for(const p of points){ cells[p.node.id]=[]; }
+  for(const t of tris){
+    const cc=circumcenter(t.a,t.b,t.c);
+    if(!cc) continue;
+    // Add this circumcenter to each vertex's cell
+    [t.a,t.b,t.c].forEach(v=>{
+      if(v.node&&cells[v.node.id]) cells[v.node.id].push(cc);
+    });
+  }
+  // Sort each cell's circumcenters by angle around the node
+  for(const p of points){
+    const cell=cells[p.node.id]; if(!cell||cell.length<3) continue;
+    cell.sort((a,b)=>Math.atan2(a.y-p.y,a.x-p.x)-Math.atan2(b.y-p.y,b.x-p.x));
+  }
+  return cells;
+}
+
+// ---- Territory Rendering (Voronoi) ----
+function renderTerritory(g) {
+  try {
+    // Include ALL nodes for Voronoi geometry (even those without faction)
+    if(state.nodes.length<3) return;
+    const pts=state.nodes.map(n=>({x:n.x,y:n.y,node:n}));
+    const tris=delaunayTriangulation(pts);
+    if(tris.length===0) return;
+    const cells=buildVoronoiCells(pts,tris);
+
+    for(const p of pts){
+      const cell=cells[p.node.id];
+      if(!cell||cell.length<3) continue;
+      const fac=(p.node.faction||'').trim();
+      if(!fac) continue; // skip nodes without faction
+      const color=getFactionColor(fac);
+      let ptsStr='';
+      for(const v of cell) ptsStr+=`${v.x},${v.y} `;
+      const poly=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+      poly.setAttribute('points',ptsStr.trim());
+      poly.setAttribute('fill',color);
+      poly.setAttribute('opacity','0.15');
+      poly.setAttribute('stroke',color);
+      poly.setAttribute('stroke-width','0.8');
+      poly.setAttribute('stroke-opacity','0.3');
+      poly.setAttribute('pointer-events','none');
+      g.appendChild(poly);
+    }
+  } catch(e) { console.warn('Territory error:',e); }
+}
+
+// ---- SVG Rendering ----
+function screenToWorld(cx, cy) {
+  const r=svgRoot.getBoundingClientRect();
+  return { x:(cx-r.left-state.viewX)/state.scale, y:(cy-r.top-state.viewY)/state.scale };
+}
+function buildTransform() { return `translate(${state.viewX},${state.viewY}) scale(${state.scale})`; }
+
+function render() {
+  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.setAttribute('transform', buildTransform());
+
+  // Grid
+  const gridG = document.createElementNS('http://www.w3.org/2000/svg','g');
+  const rect=svgRoot.getBoundingClientRect(), w=rect.width, h=rect.height;
+  const wl=-state.viewX/state.scale, wt=-state.viewY/state.scale;
+  const wr=(w-state.viewX)/state.scale, wb=(h-state.viewY)/state.scale;
+  const gs=50;
+  for (let x=Math.floor(wl/gs)*gs; x<=Math.ceil(wr/gs)*gs; x+=gs) {
+    for (let y=Math.floor(wt/gs)*gs; y<=Math.ceil(wb/gs)*gs; y+=gs) {
+      const d=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      d.setAttribute('cx',x); d.setAttribute('cy',y); d.setAttribute('r',1);
+      d.setAttribute('class','grid-dot'); gridG.appendChild(d);
+    }
+  }
+  g.appendChild(gridG);
+
+  // Territory overlay
+  if (state.showTerritory) renderTerritory(g);
+
+  // Edges
+  const pathEdgeSet=new Set(state.pathEdgeIds);
+  for (const edge of state.edges) {
+    const fn=getNodeById(edge.from), tn=getNodeById(edge.to);
+    if (!fn||!tn) continue;
+    const key=edgeKey(edge.from,edge.to), isPath=pathEdgeSet.has(key);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ['x1',fn.x,'y1',fn.y,'x2',tn.x,'y2',tn.y].forEach((v,i)=>i%2?line.setAttribute(['x1','y1','x2','y2'][Math.floor(i/2)],v):null);
+    line.setAttribute('x1',fn.x); line.setAttribute('y1',fn.y);
+    line.setAttribute('x2',tn.x); line.setAttribute('y2',tn.y);
+    line.setAttribute('class','edge-line'+(isPath?' path-highlight':''));
+    line.setAttribute('data-edge-key',key);
+    line.style.pointerEvents='stroke';
+    line.style.strokeWidth=isPath?'4':'2';
+    const hit=document.createElementNS('http://www.w3.org/2000/svg','line');
+    hit.setAttribute('x1',fn.x); hit.setAttribute('y1',fn.y);
+    hit.setAttribute('x2',tn.x); hit.setAttribute('y2',tn.y);
+    hit.setAttribute('stroke','transparent'); hit.setAttribute('stroke-width','12');
+    hit.style.pointerEvents='stroke'; hit.setAttribute('data-edge-key',key);
+    hit.addEventListener('contextmenu',(ev)=>{ ev.preventDefault(); if(state.mode==='editor') showEdgeContextMenu(ev.clientX,ev.clientY,key); });
+    g.appendChild(line); g.appendChild(hit);
+  }
+
+  // Nodes
+  for (const node of state.nodes) {
+    let color=FACTION_COLORS[node.colorIndex]||FACTION_COLORS[0];
+    if (isGray(node) && node.hasStation) color={name:'空间站',fill:'#cc8844',stroke:'#996622'};
+    const nodeG=document.createElementNS('http://www.w3.org/2000/svg','g');
+    nodeG.setAttribute('data-node-id',node.id); nodeG.style.cursor='pointer';
+
+    // Selection ring
+    if (state.selectedNodeId===node.id && state.mode==='editor') {
+      const p=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      p.setAttribute('cx',node.x); p.setAttribute('cy',node.y);
+      p.setAttribute('r',NODE_RADIUS+6); p.setAttribute('fill','none');
+      p.setAttribute('stroke','#fff'); p.setAttribute('stroke-width','2');
+      p.setAttribute('stroke-dasharray','6 3'); p.setAttribute('opacity','0.7');
+      nodeG.appendChild(p);
+      // Orange animated ring
+      const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      ring.setAttribute('cx',node.x); ring.setAttribute('cy',node.y);
+      ring.setAttribute('r',NODE_RADIUS+5); ring.setAttribute('fill','none');
+      ring.setAttribute('stroke','#ffaa00'); ring.setAttribute('stroke-width','3');
+      ring.setAttribute('stroke-dasharray','8 4');
+      const anim=document.createElementNS('http://www.w3.org/2000/svg','animate');
+      anim.setAttribute('attributeName','stroke-dashoffset');
+      anim.setAttribute('values','0;24'); anim.setAttribute('dur','1s');
+      anim.setAttribute('repeatCount','indefinite');
+      ring.appendChild(anim); nodeG.appendChild(ring);
+    }
+
+    const isPath=state.pathNodeIds.includes(node.id);
+    const isStart=state.startNodeId===node.id;
+    const isEnd=state.endNodeId===node.id;
+    const isHighlighted=state.highlightedNodeIds.includes(node.id);
+
+    // Search highlight ring (orange glow, only when not on path)
+    if (isHighlighted && !isPath) {
+      const hlRing=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      hlRing.setAttribute('cx',node.x); hlRing.setAttribute('cy',node.y);
+      hlRing.setAttribute('r',NODE_RADIUS+4); hlRing.setAttribute('fill','none');
+      hlRing.setAttribute('stroke','#ff8800'); hlRing.setAttribute('stroke-width','3');
+      hlRing.setAttribute('opacity','0.8');
+      hlRing.setAttribute('stroke-dasharray','5 3');
+      nodeG.appendChild(hlRing);
+    }
+
+    let cc='node-circle';
+    if (isPath) cc+=' path-node';
+    if (isStart) cc+=' start-node';
+    if (isEnd) cc+=' end-node';
+    if (state.selectedNodeId===node.id && state.mode==='editor') cc+=' selected';
+
+    const circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx',node.x); circle.setAttribute('cy',node.y);
+    circle.setAttribute('r',NODE_RADIUS); circle.setAttribute('fill',color.fill);
+    circle.setAttribute('stroke',isPath?PATH_COLOR:(isStart?PATH_COLOR:(isEnd?'#ff4444':(isHighlighted&&!isPath?'#ff8800':color.stroke))));
+    circle.setAttribute('class',cc);
+    nodeG.appendChild(circle);
+
+    // Trade product icons above the node
+    if (!isGray(node)) {
+      // Collect unique product icons with their aggregate trends
+      const tradeItems = []; // [{icon, trend}]
+      const seenIcons = new Set();
+      for (const planet of getPlanets(node)) {
+        if (planet.facilities?.trade?.active && planet.facilities.trade.products) {
+          for (const item of planet.facilities.trade.products) {
+            const pid = item.productId || item;
+            const prod = getProductById(pid);
+            if (!prod) continue;
+            if (!seenIcons.has(prod.icon)) {
+              seenIcons.add(prod.icon);
+              tradeItems.push({ icon: prod.icon, trend: item.trend || 0 });
+            } else {
+              // Update trend for existing icon (red wins over green)
+              const existing = tradeItems.find(ti => ti.icon === prod.icon);
+              if (existing && item.trend === 1) existing.trend = 1;
+              else if (existing && item.trend === -1 && existing.trend !== 1) existing.trend = -1;
+            }
+          }
+        }
+      }
+      if (tradeItems.length > 0) {
+        const iconY = node.y - NODE_RADIUS - 14;
+        let iconStr = '';
+        for (let i = 0; i < Math.min(tradeItems.length, 6); i++) {
+          const ti = tradeItems[i];
+          const trendIcon = ti.trend === 1 ? '🔴' : ti.trend === -1 ? '🟢' : '—';
+          iconStr += ti.icon + trendIcon;
+        }
+        const ticon = document.createElementNS('http://www.w3.org/2000/svg','text');
+        ticon.setAttribute('x', node.x);
+        ticon.setAttribute('y', iconY);
+        ticon.setAttribute('class', 'node-label');
+        ticon.setAttribute('font-size', '9px');
+        ticon.textContent = iconStr;
+        nodeG.appendChild(ticon);
+      }
+    }
+
+    // Name
+    const label=document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x',node.x); label.setAttribute('y',node.y+4);
+    label.setAttribute('class','node-label'+(isPath?' path-node':''));
+    label.textContent=node.name||'未命名';
+    nodeG.appendChild(label);
+
+    // Tags
+    if (isStart) {
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',node.x); t.setAttribute('y',node.y-NODE_RADIUS-8);
+      t.setAttribute('class','node-tag tag-start'); t.textContent='起'; nodeG.appendChild(t);
+    }
+    if (isEnd) {
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',node.x); t.setAttribute('y',node.y-NODE_RADIUS-8);
+      t.setAttribute('class','node-tag tag-end'); t.textContent='终'; nodeG.appendChild(t);
+    }
+    // Waypoint tag
+    const wpIdx = state.waypointIds.indexOf(node.id);
+    if (wpIdx >= 0 && !isStart && !isEnd) {
+      const wt=document.createElementNS('http://www.w3.org/2000/svg','text');
+      wt.setAttribute('x',node.x); wt.setAttribute('y',node.y-NODE_RADIUS-8);
+      wt.setAttribute('class','node-tag'); wt.setAttribute('fill','#ffaa00');
+      wt.textContent='W'+(wpIdx+1); nodeG.appendChild(wt);
+    }
+    // Space station icon for gray nodes
+    if (isGray(node) && node.hasStation) {
+      const st=document.createElementNS('http://www.w3.org/2000/svg','text');
+      st.setAttribute('x',node.x); st.setAttribute('y',node.y-NODE_RADIUS-8);
+      st.setAttribute('class','node-tag'); st.setAttribute('font-size','16px');
+      st.textContent='🛰️'; nodeG.appendChild(st);
+    }
+
+    // Facility icons below name (non-gray nodes only)
+    if (!isGray(node)) {
+      const facY = node.y + NODE_RADIUS + 14;
+      const iconW = 15;
+      const totalW = FACILITY_DEFS.length * iconW;
+      const startX = node.x - totalW/2 + iconW/2;
+
+      for (let i=0; i<FACILITY_DEFS.length; i++) {
+        const fd = FACILITY_DEFS[i];
+        const active = isFacilityActive(node, fd.key);
+        const ft = document.createElementNS('http://www.w3.org/2000/svg','text');
+        ft.setAttribute('x', startX + i*iconW);
+        ft.setAttribute('y', facY);
+        ft.setAttribute('class','fac-icon-text '+(active?'active':'inactive'));
+        ft.textContent = fd.icon;
+        nodeG.appendChild(ft);
+      }
+      // Faction name below facility icons (if set)
+      if (node.faction) {
+        const factionLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+        factionLabel.setAttribute('x', node.x);
+        factionLabel.setAttribute('y', facY + 12);
+        factionLabel.setAttribute('class', 'fac-icon-text active');
+        factionLabel.setAttribute('font-size', '9px');
+        factionLabel.setAttribute('fill', color.fill);
+        factionLabel.textContent = node.faction;
+        nodeG.appendChild(factionLabel);
+      }
+    } else if (node.faction) {
+      // Gray nodes: show faction below name (no facility icons)
+      const facY2 = node.y + NODE_RADIUS + 14;
+      const factionLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+      factionLabel.setAttribute('x', node.x);
+      factionLabel.setAttribute('y', facY2);
+      factionLabel.setAttribute('class', 'fac-icon-text active');
+      factionLabel.setAttribute('font-size', '9px');
+      factionLabel.setAttribute('fill', color.fill);
+      factionLabel.textContent = node.faction;
+      nodeG.appendChild(factionLabel);
+    }
+
+    // Events
+    nodeG.addEventListener('mousedown',(ev)=>onNodeMouseDown(ev,node.id));
+    nodeG.addEventListener('click',(ev)=>onNodeClick(ev,node.id));
+    nodeG.addEventListener('contextmenu',(ev)=>{
+      ev.preventDefault();
+      if (state.mode==='map') showNodeDetail(node.id);
+    });
+    nodeG.addEventListener('mouseenter',()=>{ state.hoveredNodeId=node.id; showTooltip(node); });
+    nodeG.addEventListener('mouseleave',()=>{ state.hoveredNodeId=null; hideTooltip(); });
+    nodeG.addEventListener('dblclick',(ev)=>{ ev.stopPropagation(); if(state.mode==='editor') selectNode(node.id); });
+
+    g.appendChild(nodeG);
+  }
+
+  while (svgRoot.firstChild) svgRoot.removeChild(svgRoot.firstChild);
+  svgRoot.appendChild(g);
+  zoomIndicator.textContent=Math.round(state.scale*100)+'%';
+  updatePanelContent();
+
+  // Legend visibility
+  legendBox.style.display = (state.nodes.some(n=>!isGray(n) && hasAnyFacility(n))) ? 'block' : 'none';
+}
+
+function isFacilityActive(node, key) {
+  for (const p of getPlanets(node)) {
+    const f = p.facilities; if (!f) continue;
+    switch(key) {
+      case 'bar': if (f.bar?.active) return true; break;
+      case 'mission': if (f.mission) return true; break;
+      case 'shipyard': if (f.shipyard?.active) return true; break;
+      case 'equipment': if (f.equipment) return true; break;
+      case 'trade': if (f.trade?.active) return true; break;
+      case 'fleet': if (f.fleet) return true; break;
+    }
+  }
+  return false;
+}
+
+// ---- Tooltip ----
+function showTooltip(node) {
+  let color=FACTION_COLORS[node.colorIndex]||FACTION_COLORS[0];
+  if (isGray(node) && node.hasStation) color={name:'空间站',fill:'#cc8844',stroke:'#996622'};
+  const r=svgRoot.getBoundingClientRect();
+  const sx=r.left+(node.x*state.scale)+state.viewX;
+  const sy=r.top+(node.y*state.scale)+state.viewY;
+
+  let html = `<div class="tt-name">${node.name||'未命名'}</div>`;
+  html += `<div style="color:${color.fill}">${color.name}</div>`;
+
+  if (!isGray(node) && hasAnyFacility(node)) {
+    html += '<div class="tt-fac">';
+    const planets = getPlanets(node);
+    for (const planet of planets) {
+      const f = planet.facilities; if (!f) continue;
+      const hasF = f.bar?.active || f.mission || f.shipyard?.active || f.equipment || f.trade?.active || f.fleet;
+      if (!hasF) continue;
+      html += `<div style="margin-top:3px;"><b>🪐 ${escapeHtml(planet.name)}</b></div>`;
+
+      if (f.bar?.active) {
+        html += '<div>🍺 <b>酒吧</b>'+(f.bar.npcs.length>0?` (${f.bar.npcs.length}位NPC)`:'')+'</div>';
+      }
+      if (f.mission) html += '<div>📋 任务中心</div>';
+      if (f.shipyard?.active) {
+        html += '<div>🚀 船坞:</div>';
+        if (f.shipyard.shipIds?.length>0) {
+          f.shipyard.shipIds.forEach(id=>{
+            const s=getShipById(id);
+            if (s) html += `<div style="padding-left:14px;">- ${escapeHtml(s.name)} (💰${(s.price||0).toLocaleString()})</div>`;
+          });
+        } else { html += '<div style="padding-left:14px;color:#888;">暂无船只</div>'; }
+      }
+      if (f.equipment) html += '<div>🔧 装备中心</div>';
+      if (f.trade?.active) {
+        html += '<div>💰 贸易中心:</div>';
+        if (f.trade.products?.length>0) {
+          f.trade.products.forEach(item=>{
+            const pid=item.productId||item;
+            const p=getProductById(pid);
+            if (p) html += `<div style="padding-left:14px;">- ${p.icon} ${escapeHtml(p.name)}</div>`;
+          });
+        } else { html += '<div style="padding-left:14px;color:#888;">暂无产品</div>'; }
+      }
+      if (f.fleet) html += '<div>🏛️ 舰队管理</div>';
+    }
+    html += '</div>';
+  }
+
+  tooltip.innerHTML=html;
+  tooltip.style.display='block';
+  tooltip.style.left=(sx+NODE_RADIUS+16)+'px';
+  tooltip.style.top=(sy-30)+'px';
+}
+
+function hideTooltip() { tooltip.style.display='none'; }
+
+// ---- Detail Panel (map mode click) ----
+function showNodeDetail(nodeId) {
+  const node = getNodeById(nodeId);
+  if (!node) return;
+  let color=FACTION_COLORS[node.colorIndex]||FACTION_COLORS[0];
+  if (isGray(node) && node.hasStation) color={name:'空间站',fill:'#cc8844',stroke:'#996622'};
+
+  let html = `<button class="dp-close" onclick="hideDetail()">✕</button>`;
+  html += `<h2>${node.name||'未命名'}</h2>`;
+  html += `<div class="dp-color" style="color:${color.fill}">${color.name}</div>`;
+
+  if (!isGray(node) && node.planets && node.planets.length>0) {
+    for (const planet of node.planets) {
+      const f = planet.facilities; if (!f) continue;
+      const hasF = f.bar?.active || f.mission || f.shipyard?.active || f.equipment || f.trade?.active || f.fleet;
+      if (!hasF) continue;
+      html += `<div class="dp-section"><h3>🪐 ${escapeHtml(planet.name)}</h3>`;
+
+      if (f.bar?.active) {
+        html += '<div><b>🍺 酒吧</b><br>';
+        if (f.bar.npcs.length>0) {
+          html += '<p>'+f.bar.npcs.map(n=>`<b>${escapeHtml(n.name)}</b> — ${escapeHtml(n.role)}`).join('<br>')+'</p>';
+        } else { html += '<p>暂无NPC</p>'; }
+        html += '</div>';
+      }
+      if (f.mission) html += '<div><b>📋 任务中心</b><br><p>可接取任务</p></div>';
+      if (f.shipyard?.active) {
+        html += '<div><b>🚀 船坞</b><br>';
+        if (f.shipyard.shipIds && f.shipyard.shipIds.length>0) {
+          for (const sid of f.shipyard.shipIds) {
+            const ship = getShipById(sid);
+            if (ship) {
+              const ftl = ship.fuelPerJump>0 ? Math.floor(ship.fuelMax / ship.fuelPerJump) : 0;
+              const typeStr = ship.type ? `[${escapeHtml(ship.type)}] ` : '';
+              html += `<p style="margin-bottom:6px;"><b>${typeStr}${escapeHtml(ship.name)}</b><br>`;
+              html += `💰 ${(ship.price||0).toLocaleString()} | ⛽ ${ship.fuelMax||0}/${ship.fuelPerJump||0}(${ftl}x FTL)<br>`;
+              html += `🔄 ${(ship.turnRate||0).toFixed(3)} | ⚡ ${(ship.maxSpeed||0).toFixed(3)} | ❤ ${ship.hp||0}<br>`;
+              html += `📦 货舱:${ship.cargoSpace||0} ⚖ 质量:${ship.mass||0} 🏃 加速度:${(ship.acceleration||0).toFixed(3)}<br>`;
+              html += `🛡 护盾:${ship.shield||0}(${(ship.shieldRecharge||0).toFixed(2)}/s) | ⚡发电机:${ship.generator||0}(${(ship.generatorRate||0).toFixed(2)}/s)`;
+              if (ship.equipment) html += `<br>🛡 装备: ${escapeHtml(ship.equipment)}`;
+              if (ship.weapons) html += `<br>🔫 武器: ${escapeHtml(ship.weapons)}`;
+              if (ship.condition) html += `<br>📋 条件: ${escapeHtml(ship.condition)}`;
+              html += `</p>`;
+            }
+          }
+        } else { html += '<p>暂无出售船只</p>'; }
+        html += '</div>';
+      }
+      if (f.equipment) html += '<div><b>🔧 装备中心</b><br><p>可购买装备</p></div>';
+      if (f.trade?.active) {
+        html += '<div><b>💰 贸易中心</b><br>';
+        if (f.trade.products && f.trade.products.length>0) {
+          html += '<p>';
+          for (const item of f.trade.products) {
+            const pid = item.productId || item;
+            const prod = getProductById(pid);
+            if (prod) html += `${prod.icon} <b>${escapeHtml(prod.name)}</b> 💰${(item.priceMin||0)}/${(item.priceMax||0)}<br>`;
+          }
+          html += '</p>';
+        } else { html += '<p>暂无交易产品</p>'; }
+        html += '</div>';
+      }
+      if (f.fleet) html += '<div><b>🏛️ 舰队管理</b><br><p>可管理舰队</p></div>';
+      html += '</div>';
+    }
+  } else if (isGray(node)) {
+    html += '<p style="color:var(--text-dim);margin-top:12px;">灰色星域，无星球设施。</p>';
+    html += `<label class="facility-row" style="margin-top:8px;"><input type="checkbox" id="detail-cb-station" ${node.hasStation?'checked':''} onchange="toggleStationFromDetail('${node.id}',this.checked)"> 🛰️ 布置空间站</label>`;
+  }
+
+  detailPanel.innerHTML = html;
+  detailOverlay.style.display = 'flex';
+}
+
+function hideDetail() { detailOverlay.style.display='none'; }
+detailOverlay.addEventListener('click',(e)=>{ if(e.target===detailOverlay) hideDetail(); });
+function toggleStationFromDetail(nodeId, checked) {
+  const node = getNodeById(nodeId);
+  if (node) { node.hasStation = checked; saveData(); render(); }
+}
+function updateTradePrice(input) {
+  const tpid = input.dataset.tpid;
+  const planet = getEditingPlanet();
+  if (!planet?.facilities?.trade) return;
+  const item = planet.facilities.trade.products.find(x => (x.productId||x) === tpid);
+  if (item) { item.priceMin = parseInt(input.value) || 0; item.priceMax = parseInt(input.value) || 0; saveData(); }
+}
+function updateViewTradePrice(input) {
+  const tpid = input.dataset.tpid;
+  const nid = input.dataset.nid;
+  const planetId = input.dataset.planetid;
+  const node = getNodeById(nid);
+  if (!node) return;
+  const planet = getPlanetById(node, planetId);
+  if (!planet?.facilities?.trade) return;
+  const item = planet.facilities.trade.products.find(x => (x.productId||x) === tpid);
+  if (item) { item.priceMin = parseInt(input.value) || 0; item.priceMax = parseInt(input.value) || 0; saveData(); }
+}
+
+// ---- Left Panel Rendering ----
+function updatePanelContent() {
+  if (state.activePanelTab==='planet') renderPlanetTab();
+  else if (state.activePanelTab==='ship') renderShipTab();
+  else renderProductTab();
+}
+
+function renderPlanetTab() {
+  let html = '';
+
+  // Color palette
+  html += '<div class="panel-section"><div class="panel-label">🎨 星系颜色</div><div class="color-grid">';
+  FACTION_COLORS.forEach((c,i)=>{
+    html += `<div class="color-chip${i===state.selectedColorIndex?' selected':''}" data-action="select-color" data-idx="${i}">`;
+    html += `<span class="color-dot" style="background:${c.fill};border-color:${c.stroke};"></span>${c.name}</div>`;
+  });
+  html += '</div></div>';
+
+  const selNode = state.selectedNodeId ? getNodeById(state.selectedNodeId) : null;
+  if (selNode && state.mode==='editor') {
+    // Node name
+    html += '<div class="panel-section"><div class="panel-label">🌌 星系名称</div>';
+    html += `<div class="info-row"><input type="text" id="node-name-input" value="${escapeHtml(selNode.name||'')}" placeholder="星系名称" maxlength="20"></div>`;
+    html += '<div class="panel-section"><div class="panel-label">🏴 派系</div>';
+    html += `<div class="info-row"><input type="text" id="node-faction-input" value="${escapeHtml(selNode.faction||'')}" placeholder="例如: OSC联盟, 帝国, 自由联邦…" maxlength="30"></div></div>`;
+    html += `<button class="tb-btn danger small" id="btn-delete-node" style="margin-top:4px;">🗑 删除此星系</button></div>`;
+
+    // Planets (non-gray only)
+    if (!isGray(selNode)) {
+      const planets = selNode.planets || [];
+      html += '<div class="panel-section"><div class="panel-label">🪐 行星列表 ('+planets.length+')</div>';
+
+      for (const planet of planets) {
+        const isEditing = state.editingPlanetId === planet.id;
+        html += `<div class="global-item" style="${isEditing?'flex-direction:column;align-items:stretch;':''}" data-planet-id="${planet.id}">`;
+        if (!isEditing) {
+          const facCount = countPlanetFacilities(planet);
+          html += `<span class="gi-icon">🪐</span>`;
+          html += `<div class="gi-info"><div class="gi-name">${escapeHtml(planet.name)}</div><div class="gi-sub">${facCount}个设施</div></div>`;
+          html += `<span class="gi-del" data-action="del-planet" data-pid="${planet.id}">✕</span>`;
+        } else {
+          // Planet name editor
+          html += `<div class="info-row"><input type="text" id="planet-name-input" value="${escapeHtml(planet.name)}" placeholder="行星名称" style="flex:1;"></div>`;
+          // Facilities for this planet
+          ensurePlanetFacs(planet);
+          html += '<div style="margin-top:6px;">';
+          for (const fd of FACILITY_DEFS) {
+            const active = isPlanetFacActive(planet, fd.key);
+            html += `<label class="facility-row"><input type="checkbox" data-fac="${fd.key}" ${active?'checked':''}> ${fd.icon} ${fd.label}</label>`;
+
+            if (fd.key==='bar' && active) {
+              html += '<div class="item-list" id="npc-list">';
+              for (let ni=0; ni<(planet.facilities.bar.npcs||[]).length; ni++) {
+                const npc = planet.facilities.bar.npcs[ni];
+                html += `<div class="item-chip"><span>${escapeHtml(npc.name)} — ${escapeHtml(npc.role)}</span><span class="rm-btn" data-action="del-npc" data-idx="${ni}">✕</span></div>`;
+              }
+              html += '</div>';
+              html += '<div class="info-row" style="margin-top:4px;">';
+              html += '<input type="text" id="npc-name" placeholder="NPC名称" style="width:45%;">';
+              html += '<input type="text" id="npc-role" placeholder="职业" style="width:35%;">';
+              html += '<button class="tb-btn small" id="btn-add-npc">+</button></div>';
+            }
+
+            if (fd.key==='shipyard' && active) {
+              html += '<div class="item-list" id="shipyard-ships">';
+              for (const sid of (planet.facilities.shipyard.shipIds||[])) {
+                const ship = getShipById(sid);
+                html += `<div class="item-chip"><span>🚀 ${ship?ship.name:'(已删除)'}</span><span class="rm-btn" data-action="del-ship" data-sid="${sid}">✕</span></div>`;
+              }
+              html += '</div>';
+              html += '<div class="info-row" style="margin-top:4px;"><select id="ship-select" style="flex:1;">';
+              html += '<option value="">-- 选择船只 --</option>';
+              for (const ship of state.ships) {
+                if (!planet.facilities.shipyard.shipIds.includes(ship.id)) {
+                  html += `<option value="${ship.id}">${escapeHtml(ship.name)}</option>`;
+                }
+              }
+              html += '</select><button class="tb-btn small" id="btn-add-ship">+</button></div>';
+              if (state.ships.length===0) html += '<div class="panel-hint" style="margin-top:4px;">请先在 🚀船只 标签中添加船只</div>';
+            }
+
+            if (fd.key==='trade' && active) {
+              html += '<div class="item-list" id="trade-prods">';
+              for (const item of (planet.facilities.trade.products||[])) {
+                const tpid = item.productId || item;
+                const prod = getProductById(tpid);
+                const trendIcons = {1:'🔴',0:'—',[-1]:'🟢'};
+                const trendEmoji = trendIcons[item.trend||0] || trendIcons[0];
+                const pmin = item.priceMin||item.price||0, pmax = item.priceMax||item.price||0;
+                html += `<div class="item-chip"><span>${prod?prod.icon:''} ${prod?prod.name:'(已删除)'} 💰${pmin}/${pmax}</span><span style="cursor:pointer;font-size:12px;" data-action="toggle-trend" data-tpid="${tpid}" title="点击切换涨跌">${trendEmoji}</span><span class="rm-btn" data-action="del-prod" data-pid="${tpid}">✕</span></div>`;
+              }
+              html += '</div>';
+              html += '<div class="info-row" style="margin-top:4px;"><select id="prod-select" style="flex:1;">';
+              html += '<option value="">-- 选择产品 --</option>';
+              for (const prod of state.products) {
+                if (!planet.facilities.trade.products.some(x=>(x.productId||x)===prod.id)) {
+                  html += `<option value="${prod.id}">${prod.icon} ${escapeHtml(prod.name)}</option>`;
+                }
+              }
+              html += '</select><button class="tb-btn small" id="btn-add-prod">+</button></div>';
+              if (state.products.length===0) html += '<div class="panel-hint" style="margin-top:4px;">请先在 📦产品 标签中添加产品</div>';
+            }
+          }
+          html += '</div>';
+          html += '<button class="tb-btn small" id="btn-done-planet" style="margin-top:4px;">✓ 完成编辑</button>';
+        }
+        html += '</div>';
+      }
+
+      html += '<button class="tb-btn small" id="btn-add-planet" style="margin-top:4px;">➕ 添加行星</button>';
+      html += '</div>';
+    } else {
+      html += '<div class="panel-section"><div class="panel-label">🪐 行星</div>';
+      html += '<div class="panel-hint">灰色星域不包含行星。</div></div>';
+    }
+  } else if (state.mode==='editor') {
+    html += '<div class="panel-section"><div class="panel-label">🪐 行星编辑</div>';
+    html += '<div class="panel-hint">单击选中一个星系以编辑其行星。</div></div>';
+  }
+
+  // Hints
+  if (state.mode==='editor') {
+    html += '<div class="panel-section"><div class="panel-label">🧪 模拟测试</div>';
+    html += '<button class="tb-btn small" id="btn-sim-prices">🎲 随机生成所有贸易价格</button>';
+    html += '<div class="panel-hint">为所有有贸易中心的星球产品随机生成最低/最高价</div></div>';
+    html += '<div class="panel-section"><div class="panel-label">💡 操作提示</div>';
+    html += '<div class="panel-hint"><kbd>双击画布</kbd> 添加星系<br><kbd>拖拽</kbd> 移动星系<br><kbd>单击</kbd> 选中星系<br><kbd>Shift+点击</kbd> 建立通道<br><kbd>右键连线</kbd> 删除通道<br><kbd>Delete</kbd> 删除星系<br><kbd>滚轮</kbd> 缩放画布</div></div>';
+  } else {
+    // Map mode panel
+    html += '<div class="panel-section"><div class="panel-label">🗺️ 地图模式</div>';
+    html += '<div class="mode-group" style="margin-bottom:4px;">';
+    html += `<button class="mode-btn${state.mapSubMode==='nav'?' active':''}" id="btn-sub-nav">🧭 导航</button>`;
+    html += `<button class="mode-btn${state.mapSubMode==='view'?' active':''}" id="btn-sub-view">🔍 查看</button>`;
+    html += '</div>';
+
+    if (state.mapSubMode === 'nav') {
+    // Path mode toggle
+    html += '<div class="panel-label">🛤️ 寻路模式</div>';
+    html += '<div class="mode-group" style="margin-bottom:8px;">';
+    html += `<button class="mode-btn${state.pathMode==='shortest'?' active':''}" id="btn-path-short">📏 最短距离</button>`;
+    html += `<button class="mode-btn${state.pathMode==='norefuel'?' active':''}" id="btn-path-norefuel">⛽ 无补给最短</button>`;
+    html += '</div>';
+    html += '<div class="panel-hint" style="margin-bottom:4px;">';
+    html += state.pathMode==='norefuel' ? '🔵🔴=补给点，验证FTL可行性' : '最少跳数路径';
+    html += '</div>';
+    if (state.pathMode === 'norefuel') {
+      html += '<div class="info-row" style="margin-bottom:8px;">';
+      html += `<span style="font-size:11px;white-space:nowrap;">⛽ FTL范围:</span>`;
+      html += `<input type="number" id="ftl-input" value="${state.ftlRange||''}" placeholder="最大无补给跳数" min="0" style="flex:1;">`;
+      html += '</div>';
+      html += '<div class="panel-hint" style="margin-bottom:4px;">起点→最近补给≤FTL；终点无补给则最长段×2≤FTL</div>';
+    }
+    // Waypoint list
+    html += '<div class="panel-label">🔶 途径点 ('+state.waypointIds.length+')</div>';
+    if (state.waypointIds.length > 0) {
+      html += '<div class="item-list">';
+      state.waypointIds.forEach((wid, i) => {
+        const wn = getNodeById(wid);
+        html += `<div class="item-chip"><span>W${i+1}: ${escapeHtml(wn?.name||'?')}</span><span class="rm-btn" data-action="del-waypoint" data-idx="${i}">✕</span></div>`;
+      });
+      html += '</div>';
+      html += '<button class="tb-btn small" id="btn-clear-waypoints" style="margin-top:4px;">清除全部途径点</button>';
+    } else {
+      html += '<div class="panel-hint">Ctrl+点击节点添加途径点</div>';
+    }
+    html += '<div class="panel-section"><div class="panel-label">💡 操作</div>';
+    html += '<div class="panel-hint"><kbd>单击</kbd> 设起点/终点<br><kbd>Ctrl+单击</kbd> 添加途径点<br><kbd>右键</kbd> 查看详情/空间站<br><kbd>点击空白</kbd> 清除</div>';
+    // 空间站
+    const selGray = state.startNodeId ? getNodeById(state.startNodeId) : null;
+    if (selGray && isGray(selGray)) {
+      html += `<div style="margin-top:6px;"><label class="facility-row"><input type="checkbox" id="cb-station" ${selGray.hasStation?'checked':''}> 🛰️ ${escapeHtml(selGray.name)} 布置空间站</label></div>`;
+    }
+    html += '</div>';
+    } else { // view mode
+      html += '<div class="panel-section"><div class="panel-label">🔍 查看模式</div>';
+      if (state.viewNodeId) {
+        html += renderViewModePanel(state.viewNodeId);
+      } else {
+        html += '<div class="panel-hint">点击星系查看其行星和设施详情</div>';
+      }
+      html += '<div class="panel-hint" style="margin-top:8px;"><kbd>单击星球</kbd> 查看详情<br><kbd>右键</kbd> 详情弹窗</div>';
+    }
+  }
+
+  panelContent.innerHTML = html;
+  bindPlanetTabEvents();
+  // Bind sub-mode buttons (if in map mode)
+  const btnNav = panelContent.querySelector('#btn-sub-nav');
+  const btnView = panelContent.querySelector('#btn-sub-view');
+  if (btnNav) btnNav.addEventListener('click', ()=>{ state.mapSubMode='nav'; state.viewNodeId=null; updatePanelContent(); });
+  if (btnView) btnView.addEventListener('click', ()=>{ state.mapSubMode='view'; updatePanelContent(); });
+  // Path mode buttons
+  const btnShort = panelContent.querySelector('#btn-path-short');
+  const btnNoRefuel = panelContent.querySelector('#btn-path-norefuel');
+  if (btnShort) btnShort.addEventListener('click', ()=>{ state.pathMode='shortest'; if(state.startNodeId&&state.endNodeId) computePath(); updatePanelContent(); render(); updatePathDisplay(); });
+  if (btnNoRefuel) btnNoRefuel.addEventListener('click', ()=>{ state.pathMode='norefuel'; if(state.startNodeId&&state.endNodeId) computePath(); updatePanelContent(); render(); updatePathDisplay(); });
+  // FTL input
+  const ftlInp = panelContent.querySelector('#ftl-input');
+  if (ftlInp) ftlInp.addEventListener('input', ()=>{
+    state.ftlRange = parseInt(ftlInp.value) || 0;
+    if (state.startNodeId && state.endNodeId && state.pathMode==='norefuel') { computePath(); render(); updatePathDisplay(); }
+  });
+}
+
+function ve(key) { return state.viewExpanded[key] || false; }
+function toggleVE(key) { state.viewExpanded[key] = !state.viewExpanded[key]; updatePanelContent(); }
+
+function renderViewModePanel(nodeId) {
+  const node = getNodeById(nodeId);
+  if (!node || isGray(node)) return `<div class="panel-hint">${node?'灰色星域，无行星':'未找到星系'}</div>`;
+  let h = '';
+  const planets = getPlanets(node);
+  for (const planet of planets) {
+    const pid = planet.id;
+    const pExp = ve(pid);
+    h += `<div style="margin-bottom:6px;border:1px solid var(--border);border-radius:6px;padding:8px;background:var(--bg);">`;
+    h += `<div style="display:flex;align-items:center;gap:6px;cursor:pointer;" onclick="toggleVE('${pid}')">`;
+    h += `<span style="font-size:10px;width:12px;">${pExp?'▾':'▸'}</span>`;
+    h += `<span style="font-weight:700;color:var(--text-bright);">🪐 ${escapeHtml(planet.name)}</span>`;
+    h += `<span style="font-size:10px;color:var(--text-dim);">(${countPlanetFacilities(planet)}设施)</span>`;
+    h += '</div>';
+
+    if (pExp) {
+      h += '<div style="margin-left:16px;margin-top:4px;">';
+      const f = planet.facilities; if (!f) { h += '</div></div>'; continue; }
+
+      // Bar
+      if (f.bar?.active) {
+        const bk = pid+'|bar', bExp = ve(bk);
+        h += `<div style="cursor:pointer;margin:2px 0;" onclick="toggleVE('${bk}')"><span style="font-size:10px;width:12px;">${bExp?'▾':'▸'}</span> 🍺 <b>酒吧</b> (${(f.bar.npcs||[]).length}NPC)</div>`;
+        if (bExp) {
+          if (f.bar.npcs.length>0) {
+            for (const npc of f.bar.npcs) h += `<div style="margin-left:20px;font-size:11px;">- ${escapeHtml(npc.name)} (${escapeHtml(npc.role)})</div>`;
+          } else { h += '<div style="margin-left:20px;font-size:11px;color:#888;">无NPC</div>'; }
+        }
+      }
+      if (f.mission) h += '<div style="margin:2px 0;margin-left:12px;">📋 <b>任务中心</b></div>';
+      if (f.equipment) h += '<div style="margin:2px 0;margin-left:12px;">🔧 <b>装备中心</b></div>';
+      if (f.fleet) h += '<div style="margin:2px 0;margin-left:12px;">🏛️ <b>舰队管理</b></div>';
+
+      // Shipyard
+      if (f.shipyard?.active) {
+        const sk = pid+'|shipyard', sExp = ve(sk);
+        const shipCnt = f.shipyard.shipIds?.length||0;
+        h += `<div style="display:flex;align-items:center;gap:4px;margin:2px 0;">`;
+        h += `<span style="cursor:pointer;" onclick="toggleVE('${sk}')"><span style="font-size:10px;width:12px;">${sExp?'▾':'▸'}</span> 🚀 <b>船坞</b> (${shipCnt}艘)</span>`;
+        if (shipCnt>0) {
+          const allExp = shipCnt>0 && f.shipyard.shipIds.every(sid=>ve(sid));
+          h += `<button class="tb-btn small" style="margin-left:8px;font-size:9px;padding:2px 6px;" onclick="event.stopPropagation();toggleAllShips('${pid}')">${allExp?'收起':'全部展开'}</button>`;
+        }
+        h += '</div>';
+        if (sExp) {
+          for (const sid of f.shipyard.shipIds||[]) {
+            const ship = getShipById(sid);
+            if (!ship) continue;
+            const shipExp = ve(sid);
+            const ftl = ship.fuelPerJump>0?Math.floor(ship.fuelMax/ship.fuelPerJump):0;
+            h += `<div style="margin-left:20px;cursor:pointer;" onclick="toggleVE('${sid}')">`;
+            h += `<span style="font-size:10px;width:12px;">${shipExp?'▾':'▸'}</span> <b>${escapeHtml(ship.name)}</b>`;
+            h += ` <span style="font-size:10px;color:var(--text-dim);">💰${(ship.price||0).toLocaleString()} ⛽${ship.fuelMax||0}/${ship.fuelPerJump||0}(${ftl}xFTL)</span>`;
+            h += '</div>';
+            if (shipExp) {
+              h += '<div style="margin-left:32px;font-size:10px;color:var(--text-dim);line-height:1.8;">';
+              h += '<table style="border-collapse:collapse;font-size:10px;">';
+              const addRow = (label, value, emoji) => {
+                h += `<tr><td style="text-align:right;padding-right:4px;white-space:nowrap;">${label}：</td><td>${value}</td><td style="padding-left:4px;">${emoji}</td></tr>`;
+              };
+              if (ship.type) addRow('类型', escapeHtml(ship.type), '');
+              addRow('价格', (ship.price||0).toLocaleString(), '💰');
+              addRow('最大油量', (ship.fuelMax||0), '⛽');
+              addRow('FTL消耗', (ship.fuelPerJump||0), '⛽');
+              addRow('转速', (ship.turnRate||0).toFixed(3), '🔄');
+              addRow('最大航速', (ship.maxSpeed||0).toFixed(3), '⚡');
+              addRow('护盾', (ship.shield||0)+'('+(ship.shieldRecharge||0).toFixed(2)+'/s)', '🛡');
+              addRow('货舱大小', (ship.cargoSpace||0), '📦');
+              addRow('质量', (ship.mass||0), '⚖');
+              addRow('血量', (ship.hp||0), '❤');
+              addRow('加速度', (ship.acceleration||0).toFixed(3), '🏃');
+              addRow('发电机', (ship.generator||0)+'('+(ship.generatorRate||0).toFixed(2)+'/s)', '⚡');
+              if (ship.equipment) addRow('装备配置', escapeHtml(ship.equipment), '🛡');
+              if (ship.weapons) addRow('武器', escapeHtml(ship.weapons), '🔫');
+              if (ship.condition) addRow('条件', escapeHtml(ship.condition), '📋');
+              h += '</table></div>';
+            }
+          }
+        }
+      }
+
+      // Trade
+      if (f.trade?.active) {
+        const tk = pid+'|trade', tExp = ve(tk);
+        const prodCnt = f.trade.products?.length||0;
+        h += `<div style="display:flex;align-items:center;gap:4px;margin:2px 0;">`;
+        h += `<span style="cursor:pointer;" onclick="toggleVE('${tk}')"><span style="font-size:10px;width:12px;">${tExp?'▾':'▸'}</span> 💰 <b>贸易中心</b> (${prodCnt}产品)</span>`;
+        if (prodCnt>0) {
+          const allExp = f.trade.products.every(x=>ve('tradeprice|'+(x.productId||x)));
+          h += `<button class="tb-btn small" style="margin-left:8px;font-size:9px;padding:2px 6px;" onclick="event.stopPropagation();toggleAllTradePrices('${pid}')">${allExp?'收起':'全部展开'}</button>`;
+        }
+        h += '</div>';
+        if (tExp) {
+          for (const item of f.trade.products||[]) {
+            const tpid = item.productId||item;
+            const prod = getProductById(tpid);
+            if (!prod) continue;
+            h += `<div style="margin-left:20px;font-size:11px;">- ${prod.icon} ${escapeHtml(prod.name)}`;
+            h += ` 💰${item.priceMin||item.price||0}/${item.priceMax||item.price||0}`;
+            h += '</div>';
+          }
+        }
+      }
+
+      h += '</div>'; // close margin-left
+    }
+    h += '</div>'; // close planet card
+  }
+  return h || '<div class="panel-hint">该星系暂无行星</div>';
+}
+
+function toggleAllShips(planetId) {
+  const node = state.viewNodeId ? getNodeById(state.viewNodeId) : null;
+  if (!node) return;
+  const planet = getPlanetById(node, planetId);
+  if (!planet?.facilities?.shipyard) return;
+  const allExp = planet.facilities.shipyard.shipIds.every(sid=>ve(sid));
+  for (const sid of planet.facilities.shipyard.shipIds) {
+    state.viewExpanded[sid] = !allExp;
+  }
+  updatePanelContent();
+}
+function toggleAllTradePrices(planetId) {
+  const node = state.viewNodeId ? getNodeById(state.viewNodeId) : null;
+  if (!node) return;
+  const planet = getPlanetById(node, planetId);
+  if (!planet?.facilities?.trade) return;
+  const allExp = planet.facilities.trade.products.every(x=>ve('tradeprice|'+(x.productId||x)));
+  for (const item of planet.facilities.trade.products||[]) {
+    state.viewExpanded['tradeprice|'+(item.productId||item)] = !allExp;
+  }
+  updatePanelContent();
+}
+
+function isPlanetFacActive(planet, key) {
+  const f = planet.facilities; if (!f) return false;
+  switch(key) {
+    case 'bar': return f.bar?.active || false;
+    case 'mission': return f.mission || false;
+    case 'shipyard': return f.shipyard?.active || false;
+    case 'equipment': return f.equipment || false;
+    case 'trade': return f.trade?.active || false;
+    case 'fleet': return f.fleet || false;
+    default: return false;
+  }
+}
+
+function countPlanetFacilities(planet) {
+  let cnt = 0;
+  const f = planet.facilities; if (!f) return 0;
+  if (f.bar?.active) cnt++;
+  if (f.mission) cnt++;
+  if (f.shipyard?.active) cnt++;
+  if (f.equipment) cnt++;
+  if (f.trade?.active) cnt++;
+  if (f.fleet) cnt++;
+  return cnt;
+}
+
+function getEditingPlanet() {
+  const node = state.selectedNodeId ? getNodeById(state.selectedNodeId) : null;
+  if (!node || !state.editingPlanetId || isGray(node)) return null;
+  return getPlanetById(node, state.editingPlanetId);
+}
+
+function bindPlanetTabEvents() {
+  // Color chips
+  panelContent.querySelectorAll('[data-action="select-color"]').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      const idx=parseInt(chip.dataset.idx);
+      state.selectedColorIndex=idx;
+      const selNode=state.selectedNodeId?getNodeById(state.selectedNodeId):null;
+      if (selNode && state.mode==='editor') {
+        const wasGray=isGray(selNode);
+        selNode.colorIndex=idx;
+        const nowGray=isGray(selNode);
+        // Handle gray <-> non-gray transition
+        if (wasGray && !nowGray) selNode.planets = [defaultPlanet(selNode.name)];
+        if (!wasGray && nowGray) selNode.planets = null;
+        saveData(); render();
+      } else { updatePanelContent(); }
+    });
+  });
+
+  // Node name input
+  const nameInp=panelContent.querySelector('#node-name-input');
+  if (nameInp) {
+    nameInp.addEventListener('input',()=>{
+      const node=state.selectedNodeId?getNodeById(state.selectedNodeId):null;
+      if (node) { node.name=nameInp.value||'未命名'; saveData(); }
+      const label=svgRoot.querySelector(`[data-node-id="${node?.id}"] .node-label`);
+      if (label) label.textContent=node?.name||'未命名';
+    });
+    nameInp.addEventListener('blur',()=>render());
+  }
+
+  // Faction input
+  const facInp=panelContent.querySelector('#node-faction-input');
+  if (facInp) {
+    facInp.addEventListener('input',()=>{
+      const node=state.selectedNodeId?getNodeById(state.selectedNodeId):null;
+      if (node) { node.faction=facInp.value; saveData(); }
+    });
+  }
+
+  // Delete node
+  const delBtn=panelContent.querySelector('#btn-delete-node');
+  if (delBtn) delBtn.addEventListener('click',()=>{ if(state.selectedNodeId) deleteNode(state.selectedNodeId); });
+
+  // Facility checkboxes (on editing planet)
+  panelContent.querySelectorAll('[data-fac]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const planet = getEditingPlanet();
+      if (!planet) return;
+      ensurePlanetFacs(planet);
+      setFacilityActivePlanet(planet, cb.dataset.fac, cb.checked);
+      saveData(); render();
+    });
+  });
+
+  // Add NPC
+  const btnNpc=panelContent.querySelector('#btn-add-npc');
+  if (btnNpc) btnNpc.addEventListener('click',()=>{
+    const nName=panelContent.querySelector('#npc-name')?.value?.trim();
+    const nRole=panelContent.querySelector('#npc-role')?.value?.trim();
+    if (!nName||!nRole) return;
+    const planet = getEditingPlanet();
+    if (planet?.facilities?.bar) { planet.facilities.bar.npcs.push({name:nName,role:nRole}); saveData(); render(); }
+  });
+
+  // Add ship to shipyard
+  const btnShip=panelContent.querySelector('#btn-add-ship');
+  if (btnShip) btnShip.addEventListener('click',()=>{
+    const sel=panelContent.querySelector('#ship-select')?.value;
+    if (!sel) return;
+    const planet = getEditingPlanet();
+    if (planet?.facilities?.shipyard) { planet.facilities.shipyard.shipIds.push(sel); saveData(); render(); }
+  });
+
+  // Add product to trade
+  const btnProd=panelContent.querySelector('#btn-add-prod');
+  if (btnProd) btnProd.addEventListener('click',()=>{
+    const sel=panelContent.querySelector('#prod-select')?.value;
+    if (!sel) return;
+    const planet = getEditingPlanet();
+    if (planet?.facilities?.trade) { planet.facilities.trade.products.push({productId:sel,priceMin:0,priceMax:0,trend:0}); saveData(); render(); }
+  });
+
+  // Delete NPC
+  panelContent.querySelectorAll('[data-action="del-npc"]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const planet = getEditingPlanet();
+      if (planet?.facilities?.bar) {
+        planet.facilities.bar.npcs.splice(parseInt(b.dataset.idx),1); saveData(); render();
+      }
+    });
+  });
+
+  // Remove ship from shipyard
+  panelContent.querySelectorAll('[data-action="del-ship"]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const planet = getEditingPlanet();
+      if (planet?.facilities?.shipyard) {
+        planet.facilities.shipyard.shipIds=planet.facilities.shipyard.shipIds.filter(id=>id!==b.dataset.sid);
+        saveData(); render();
+      }
+    });
+  });
+
+  // Remove product from trade
+  panelContent.querySelectorAll('[data-action="del-prod"]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const planet = getEditingPlanet();
+      if (planet?.facilities?.trade) {
+        planet.facilities.trade.products=planet.facilities.trade.products.filter(x=>(x.productId||x)!==b.dataset.pid);
+        saveData(); render();
+      }
+    });
+  });
+
+  // Toggle trend
+  panelContent.querySelectorAll('[data-action="toggle-trend"]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const planet = getEditingPlanet();
+      if (!planet?.facilities?.trade) return;
+      const item = planet.facilities.trade.products.find(x=>(x.productId||x)===b.dataset.tpid);
+      if (!item) return;
+      // Cycle: 0→1→-1→0
+      if (item.trend === 0 || item.trend === undefined) item.trend = 1;
+      else if (item.trend === 1) item.trend = -1;
+      else item.trend = 0;
+      saveData(); render();
+    });
+  });
+
+  // ---- Planet list management ----
+  // Click planet to edit
+  panelContent.querySelectorAll('[data-planet-id]').forEach(item=>{
+    if (!state.editingPlanetId) {
+      item.addEventListener('click',(e)=>{
+        if (e.target.closest('.gi-del') || e.target.closest('input') || e.target.closest('button') || e.target.closest('select')) return;
+        state.editingPlanetId = item.dataset.planetId;
+        updatePanelContent();
+      });
+    }
+  });
+
+  // Delete planet
+  panelContent.querySelectorAll('[data-action="del-planet"]').forEach(b=>{
+    b.addEventListener('click',(ev)=>{ ev.stopPropagation();
+      const node=state.selectedNodeId?getNodeById(state.selectedNodeId):null;
+      if (!node) return;
+      if ((node.planets||[]).length <= 1) { alert('星系至少需要一颗行星'); return; }
+      node.planets = node.planets.filter(p=>p.id!==b.dataset.pid);
+      if (state.editingPlanetId===b.dataset.pid) state.editingPlanetId=null;
+      saveData(); render();
+    });
+  });
+
+  // Add planet button
+  const addPlanetBtn=panelContent.querySelector('#btn-add-planet');
+  if (addPlanetBtn) addPlanetBtn.addEventListener('click',()=>{
+    const node=state.selectedNodeId?getNodeById(state.selectedNodeId):null;
+    if (!node||isGray(node)) return;
+    const name = prompt('请输入新行星名称：');
+    if (!name || !name.trim()) return;
+    node.planets = node.planets || [];
+    node.planets.push(defaultPlanet(name.trim()));
+    saveData(); render();
+  });
+
+  // Planet name input
+  const pNameInp=panelContent.querySelector('#planet-name-input');
+  if (pNameInp) {
+    pNameInp.addEventListener('input',()=>{
+      const planet = getEditingPlanet();
+      if (planet) { planet.name=pNameInp.value||'未命名'; saveData(); }
+    });
+  }
+
+  // Done editing planet
+  const doneBtn=panelContent.querySelector('#btn-done-planet');
+  if (doneBtn) doneBtn.addEventListener('click',()=>{
+    state.editingPlanetId=null;
+    updatePanelContent();
+    render();
+  });
+
+  // Simulate prices button
+  const simBtn = panelContent.querySelector('#btn-sim-prices');
+  if (simBtn) simBtn.addEventListener('click', simulateAllPrices);
+
+  // ---- Map mode: waypoint & station management ----
+  panelContent.querySelectorAll('[data-action="del-waypoint"]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      state.waypointIds.splice(parseInt(b.dataset.idx),1);
+      if (state.startNodeId && state.endNodeId) computePath();
+      updatePathDisplay();
+      render();
+    });
+  });
+  const clearWp=panelContent.querySelector('#btn-clear-waypoints');
+  if (clearWp) clearWp.addEventListener('click',()=>{
+    state.waypointIds=[];
+    if (state.startNodeId && state.endNodeId) computePath();
+    updatePathDisplay();
+    render();
+    setStatus('🗺️ 途径点已清除');
+  });
+  const cbStation=panelContent.querySelector('#cb-station');
+  if (cbStation) cbStation.addEventListener('change',()=>{
+    const node = state.startNodeId ? getNodeById(state.startNodeId) : null;
+    if (node && isGray(node)) { node.hasStation = cbStation.checked; saveData(); render(); }
+  });
+}
+
+function shipFormFields(prefix, ship) {
+  // Returns HTML for ship form fields (used in both edit and create)
+  const v = ship || defaultShipAttrs();
+  const f = (key, placeholder, type='number') => {
+    const val = ship ? (ship[key]??v[key]) : '';
+    return `<input type="${type}" id="${prefix}ship-${key}" value="${type==='number'?val:escapeHtml(String(val))}" placeholder="${placeholder}" style="padding:5px 6px;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);border-radius:3px;font-size:11px;">`;
+  };
+  // Rows of fields: label + input pairs in a compact grid
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px;">
+      <div>名称</div><div>${f('name','船只名称','text')}</div>
+      <div>类型</div><div>${f('type','例如 Flying Crate','text')}</div>
+      <div>价格 💰</div><div>${f('price','价格')}</div>
+      <div>最大油量 ⛽</div><div>${f('fuelMax','最大储油量 Y')}</div>
+      <div>FTL消耗</div><div>${f('fuelPerJump','每次FTL消耗 X')}</div>
+      <div>转速</div><div>${f('turnRate','72.000')}</div>
+      <div>最大航速</div><div>${f('maxSpeed','97.500')}</div>
+      <div>护盾</div><div>${f('shield','65')}</div>
+      <div>护盾恢复/s</div><div>${f('shieldRecharge','22.75')}</div>
+      <div>货舱大小</div><div>${f('cargoSpace','10')}</div>
+      <div>质量</div><div>${f('mass','10')}</div>
+      <div>血量</div><div>${f('hp','10')}</div>
+      <div>加速度</div><div>${f('acceleration','0.025')}</div>
+      <div>发电机</div><div>${f('generator','70')}</div>
+      <div>发电率/s</div><div>${f('generatorRate','0.5')}</div>
+      <div>装备配置</div><div>${f('equipment','F:35, B:30 (AR:0)','text')}</div>
+      <div>武器</div><div>${f('weapons','1x Medium','text')}</div>
+      <div>条件</div><div>${f('condition','OSC联盟专属','text')}</div>
+    </div>
+  `;
+}
+
+function renderShipTab() {
+  let html = '<div class="panel-section"><div class="panel-label">🚀 船只管理</div>';
+
+  if (state.ships.length===0) {
+    html += '<div class="panel-hint">暂无船只定义。</div>';
+  }
+
+  for (const ship of state.ships) {
+    const ftl = ship.fuelPerJump>0 ? Math.floor(ship.fuelMax / ship.fuelPerJump) : 0;
+    const isEdit = state.shipEditId === ship.id;
+    html += `<div class="global-item" data-sid="${ship.id}" style="${isEdit?'flex-direction:column;align-items:stretch;':''}">`;
+    if (!isEdit) {
+      html += `<span class="gi-icon">🚀</span>`;
+      const typeStr = ship.type ? `[${escapeHtml(ship.type)}] ` : '';
+      html += `<div class="gi-info"><div class="gi-name">${typeStr}${escapeHtml(ship.name)}</div>`;
+      html += `<div class="gi-sub">💰${(ship.price||0).toLocaleString()} | ⛽${ship.fuelMax||0}/${ship.fuelPerJump||0}(${ftl}x FTL) | 🛡${ship.shield||0} | ❤${ship.hp||0}</div></div>`;
+      html += `<span class="gi-del" data-action="del-ship-global" data-sid="${ship.id}">✕</span>`;
+    } else {
+      html += shipFormFields('e', ship);
+      html += `<div style="display:flex;gap:4px;margin-top:4px;"><button class="tb-btn small" id="btn-save-ship">💾 保存</button><button class="tb-btn small" id="btn-cancel-ship">取消</button></div>`;
+    }
+    html += '</div>';
+  }
+
+  html += '<button class="tb-btn small" id="btn-new-ship" style="margin-top:4px;">➕ 添加船只</button>';
+  html += '</div>';
+
+  // Add form
+  if (state.shipEditId === '__new__') {
+    html += '<div class="panel-section"><div class="panel-label">🆕 新船只</div>';
+    html += shipFormFields('n', null);
+    html += '<div class="panel-hint" style="margin-top:4px;">⛽ 格式: Y/X(Zx FTL)，Z=Y÷X</div>';
+    html += '<div style="display:flex;gap:4px;margin-top:4px;"><button class="tb-btn small" id="btn-create-ship">创建</button><button class="tb-btn small" id="btn-cancel-new-ship">取消</button></div>';
+    html += '</div>';
+  }
+
+  panelContent.innerHTML = html;
+  bindShipTabEvents();
+}
+
+function bindShipTabEvents() {
+  // Click ship to edit
+  panelContent.querySelectorAll('.global-item').forEach(item=>{
+    if (!state.shipEditId) {
+      item.addEventListener('click',(e)=>{
+        if (e.target.closest('.gi-del')) return;
+        state.shipEditId=item.dataset.sid;
+        updatePanelContent();
+      });
+    }
+  });
+
+  // Delete global ship
+  panelContent.querySelectorAll('[data-action="del-ship-global"]').forEach(b=>{
+    b.addEventListener('click',(ev)=>{ ev.stopPropagation(); deleteShip(b.dataset.sid); });
+  });
+
+  // Save ship edit
+  const saveBtn=panelContent.querySelector('#btn-save-ship');
+  if (saveBtn) saveBtn.addEventListener('click',()=>{
+    const ship=getShipById(state.shipEditId);
+    if (!ship) return;
+    const q = (id) => panelContent.querySelector('#eship-'+id);
+    ship.name=q('name')?.value?.trim()||ship.name;
+    ship.price=parseInt(q('price')?.value)||ship.price;
+    ship.fuelMax=parseInt(q('fuelMax')?.value)||ship.fuelMax;
+    ship.fuelPerJump=parseInt(q('fuelPerJump')?.value)||ship.fuelPerJump;
+    if (ship.fuelPerJump<=0) ship.fuelPerJump=1;
+    ship.type=q('type')?.value?.trim()||'';
+    ship.turnRate=parseFloat(q('turnRate')?.value)||0;
+    ship.maxSpeed=parseFloat(q('maxSpeed')?.value)||0;
+    ship.shield=parseFloat(q('shield')?.value)||0;
+    ship.shieldRecharge=parseFloat(q('shieldRecharge')?.value)||0;
+    ship.cargoSpace=parseFloat(q('cargoSpace')?.value)||0;
+    ship.mass=parseFloat(q('mass')?.value)||0;
+    ship.hp=parseFloat(q('hp')?.value)||0;
+    ship.acceleration=parseFloat(q('acceleration')?.value)||0;
+    ship.generator=parseFloat(q('generator')?.value)||0;
+    ship.generatorRate=parseFloat(q('generatorRate')?.value)||0;
+    ship.equipment=q('equipment')?.value?.trim()||'';
+    ship.weapons=q('weapons')?.value?.trim()||'';
+    ship.condition=q('condition')?.value?.trim()||'';
+    state.shipEditId=null;
+    saveData(); updatePanelContent();
+    render();
+  });
+
+  // Cancel ship edit
+  const cancelBtn=panelContent.querySelector('#btn-cancel-ship');
+  if (cancelBtn) cancelBtn.addEventListener('click',()=>{ state.shipEditId=null; updatePanelContent(); });
+
+  // New ship
+  const newBtn=panelContent.querySelector('#btn-new-ship');
+  if (newBtn) newBtn.addEventListener('click',()=>{ state.shipEditId='__new__'; updatePanelContent(); });
+
+  // Create ship
+  const createBtn=panelContent.querySelector('#btn-create-ship');
+  if (createBtn) createBtn.addEventListener('click',()=>{
+    const qn = (id) => panelContent.querySelector('#nship-'+id);
+    const name=qn('name')?.value?.trim();
+    if (!name) return;
+    const ship={
+      id:genId('s'), name,
+      price:parseInt(qn('price')?.value)||0,
+      fuelMax:parseInt(qn('fuelMax')?.value)||0,
+      fuelPerJump:parseInt(qn('fuelPerJump')?.value)||1,
+      type:qn('type')?.value?.trim()||'',
+      turnRate:parseFloat(qn('turnRate')?.value)||0,
+      maxSpeed:parseFloat(qn('maxSpeed')?.value)||0,
+      shield:parseFloat(qn('shield')?.value)||0,
+      shieldRecharge:parseFloat(qn('shieldRecharge')?.value)||0,
+      cargoSpace:parseFloat(qn('cargoSpace')?.value)||0,
+      mass:parseFloat(qn('mass')?.value)||0,
+      hp:parseFloat(qn('hp')?.value)||0,
+      acceleration:parseFloat(qn('acceleration')?.value)||0,
+      generator:parseFloat(qn('generator')?.value)||0,
+      generatorRate:parseFloat(qn('generatorRate')?.value)||0,
+      equipment:qn('equipment')?.value?.trim()||'',
+      weapons:qn('weapons')?.value?.trim()||'',
+      condition:qn('condition')?.value?.trim()||'',
+    };
+    if (ship.fuelPerJump<=0) ship.fuelPerJump=1;
+    state.ships.push(ship); state.shipEditId=null;
+    saveData(); updatePanelContent(); render();
+  });
+
+  const cancelNew=panelContent.querySelector('#btn-cancel-new-ship');
+  if (cancelNew) cancelNew.addEventListener('click',()=>{ state.shipEditId=null; updatePanelContent(); });
+}
+
+function renderProductTab() {
+  let html = '<div class="panel-section"><div class="panel-label">📦 产品管理</div>';
+
+  if (state.products.length===0) {
+    html += '<div class="panel-hint">暂无产品定义。</div>';
+  }
+
+  for (const prod of state.products) {
+    const isEdit = state.productEditId === prod.id;
+    html += `<div class="global-item" data-pid="${prod.id}">`;
+    html += `<span class="gi-icon">${prod.icon||'📦'}</span>`;
+    if (isEdit) {
+      html += `<div class="gi-info" style="flex:1;display:flex;flex-direction:column;gap:4px;">`;
+      html += `<input type="text" id="eprod-name" value="${escapeHtml(prod.name)}" placeholder="名称" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);border-radius:3px;font-size:11px;">`;
+      html += '<div class="panel-label">选择图标:</div><div style="display:flex;flex-wrap:wrap;gap:4px;">';
+      for (const em of PRESET_EMOJIS) {
+        html += `<span style="cursor:pointer;font-size:18px;padding:2px;${prod.icon===em?'background:var(--accent);border-radius:4px;':''}" data-action="pick-emoji" data-emoji="${em}">${em}</span>`;
+      }
+      html += '</div>';
+      html += `<div style="display:flex;gap:4px;"><input type="text" id="eprod-icon" value="${escapeHtml(prod.icon||'')}" placeholder="自定义emoji" style="flex:1;padding:4px;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);border-radius:3px;font-size:11px;"></div>`;
+      html += `<div style="display:flex;gap:4px;"><button class="tb-btn small" id="btn-save-prod">💾 保存</button><button class="tb-btn small" id="btn-cancel-prod">取消</button></div>`;
+      html += `</div>`;
+    } else {
+      html += `<div class="gi-info"><div class="gi-name">${prod.icon||''} ${escapeHtml(prod.name)}</div></div>`;
+      html += `<span class="gi-del" data-action="del-prod-global" data-pid="${prod.id}">✕</span>`;
+    }
+    html += '</div>';
+  }
+
+  html += '<button class="tb-btn small" id="btn-new-prod" style="margin-top:4px;">➕ 添加产品</button>';
+  html += '</div>';
+
+  if (state.productEditId==='__new__') {
+    html += '<div class="panel-section"><div class="panel-label">新产品</div>';
+    html += '<div style="display:flex;flex-direction:column;gap:6px;">';
+    html += '<input type="text" id="nprod-name" placeholder="产品名称" style="padding:6px 8px;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);border-radius:4px;font-size:12px;">';
+    html += '<div class="panel-label">选择图标:</div><div style="display:flex;flex-wrap:wrap;gap:4px;" id="new-prod-emojis">';
+    for (const em of PRESET_EMOJIS) {
+      html += `<span style="cursor:pointer;font-size:18px;padding:2px;" data-action="pick-emoji-new" data-emoji="${em}">${em}</span>`;
+    }
+    html += '</div>';
+    html += '<input type="text" id="nprod-icon" placeholder="或输入自定义emoji" style="padding:6px 8px;background:var(--bg);border:1px solid var(--border);color:var(--text-bright);border-radius:4px;font-size:12px;">';
+    html += '<div style="display:flex;gap:4px;"><button class="tb-btn small" id="btn-create-prod">创建</button><button class="tb-btn small" id="btn-cancel-new-prod">取消</button></div>';
+    html += '</div></div>';
+  }
+
+  panelContent.innerHTML = html;
+  bindProductTabEvents();
+}
+
+let _newProdIcon = '📦';
+function bindProductTabEvents() {
+  panelContent.querySelectorAll('.global-item').forEach(item=>{
+    if (!state.productEditId) {
+      item.addEventListener('click',(e)=>{
+        if (e.target.closest('.gi-del')) return;
+        state.productEditId=item.dataset.pid;
+        updatePanelContent();
+      });
+    }
+  });
+
+  panelContent.querySelectorAll('[data-action="del-prod-global"]').forEach(b=>{
+    b.addEventListener('click',(ev)=>{ ev.stopPropagation(); deleteProduct(b.dataset.pid); });
+  });
+
+  // Emoji picker for edit
+  panelContent.querySelectorAll('[data-action="pick-emoji"]').forEach(s=>{
+    s.addEventListener('click',()=>{
+      const inp=panelContent.querySelector('#eprod-icon');
+      if (inp) inp.value=s.dataset.emoji;
+    });
+  });
+
+  // Emoji picker for new
+  panelContent.querySelectorAll('[data-action="pick-emoji-new"]').forEach(s=>{
+    s.addEventListener('click',()=>{
+      _newProdIcon=s.dataset.emoji;
+      const inp=panelContent.querySelector('#nprod-icon');
+      if (inp) inp.value=s.dataset.emoji;
+      // Highlight selected
+      panelContent.querySelectorAll('[data-action="pick-emoji-new"]').forEach(e=>e.style.background='');
+      s.style.background='var(--accent)'; s.style.borderRadius='4px';
+    });
+  });
+
+  const saveBtn=panelContent.querySelector('#btn-save-prod');
+  if (saveBtn) saveBtn.addEventListener('click',()=>{
+    const prod=getProductById(state.productEditId);
+    if (!prod) return;
+    prod.name=panelContent.querySelector('#eprod-name')?.value?.trim()||prod.name;
+    prod.icon=panelContent.querySelector('#eprod-icon')?.value?.trim()||prod.icon;
+    state.productEditId=null;
+    saveData(); updatePanelContent();
+    render();
+  });
+
+  const cancelBtn=panelContent.querySelector('#btn-cancel-prod');
+  if (cancelBtn) cancelBtn.addEventListener('click',()=>{ state.productEditId=null; updatePanelContent(); });
+
+  const newBtn=panelContent.querySelector('#btn-new-prod');
+  if (newBtn) newBtn.addEventListener('click',()=>{ _newProdIcon='📦'; state.productEditId='__new__'; updatePanelContent(); });
+
+  const createBtn=panelContent.querySelector('#btn-create-prod');
+  if (createBtn) createBtn.addEventListener('click',()=>{
+    const name=panelContent.querySelector('#nprod-name')?.value?.trim();
+    if (!name) return;
+    const icon=panelContent.querySelector('#nprod-icon')?.value?.trim()||_newProdIcon||'📦';
+    state.products.push({ id:genId('p'), name, icon });
+    state.productEditId=null;
+    saveData(); updatePanelContent(); render();
+  });
+
+  const cancelNew=panelContent.querySelector('#btn-cancel-new-prod');
+  if (cancelNew) cancelNew.addEventListener('click',()=>{ state.productEditId=null; updatePanelContent(); });
+}
+
+// ---- Facility Helpers (planet-level) ----
+function getPlanetById(node, planetId) {
+  if (!node || !node.planets) return null;
+  return node.planets.find(p => p.id === planetId);
+}
+
+function ensurePlanetFacs(planet) {
+  if (!planet.facilities) planet.facilities = defaultPlanetFacilities();
+  const f=planet.facilities;
+  if (!f.bar || !Array.isArray(f.bar.npcs)) f.bar={active:!!(f.bar?.active), npcs: Array.isArray(f.bar?.npcs)?f.bar.npcs:[]};
+  if (f.mission===undefined) f.mission=false;
+  if (!f.shipyard || !Array.isArray(f.shipyard.shipIds)) f.shipyard={active:!!(f.shipyard?.active), shipIds: Array.isArray(f.shipyard?.shipIds)?f.shipyard.shipIds:[]};
+  if (f.equipment===undefined) f.equipment=false;
+  if (!f.trade || !Array.isArray(f.trade.products)) f.trade={active:!!(f.trade?.active), productIds: Array.isArray(f.trade?.productIds)?f.trade.products:[]};
+  if (f.fleet===undefined) f.fleet=false;
+}
+
+function setFacilityActivePlanet(planet, key, active) {
+  const f=planet.facilities;
+  ensurePlanetFacs(planet); // Always ensure structure first
+  switch(key) {
+    case 'bar': f.bar.active=active; break;
+    case 'mission': f.mission=active; break;
+    case 'shipyard': f.shipyard.active=active; break;
+    case 'equipment': f.equipment=active; break;
+    case 'trade': f.trade.active=active; break;
+    case 'fleet': f.fleet=active; break;
+  }
+}
+
+function selectNode(nodeId) {
+  if (state.mode==='editor') {
+    state.selectedNodeId = state.selectedNodeId===nodeId ? null : nodeId;
+    state.editingPlanetId = null;
+    state.activePanelTab='planet';
+    render();
+  }
+}
+
+// ---- Event Handlers ----
+function onNodeMouseDown(e, nodeId) {
+  if (e.button!==0) return;
+  if (state.mode==='editor') {
+    const node=getNodeById(nodeId); if (!node) return;
+    state.dragging={nodeId, startX:e.clientX, startY:e.clientY, nodeStartX:node.x, nodeStartY:node.y, moved:false};
+  } else {
+    state.panning={startX:e.clientX, startY:e.clientY, viewStartX:state.viewX, viewStartY:state.viewY};
+  }
+  e.stopPropagation();
+}
+
+function onNodeClick(e, nodeId) {
+  if (state.dragging?.moved) return;
+  if (state.mode==='editor') {
+    if (e.shiftKey && state.selectedNodeId && state.selectedNodeId!==nodeId) {
+      createEdge(state.selectedNodeId, nodeId);
+      render(); return;
+    }
+    state.selectedNodeId = state.selectedNodeId===nodeId ? null : nodeId;
+    if (state.selectedNodeId) state.activePanelTab='planet';
+    render();
+  } else {
+    handleMapNodeClick(nodeId, e);
+    // Show detail on double-click handled separately
+  }
+}
+
+// Double-click on node in map mode shows detail
+canvasWrap.addEventListener('dblclick',(e)=>{
+  // In map mode, dblclick handled via right-click instead
+  if (state.mode==='map') return;
+  if (state.mode!=='editor') return;
+  const isNodeClick = e.target.closest('[data-node-id]');
+  if (!isNodeClick && (e.target===svgRoot||e.target===canvasWrap||e.target.classList.contains('grid-dot'))) {
+    const world=screenToWorld(e.clientX,e.clientY);
+    addNodeAt(world.x,world.y);
+  }
+});
+
+function handleMapNodeClick(nodeId, e) {
+  // View mode: just show node info
+  if (state.mapSubMode === 'view') {
+    state.viewNodeId = nodeId;
+    updatePanelContent();
+    return;
+  }
+  // Ctrl+Click = toggle waypoint
+  if (e && (e.ctrlKey || e.metaKey)) {
+    toggleWaypoint(nodeId);
+    return;
+  }
+
+  if (!state.startNodeId) {
+    state.startNodeId=nodeId; state.endNodeId=null;
+    state.pathNodeIds=[]; state.pathEdgeIds=[];
+    setStatus(`🟢 起点: ${getNodeById(nodeId)?.name||'?'} — 右键查看详情，Ctrl+点击添加途径点`);
+    render();
+  } else if (!state.endNodeId && nodeId!==state.startNodeId) {
+    state.endNodeId=nodeId; computePath();
+    setStatus(`🟢 ${getNodeById(state.startNodeId)?.name||'?'} → ${getNodeById(nodeId)?.name||'?'}`);
+    render(); updatePathDisplay();
+  } else if (nodeId===state.startNodeId) {
+    state.startNodeId=null; state.endNodeId=null;
+    state.pathNodeIds=[]; state.pathEdgeIds=[];
+    setStatus('🗺️ 地图模式 — 单击设起点，Ctrl+点击添加途径点'); statusPath.style.display='none';
+    render();
+  } else if (nodeId===state.endNodeId) {
+    state.endNodeId=null; state.pathNodeIds=[]; state.pathEdgeIds=[];
+    setStatus(`🟢 起点: ${getNodeById(state.startNodeId)?.name||'?'} — 单击另一星球设终点`);
+    statusPath.style.display='none';
+    render();
+  } else {
+    state.endNodeId=nodeId; computePath();
+    setStatus(`🟢 ${getNodeById(state.startNodeId)?.name||'?'} → ${getNodeById(nodeId)?.name||'?'}`);
+    render(); updatePathDisplay();
+  }
+}
+
+function toggleWaypoint(nodeId) {
+  const idx = state.waypointIds.indexOf(nodeId);
+  if (idx >= 0) {
+    state.waypointIds.splice(idx, 1);
+    setStatus(`🔶 已移除途径点: ${getNodeById(nodeId)?.name||'?'}`);
+  } else {
+    state.waypointIds.push(nodeId);
+    setStatus(`🔶 已添加途径点 (${state.waypointIds.length}): ${getNodeById(nodeId)?.name||'?'}`);
+  }
+  if (state.startNodeId && state.endNodeId) computePath();
+  updatePathDisplay();
+  render();
+}
+
+function toggleStation(nodeId) {
+  const node = getNodeById(nodeId);
+  if (!node || !isGray(node)) return;
+  node.hasStation = !node.hasStation;
+  saveData();
+  setStatus(`🛰️ 空间站${node.hasStation?'已布置':'已移除'}: ${node.name}`);
+  render();
+}
+
+function createEdge(fromId, toId) {
+  const key=edgeKey(fromId, toId);
+  if (state.edges.some(e=>edgeKey(e.from,e.to)===key)) { setStatus('⚠️ 两个星球之间已存在通道'); return; }
+  state.edges.push({from:fromId, to:toId});
+  saveData(); setStatus('🔗 通道已建立');
+}
+
+function addNodeAt(wx, wy) {
+  const name=prompt('请输入星球/星域名称：');
+  if (name===null) return;
+  const trimmed=name.trim()||'未命名';
+  const node={
+    id:genId(), name:trimmed, colorIndex:state.selectedColorIndex,
+    x:wx, y:wy,
+    planets: (state.selectedColorIndex===GRAY_INDEX) ? null : [defaultPlanet(trimmed)]
+  };
+  state.nodes.push(node);
+  saveData(); setStatus(`🪐 已添加: ${trimmed}`);
+  render();
+}
+
+function deleteNode(nodeId) {
+  const node=getNodeById(nodeId); if (!node) return;
+  if (!confirm(`确定要删除星球「${node.name}」及其所有通道吗？`)) return;
+  state.nodes=state.nodes.filter(n=>n.id!==nodeId);
+  state.edges=state.edges.filter(e=>e.from!==nodeId&&e.to!==nodeId);
+  if (state.selectedNodeId===nodeId) state.selectedNodeId=null;
+  clearPath(); saveData();
+  setStatus(`🗑 已删除: ${node.name}`);
+  render();
+}
+
+function deleteShip(shipId) {
+  if (!confirm('确定要删除此船只吗？已引用此船只的船坞将自动移除该船只。')) return;
+  state.ships=state.ships.filter(s=>s.id!==shipId);
+  // Clean up references
+  for (const node of state.nodes) {
+    for (const p of getPlanets(node)) {
+      if (p.facilities?.shipyard?.shipIds) {
+        p.facilities.shipyard.shipIds=p.facilities.shipyard.shipIds.filter(id=>id!==shipId);
+      }
+    }
+  }
+  if (state.shipEditId===shipId) state.shipEditId=null;
+  saveData(); updatePanelContent(); render();
+}
+
+function deleteProduct(prodId) {
+  if (!confirm('确定要删除此产品吗？已引用此产品的贸易中心将自动移除该产品。')) return;
+  state.products=state.products.filter(p=>p.id!==prodId);
+  for (const node of state.nodes) {
+    for (const p of getPlanets(node)) {
+      if (p.facilities?.trade?.productIds) {
+        p.facilities.trade.products=p.facilities.trade.products.filter(id=>id!==prodId);
+      }
+    }
+  }
+  if (state.productEditId===prodId) state.productEditId=null;
+  saveData(); updatePanelContent(); render();
+}
+
+function deleteEdgeByKey(key) {
+  state.edges=state.edges.filter(e=>edgeKey(e.from,e.to)!==key);
+  saveData(); setStatus('🗑 通道已删除');
+  if (state.startNodeId&&state.endNodeId) computePath();
+  updatePathDisplay(); render();
+}
+
+function clearSelection() { state.selectedNodeId=null; }
+function clearPath() {
+  state.startNodeId=null; state.endNodeId=null;
+  state.waypointIds=[];
+  state.pathNodeIds=[]; state.pathEdgeIds=[];
+  statusPath.style.display='none';
+}
+
+function clearAll() {
+  if (!confirm('确定清空所有数据？')) return;
+  if (!confirm('再次确认：清空所有数据？')) return;
+  state.nodes=[]; state.edges=[]; state.ships=[]; state.products=[];
+  clearSelection(); clearPath();
+  saveData(); render();
+  setStatus('🗑 所有数据已清空');
+}
+
+function showEdgeContextMenu(x,y,key) {
+  contextMenu.style.display='block'; contextMenu.style.left=x+'px'; contextMenu.style.top=y+'px';
+  contextMenu.setAttribute('data-edge-key',key);
+}
+function hideContextMenu() { contextMenu.style.display='none'; }
+
+function setStatus(msg) { statusText.textContent=msg; }
+
+// ---- Panel Tabs ----
+document.getElementById('panel-tabs').addEventListener('click',(e)=>{
+  const tab=e.target.closest('.panel-tab');
+  if (!tab) return;
+  document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  state.activePanelTab=tab.dataset.tab;
+  state.shipEditId=null; state.productEditId=null;
+  updatePanelContent();
+});
+
+// ---- Global Mouse ----
+document.addEventListener('mousemove',(e)=>{
+  if (state.dragging) {
+    const dx=(e.clientX-state.dragging.startX)/state.scale;
+    const dy=(e.clientY-state.dragging.startY)/state.scale;
+    if (Math.abs(dx)>1||Math.abs(dy)>1) state.dragging.moved=true;
+    const node=getNodeById(state.dragging.nodeId);
+    if (node) { node.x=state.dragging.nodeStartX+dx; node.y=state.dragging.nodeStartY+dy; render(); }
+  }
+  if (state.panning) {
+    state.viewX=state.panning.viewStartX+(e.clientX-state.panning.startX);
+    state.viewY=state.panning.viewStartY+(e.clientY-state.panning.startY);
+    render();
+  }
+});
+
+document.addEventListener('mouseup',()=>{
+  if (state.dragging) { if (state.dragging.moved) saveData(); state.dragging=null; }
+  if (state.panning) { state.panning=null; canvasWrap.classList.remove('panning'); }
+});
+
+canvasWrap.addEventListener('mousedown',(e)=>{
+  if (e.button!==0) return;
+  const t=e.target;
+  if (t===svgRoot||t===canvasWrap||t.classList.contains('grid-dot')) {
+    state.panning={startX:e.clientX,startY:e.clientY,viewStartX:state.viewX,viewStartY:state.viewY};
+    canvasWrap.classList.add('panning');
+  }
+});
+
+canvasWrap.addEventListener('click',(e)=>{
+  const t=e.target;
+  if (t===svgRoot||t===canvasWrap||t.classList.contains('grid-dot')) {
+    if (state.mode==='editor') { clearSelection(); render(); setStatus('✏️ 编辑器模式 — 双击画布添加星球'); }
+    else { clearPath(); render(); setStatus('🗺️ 地图模式 — 单击设起终点，右键查看详情'); statusPath.style.display='none'; }
+  }
+});
+
+canvasWrap.addEventListener('wheel',(e)=>{
+  e.preventDefault();
+  const delta=e.deltaY>0?0.9:1.1;
+  const ns=Math.max(0.2,Math.min(3,state.scale*delta));
+  const r=svgRoot.getBoundingClientRect();
+  const cx=e.clientX-r.left, cy=e.clientY-r.top;
+  state.viewX=cx-(cx-state.viewX)*(ns/state.scale);
+  state.viewY=cy-(cy-state.viewY)*(ns/state.scale);
+  state.scale=ns;
+  render();
+});
+
+document.addEventListener('click',(e)=>{ if (!contextMenu.contains(e.target)) hideContextMenu(); });
+contextMenu.addEventListener('click',(e)=>{
+  if (e.target.dataset.action==='delete-edge') {
+    deleteEdgeByKey(contextMenu.dataset.edgeKey);
+  }
+  hideContextMenu();
+});
+
+// ---- Keyboard ----
+document.addEventListener('keydown',(e)=>{
+  if (e.target.tagName==='INPUT'||e.target.tagName==='SELECT'||e.target.tagName==='TEXTAREA') return;
+  if ((e.key==='Delete'||e.key==='Backspace') && state.mode==='editor' && state.selectedNodeId) {
+    deleteNode(state.selectedNodeId);
+  }
+  if (e.key==='Escape') { clearSelection(); clearPath(); render(); hideDetail();
+    setStatus(state.mode==='editor'?'✏️ 编辑器模式':'🗺️ 地图模式 — 单击设起终点，右键查看详情'); statusPath.style.display='none'; }
+  if ((e.ctrlKey||e.metaKey)&&e.key==='s') { e.preventDefault(); e.shiftKey?exportJSON():(saveData(),setStatus('💾 已保存')); }
+});
+
+// ---- Toolbar ----
+document.getElementById('btn-editor').addEventListener('click',()=>switchMode('editor'));
+document.getElementById('btn-map').addEventListener('click',()=>switchMode('map'));
+document.getElementById('btn-save').addEventListener('click',()=>{ saveData(); setStatus('💾 已保存'); });
+document.getElementById('btn-export').addEventListener('click',exportJSON);
+document.getElementById('btn-import').addEventListener('click',()=>document.getElementById('file-input').click());
+document.getElementById('file-input').addEventListener('change',(e)=>{ if(e.target.files[0]) importJSON(e.target.files[0]); e.target.value=''; });
+document.getElementById('btn-clear').addEventListener('click',clearAll);
+document.getElementById('btn-fit').addEventListener('click',()=>{ autoFitView(); render(); setStatus('🔍 已适应画面'); });
+
+// ---- Search System ----
+const searchOverlay = document.getElementById('search-overlay');
+const searchBody = document.getElementById('search-body');
+const searchClose = document.getElementById('search-close');
+let searchTab = 'system';      // 'system' | 'planet' | 'resource'
+let resourceMode = 'highlight'; // 'highlight' | 'nearest'
+let lastSearchQuery = '';
+
+document.getElementById('btn-search').addEventListener('click', openSearch);
+function simulateAllPrices() {
+  let count = 0;
+  for (const node of state.nodes) {
+    if (isGray(node)) continue;
+    for (const p of getPlanets(node)) {
+      const trade = p.facilities?.trade;
+      if (!trade?.active || !trade.products) continue;
+      for (const item of trade.products) {
+        const base = Math.floor(Math.random() * 50000) + 1000;
+        const variance = Math.floor(Math.random() * base * 0.3);
+        item.priceMin = base - variance;
+        item.priceMax = base + variance;
+        count++;
+      }
+    }
+  }
+  saveData(); render();
+  setStatus(`🎲 已为 ${count} 个贸易产品随机生成价格`);
+}
+document.getElementById('btn-territory').addEventListener('click', ()=>{
+  state.showTerritory = !state.showTerritory;
+  const btn = document.getElementById('btn-territory');
+  if (state.showTerritory) { btn.style.borderColor='#ff8800'; btn.style.color='#ff8800'; }
+  else { btn.style.borderColor=''; btn.style.color=''; }
+  render();
+  setStatus(state.showTerritory?'🗺️ 领域地图已开启':'领域地图已关闭');
+});
+searchClose.addEventListener('click', closeSearch);
+searchOverlay.addEventListener('click',(e)=>{ if(e.target===searchOverlay) closeSearch(); });
+
+document.getElementById('search-tabs').addEventListener('click',(e)=>{
+  const tab = e.target.closest('.search-tab');
+  if (!tab) return;
+  document.querySelectorAll('.search-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  searchTab = tab.dataset.stab;
+  lastSearchQuery = '';
+  renderSearchBody();
+});
+
+function openSearch() {
+  searchOverlay.style.display = 'flex';
+  lastSearchQuery = '';
+  renderSearchBody();
+  setTimeout(()=>{ const inp=searchBody.querySelector('#search-input'); if(inp) inp.focus(); }, 100);
+}
+function closeSearch() {
+  searchOverlay.style.display='none';
+  state.highlightedNodeIds = [];
+  render();
+}
+
+// Fuzzy match score (lower = better)
+function fuzzyScore(query, target) {
+  const q = query.toLowerCase().trim();
+  const t = target.toLowerCase();
+  if (!q) return 0;
+  if (t === q) return -3;              // exact match
+  if (t.startsWith(q)) return -2;      // starts with
+  if (t.includes(q)) return -1;        // contains
+  // Check character-by-character match
+  let qi = 0, dist = 0, firstMatch = -1;
+  for (let i = 0; i < t.length && qi < q.length; i++) {
+    if (t[i] === q[qi]) { if (firstMatch < 0) firstMatch = i; qi++; }
+    else dist++;
+  }
+  if (qi === q.length) return dist + firstMatch * 0.1; // all chars matched with gaps
+  return 999; // no match
+}
+
+function searchNodes(query, onlyPlanets=false) {
+  const results = [];
+  for (const node of state.nodes) {
+    if (onlyPlanets && isGray(node)) continue;
+    const score = fuzzyScore(query, node.name);
+    if (score < 999) results.push({ node, score });
+  }
+  results.sort((a,b) => a.score - b.score);
+  return results.slice(0, 15); // top 15
+}
+
+function searchResource(query) {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+  const results = [];
+  for (const node of state.nodes) {
+    if (isGray(node)) continue;
+    const reasons = [];
+    for (const planet of getPlanets(node)) {
+      const f = planet.facilities; if (!f) continue;
+      if (f.bar?.active) {
+        for (const npc of f.bar.npcs||[]) {
+          if (npc.name.toLowerCase().includes(q) || npc.role.toLowerCase().includes(q))
+            reasons.push('🪐'+planet.name+' 🍺 '+npc.name);
+        }
+        if ('酒吧bar'.includes(q)) reasons.push('🪐'+planet.name+' 🍺 酒吧');
+      }
+      if (f.mission && '任务mission'.includes(q)) reasons.push('🪐'+planet.name+' 📋 任务中心');
+      if (f.shipyard?.active) {
+        for (const sid of f.shipyard.shipIds||[]) {
+          const ship = getShipById(sid);
+          if (ship && (ship.name.toLowerCase().includes(q) || (ship.type||'').toLowerCase().includes(q)))
+            reasons.push('🪐'+planet.name+' 🚀 '+ship.name);
+        }
+        if ('船坞shipyard'.includes(q)) reasons.push('🪐'+planet.name+' 🚀 船坞');
+      }
+      if (f.equipment && '装备equipment'.includes(q)) reasons.push('🪐'+planet.name+' 🔧 装备中心');
+      if (f.trade?.active) {
+        for (const item of f.trade.products||[]) {
+          const pid = item.productId || item; const prod = getProductById(pid);
+          if (prod && prod.name.toLowerCase().includes(q)) reasons.push('🪐'+planet.name+' 💰 '+prod.icon+prod.name);
+        }
+        if ('贸易trade'.includes(q)) reasons.push('🪐'+planet.name+' 💰 贸易中心');
+      }
+      if (f.fleet && '舰队fleet'.includes(q)) reasons.push('🪐'+planet.name+' 🏛️ 舰队管理');
+    }
+    if (reasons.length > 0) results.push({ node, reasons });
+  }
+  return results;
+}
+
+function findNearestResource(nodeId, query) {
+  // BFS from nodeId to find nearest node with the resource
+  const targetNodes = searchResource(query).map(r => r.node.id);
+  if (targetNodes.length === 0) return [];
+  if (targetNodes.includes(nodeId)) {
+    const node = getNodeById(nodeId);
+    return node ? [{ node, reasons: ['📍 当前星球'] }] : [];
+  }
+  // BFS
+  const queue = [nodeId];
+  const visited = new Set([nodeId]);
+  const parent = {};
+  let found = false;
+  while (queue.length > 0 && !found) {
+    const cur = queue.shift();
+    for (const nb of getNeighbors(cur)) {
+      if (!visited.has(nb)) {
+        visited.add(nb);
+        parent[nb] = cur;
+        queue.push(nb);
+      }
+    }
+  }
+  // Find all target nodes and compute distance
+  const distResults = [];
+  for (const tid of targetNodes) {
+    if (tid === nodeId) { distResults.push({ node: getNodeById(nodeId), dist: 0, reasons: ['📍 当前星球'] }); continue; }
+    // Reconstruct path
+    const path = [];
+    let cur = tid;
+    while (cur !== undefined && cur !== nodeId) {
+      path.unshift(cur);
+      cur = parent[cur];
+    }
+    if (cur === nodeId) distResults.push({ node: getNodeById(tid), dist: path.length, reasons: [] });
+  }
+  distResults.sort((a,b) => a.dist - b.dist);
+  if (distResults.length === 0) return [];
+  const minDist = distResults[0].dist;
+  return distResults.filter(r => r.dist === minDist);
+}
+
+function renderSearchBody() {
+  let html = '';
+  html += `<input type="text" id="search-input" placeholder="${getSearchPlaceholder()}" value="${escapeHtml(lastSearchQuery)}" autocomplete="off">`;
+
+  if (searchTab === 'resource') {
+    html += `<div class="search-mode-row">
+      <label><input type="radio" name="res-mode" value="highlight" ${resourceMode==='highlight'?'checked':''}> 全局高亮</label>
+      <label><input type="radio" name="res-mode" value="nearest" ${resourceMode==='nearest'?'checked':''}> 最近距离</label>
+      ${resourceMode==='nearest' ? `<span style="color:var(--text-dim);">参考点: ${state.selectedNodeId?getNodeById(state.selectedNodeId)?.name||'未选中':'未选中节点'}</span>` : ''}
+      <select id="res-sort" style="margin-left:8px;font-size:11px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:3px;">
+        <option value="">默认排序</option>
+        <option value="price_asc">价格↑</option>
+        <option value="price_desc">价格↓</option>
+      </select>
+    </div>`;
+  }
+
+  html += `<div id="search-results">`;
+  if (lastSearchQuery) {
+    html += renderSearchResults(lastSearchQuery);
+  } else {
+    html += `<div id="search-no-results">输入关键词开始搜索</div>`;
+  }
+  html += `</div>`;
+
+  searchBody.innerHTML = html;
+
+  // Bind events
+  const inp = searchBody.querySelector('#search-input');
+  if (inp) {
+    inp.addEventListener('input', () => {
+      lastSearchQuery = inp.value;
+      // Re-render just the results
+      const resultsDiv = searchBody.querySelector('#search-results');
+      if (resultsDiv) {
+        resultsDiv.innerHTML = renderSearchResults(lastSearchQuery);
+        bindSearchResultEvents();
+      }
+    });
+  }
+
+  // Sort change
+  const sortEl = searchBody.querySelector('#res-sort');
+  if (sortEl) sortEl.addEventListener('change', ()=>{
+    const resultsDiv = searchBody.querySelector('#search-results');
+    if (resultsDiv) { resultsDiv.innerHTML = renderSearchResults(lastSearchQuery); bindSearchResultEvents(); }
+  });
+
+  // Resource mode radios
+  searchBody.querySelectorAll('input[name="res-mode"]').forEach(r => {
+    r.addEventListener('change', () => {
+      resourceMode = r.value;
+      renderSearchBody();
+      setTimeout(()=>{ const i=searchBody.querySelector('#search-input'); if(i) { i.focus(); i.value=lastSearchQuery; } }, 50);
+    });
+  });
+
+  // Sort change
+  var sortSel = searchBody.querySelector('#res-sort');
+  if (sortSel) sortSel.addEventListener('change', function(){
+    var rd = searchBody.querySelector('#search-results');
+    if (rd) { rd.innerHTML = renderSearchResults(lastSearchQuery); bindSearchResultEvents(); }
+  });
+
+  // Result action buttons
+  bindSearchResultEvents();
+}
+
+function getSearchPlaceholder() {
+  if (searchTab === 'system') return '输入星系名称搜索…';
+  if (searchTab === 'planet') return '输入星球/行星名称搜索…';
+  if (searchTab === 'npc') return '输入NPC名称搜索…';
+  return '输入资源名称搜索（产品/船只/设施…）';
+}
+
+function doSystemSearch(query) {
+  const results = searchNodes(query, false);
+  if (results.length === 0) { state.highlightedNodeIds = []; return '<div id="search-no-results">未找到匹配的星系</div>'; }
+  return results.map((r,i) => renderNodeResult(r.node, i, `🌌 ${FACTION_COLORS[r.node.colorIndex].name}`)).join('');
+}
+
+function doPlanetSearch(query) {
+  const q = query.toLowerCase().trim();
+  const results = [];
+  for (const node of state.nodes) {
+    if (isGray(node)) continue;
+    let bestScore = 999, bestMatch = '';
+    const ns = fuzzyScore(q, node.name);
+    if (ns < bestScore) { bestScore = ns; bestMatch = node.name; }
+    for (const planet of getPlanets(node)) {
+      const ps = fuzzyScore(q, planet.name);
+      if (ps < bestScore) { bestScore = ps; bestMatch = `🪐 ${planet.name}`; }
+    }
+    if (bestScore < 999) {
+      results.push({ node, score: bestScore, match: bestMatch });
+    }
+  }
+  results.sort((a,b) => a.score - b.score);
+  if (results.length === 0) { state.highlightedNodeIds = []; return '<div id="search-no-results">未找到匹配的星球（已排除灰色星域）</div>'; }
+  return results.map((r,i) => renderNodeResult(r.node, i, `${escapeHtml(r.match)} · ${FACTION_COLORS[r.node.colorIndex].name}`)).join('');
+}
+
+function enrichResourceResults(results) {
+  for (const r of results) {
+    let min = Infinity, max = 0;
+    for (const p of getPlanets(r.node)) {
+      const t = p.facilities && p.facilities.trade;
+      if (!t || !t.active) continue;
+      for (const item of (t.products||[])) {
+        var pm = item.priceMin || item.price || 0;
+        var px = item.priceMax || item.price || 0;
+        if (pm > 0 && pm < min) min = pm;
+        if (px > max) max = px;
+      }
+    }
+    r._pi = min < Infinity ? ' 💰'+min.toLocaleString()+'-'+max.toLocaleString() : '';
+  }
+}
+function sortResourceResults(results) {
+  var sel = document.getElementById('res-sort');
+  if (!sel || !sel.value) return;
+  if (sel.value === 'price_asc') {
+    results.sort(function(a,b){ return getMinPrice(a.node) - getMinPrice(b.node); });
+  } else if (sel.value === 'price_desc') {
+    results.sort(function(a,b){ return getMinPrice(b.node) - getMinPrice(a.node); });
+  }
+}
+function getMinPrice(node) {
+  var min = Infinity;
+  for (var i = 0; i < getPlanets(node).length; i++) {
+    var p = getPlanets(node)[i];
+    var t = p.facilities && p.facilities.trade;
+    if (!t || !t.active) continue;
+    for (var j = 0; j < (t.products||[]).length; j++) {
+      var pm = t.products[j].priceMin || t.products[j].price || 0;
+      if (pm > 0 && pm < min) min = pm;
+    }
+  }
+  return min === Infinity ? 0 : min;
+}
+
+function doResourceHighlightSearch(query) {
+  const results = searchResource(query);
+  if (results.length === 0) { state.highlightedNodeIds = []; return '<div id="search-no-results">未找到匹配的资源</div>'; }
+  enrichResourceResults(results);
+  sortResourceResults(results);
+  highlightResourceNodes(results.map(r => r.node.id));
+  return results.map((r,i) => renderNodeResult(r.node, i, '📦 '+r.reasons.join(' · ')+(r._pi||''))).join('');
+}
+
+function doResourceNearestSearch(query) {
+  const refId = state.selectedNodeId || state.startNodeId;
+  if (!refId) { state.highlightedNodeIds = []; return '<div id="search-no-results">请先在画布上选中一个参考星球</div>'; }
+  let results = findNearestResource(refId, query);
+  results = results.filter(r => r.node.id !== refId || r.dist !== 0);
+  if (results.length === 0) { state.highlightedNodeIds = []; return '<div id="search-no-results">未找到其他拥有该资源的星球</div>'; }
+  enrichResourceResults(results);
+  sortResourceResults(results);
+  highlightResourceNodes(results.map(r => r.node.id));
+  return results.map((r,i) => {
+    const distStr = r.dist === 0 ? '当前星球' : `距离: ${r.dist} 跳`;
+    return renderNodeResult(r.node, i, '📍 '+distStr+(r.reasons.length?' · '+r.reasons.join(' · '):'')+(r._pi||''));
+  }).join('');
+}
+
+function doNPCSearch(query) {
+  const q = query.toLowerCase().trim();
+  const results = [];
+  const seen = new Set();
+  for (const node of state.nodes) {
+    if (isGray(node)) continue;
+    let bestScore = 999, bestMatch = '';
+    for (const planet of getPlanets(node)) {
+      if (planet.facilities?.bar?.active) {
+        for (const npc of (planet.facilities.bar.npcs||[])) {
+          const ns = fuzzyScore(q, npc.name);
+          if (ns < bestScore) { bestScore = ns; bestMatch = `${npc.name} (${npc.role}) · 🪐 ${planet.name}`; }
+        }
+      }
+    }
+    if (bestScore < 999) {
+      results.push({ node, score: bestScore, match: bestMatch });
+    }
+  }
+  results.sort((a,b) => a.score - b.score);
+  if (results.length === 0) { state.highlightedNodeIds = []; return '<div id="search-no-results">未找到匹配的NPC</div>'; }
+  return results.map((r,i) => renderNodeResult(r.node, i, `👤 ${escapeHtml(r.match)} · ${FACTION_COLORS[r.node.colorIndex].name}`)).join('');
+}
+
+function renderSearchResults(query) {
+  if (!query.trim()) { state.highlightedNodeIds = []; return '<div id="search-no-results">输入关键词开始搜索</div>'; }
+  if (searchTab === 'system')   return doSystemSearch(query);
+  if (searchTab === 'planet')   return doPlanetSearch(query);
+  if (searchTab === 'npc')      return doNPCSearch(query);
+  if (searchTab === 'resource') return resourceMode==='highlight' ? doResourceHighlightSearch(query) : doResourceNearestSearch(query);
+  return '';
+}
+
+function highlightResourceNodes(nodeIds) {
+  state.highlightedNodeIds = nodeIds;
+  render();
+}
+
+function renderNodeResult(node, idx, subtitle) {
+  const color = FACTION_COLORS[node.colorIndex] || FACTION_COLORS[0];
+  const sub = subtitle || `${color.name}${isGray(node)?'':' · '+(hasAnyFacility(node)?'有设施':'无设施')}`;
+  return `
+    <div class="search-result" data-node-id="${node.id}">
+      <span class="sr-dot" style="background:${color.fill};border:1px solid ${color.stroke};"></span>
+      <div style="flex:1;min-width:0;">
+        <div class="sr-name">${escapeHtml(node.name)}</div>
+        <div class="sr-info">${sub}</div>
+      </div>
+      <div class="sr-acts">
+        <button class="sr-btn start" data-action="sr-start" data-nid="${node.id}">🟢 起点</button>
+        <button class="sr-btn end" data-action="sr-end" data-nid="${node.id}">🔴 终点</button>
+        <button class="sr-btn locate" data-action="sr-locate" data-nid="${node.id}">📍 定位</button>
+      </div>
+    </div>`;
+}
+
+function bindSearchResultEvents() {
+  // Click on result row = locate
+  searchBody.querySelectorAll('.search-result').forEach(row => {
+    row.addEventListener('click', () => {
+      const node = getNodeById(row.dataset.nodeId);
+      if (!node) return;
+      const rect = svgRoot.getBoundingClientRect();
+      state.scale = 1.5;
+      state.viewX = rect.width/2 - node.x * state.scale;
+      state.viewY = rect.height/2 - node.y * state.scale;
+      closeSearch();
+      render();
+      setStatus(`📍 已定位到: ${node.name}`);
+    });
+  });
+
+  searchBody.querySelectorAll('[data-action="sr-start"]').forEach(btn => {
+    btn.addEventListener('click',(e)=>{ e.stopPropagation();
+      state.startNodeId = btn.dataset.nid; state.endNodeId = null;
+      state.pathNodeIds = []; state.pathEdgeIds = [];
+      if (state.mode !== 'map') switchMode('map');
+      closeSearch();
+      setStatus(`🟢 起点: ${getNodeById(btn.dataset.nid)?.name||'?'} — 单击另一星球设终点`);
+      render();
+    });
+  });
+  searchBody.querySelectorAll('[data-action="sr-end"]').forEach(btn => {
+    btn.addEventListener('click',(e)=>{ e.stopPropagation();
+      if (!state.startNodeId) { setStatus('⚠️ 请先设置起点'); return; }
+      state.endNodeId = btn.dataset.nid;
+      computePath();
+      if (state.mode !== 'map') switchMode('map');
+      closeSearch();
+      setStatus(`🟢 ${getNodeById(state.startNodeId)?.name||'?'} → ${getNodeById(btn.dataset.nid)?.name||'?'}`);
+      render(); updatePathDisplay();
+    });
+  });
+  searchBody.querySelectorAll('[data-action="sr-locate"]').forEach(btn => {
+    btn.addEventListener('click',(e)=>{ e.stopPropagation();
+      const node = getNodeById(btn.dataset.nid);
+      if (!node) return;
+      // Center view on node with zoom
+      const rect = svgRoot.getBoundingClientRect();
+      state.scale = 1.5; // zoom in
+      state.viewX = rect.width/2 - node.x * state.scale;
+      state.viewY = rect.height/2 - node.y * state.scale;
+      // Auto-fit to make sure node is visible, but keep zoom level
+      closeSearch();
+      render();
+      setStatus(`📍 已定位到: ${node.name}`);
+    });
+  });
+}
+
+// ---- Mode Switch ----
+function switchMode(mode) {
+  state.mode=mode; state.selectedNodeId=null; state.editingPlanetId=null; clearPath();
+  state.highlightedNodeIds = []; state.viewNodeId=null;
+  document.getElementById('btn-editor').classList.toggle('active',mode==='editor');
+  document.getElementById('btn-map').classList.toggle('active',mode==='map');
+  if (mode==='map') { canvasWrap.classList.add('map-mode'); setStatus('🗺️ 地图模式 — 单击设起终点，右键查看详情'); }
+  else { canvasWrap.classList.remove('map-mode'); setStatus('✏️ 编辑器模式 — 双击画布添加星球'); }
+  statusPath.style.display='none';
+  state.activePanelTab='planet'; state.shipEditId=null; state.productEditId=null;
+  render();
+}
+
+function autoFitView() {
+  if (state.nodes.length===0) { state.viewX=0; state.viewY=0; state.scale=1; return; }
+  const r=svgRoot.getBoundingClientRect();
+  if (r.width===0||r.height===0) return;
+  let x1=Infinity,y1=Infinity,x2=-Infinity,y2=-Infinity;
+  for (const n of state.nodes) { if(n.x<x1)x1=n.x; if(n.y<y1)y1=n.y; if(n.x>x2)x2=n.x; if(n.y>y2)y2=n.y; }
+  const pad=80, bw=x2-x1+pad*2, bh=y2-y1+pad*2;
+  state.scale=Math.min(r.width/bw,r.height/bh,2);
+  state.viewX=(r.width-(x1+x2)*state.scale)/2;
+  state.viewY=(r.height-(y1+y2)*state.scale)/2;
+}
+
+// ---- Utility ----
+function escapeHtml(s) { const d={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}; return (s||'').replace(/[&<>"']/g,c=>d[c]); }
+
+// ---- Init ----
+function init() {
+  const loaded=loadData();
+  if (loaded && state.nodes.length>0) {
+    autoFitView();
+    setStatus(`📂 已加载 (${state.nodes.length}星球, ${state.edges.length}通道, ${state.ships.length}船只, ${state.products.length}产品)`);
+  } else { setStatus('🪐 就绪 — 双击画布添加第一个星球'); }
+  render();
+}
+
+window.addEventListener('resize',()=>render());
+
+// ===== Arkitect AI Chat (Knowledge Base + API) =====
+function loadKBConfig() {
+  try {
+    var raw = localStorage.getItem('spacerpg4_kb_config');
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return null;
+}
+var _kbConfig = loadKBConfig();
+const DEEPSEEK_KEY = (_kbConfig && _kbConfig.apiKey) || '';
+const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
+let chatHistory = [];
+
+function toggleChat() {
+  const panel = document.getElementById('chat-panel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) document.getElementById('chat-input').focus();
+}
+
+// ---- Knowledge Base ----
+const ARK_KB = {
+  tool: {
+    mapModes: '编辑器模式(编辑星系/行星/设施/通道)和地图模式。地图模式分导航子模式(设起点终点途径点寻路)和查看子模式(点击星系看行星详情)',
+    spaceStation: '在工具中布置空间站：①切换到地图模式→导航子模式 ②单击一个灰色星域节点 ③左侧栏勾选"布置空间站"。节点颜色变为棕金色，上方显示🛰️图标。',
+    pathfinding: '导航子模式下：单击设起点→单击设终点→自动BFS最短路径(绿色高亮)。Ctrl+单击添加途径点。可切换最短距离/无补给最短模式。',
+    search: '工具栏🔎搜索支持：星系名、星球名、NPC名、资源(产品/设施)。资源搜索可选全局高亮或最近距离(排除自身)。',
+    tradePrices: '编辑模式下🪐星球标签→选星系→选行星→勾选💰贸易中心→添加产品。点击产品旁的🔴/🟢/—可切换趋势。🎲按钮随机生成测试价格。',
+    territory: '工具栏🗺️领域按钮切换派系领域地图(Voronoi图)。每个有派系的星系用该派系颜色填充其泰森多边形。',
+    fuel: '无补给路径模式：输入FTL(最大无补给跳数)。蓝色(0)和红色(2)星系提供燃料。规则：终点无补给则最后一段×2≤FTL(找到更近补给点时Js+Jl≤FTL)。',
+  },
+  game: {
+    spaceStation: '游戏中建立空间站：①找一支舰队→存1M credits→找一颗离最近蓝色星球≥2跳的灰色星域→停下舰队→点左上角"布置空间站"→运送150吨Metal。',
+    refuel: '蓝色和红色星球的星系提供燃料补给。灰色星域和绿/黄/淡蓝星球无补给。',
+    factions: '6种派系/类型：蓝色星球、绿色星球、红色星球、黄色星球、淡蓝色星球、灰色星域。每个星系可设置独立派系属性(与颜色无关)。',
+    trade: '酒吧看新闻影响物价(📰→AI分析→设置趋势)。贸易中心看本地价格(💰→AI分析→更新最低/最高价)。同一产品不同星球价格不同。',
+  }
+};
+
+// Apply KB config from localStorage
+var _kbToolStr = '', _kbGameStr = '', _kbCustomStr = '';
+if (_kbConfig) {
+  if (_kbConfig.toolKB && _kbConfig.toolKB.length) _kbToolStr = _kbConfig.toolKB.join('\n');
+  if (_kbConfig.gameKB && _kbConfig.gameKB.length) _kbGameStr = _kbConfig.gameKB.join('\n');
+  if (_kbConfig.customRules && _kbConfig.customRules.length) _kbCustomStr = _kbConfig.customRules.join('\n');
+}
+// Merge with defaults if config KB is empty
+if (!_kbToolStr) _kbToolStr = Object.values(ARK_KB.tool).join('\n');
+if (!_kbGameStr) _kbGameStr = Object.values(ARK_KB.game).join('\n');
+
+// ---- API Functions (pre-computed answers) ----
+function api_findPath(nameA, nameB, mode) {
+  mode = mode || 'shortest';
+  var nA = fuzzyFindNode(nameA), nB = fuzzyFindNode(nameB);
+  if (!nA || !nB) return null;
+  var oldMode = state.pathMode, oldFtl = state.ftlRange;
+  state.pathMode = mode;
+  var path = bfs(nA.id, nB.id);
+  state.pathMode = oldMode;
+  if (!path) return null;
+  var names = path.map(function(id){ var n=getNodeById(id); return n?n.name:'?'; });
+  var dist = path.length - 1;
+  var maxStreak = 0, cur = 0;
+  for (var i = 0; i < path.length; i++) {
+    if (i === 0) continue;
+    var nd = getNodeById(path[i]);
+    if (nd && (nd.colorIndex===0||nd.colorIndex===2)) cur = 0;
+    else { cur++; maxStreak = Math.max(maxStreak, cur); }
+  }
+  return { path: names.join(' → '), distance: dist, maxNoRefuel: maxStreak, nodeIds: path };
+}
+
+function fuzzyFindNode(name) {
+  if (!name) return null;
+  var q = name.toLowerCase().trim();
+  var best = null, bestScore = 999;
+  for (var i = 0; i < state.nodes.length; i++) {
+    var n = state.nodes[i];
+    var s = _fz(q, n.name.toLowerCase());
+    if (s < bestScore) { bestScore = s; best = n; }
+    var planets = n.planets || [];
+    for (var j = 0; j < planets.length; j++) {
+      s = _fz(q, planets[j].name.toLowerCase());
+      if (s < bestScore) { bestScore = s; best = n; }
+    }
+  }
+  return bestScore < 100 ? best : null;
+}
+function _fz(q, t) { if (!q||!t) return 999; if (q===t) return -3; if (t.indexOf(q)===0) return -2; if (t.indexOf(q)>=0) return -1; return 999; }
+
+function api_searchNPC(name) {
+  var q = name.toLowerCase().trim(), results = [];
+  for (var i = 0; i < state.nodes.length; i++) {
+    var n = state.nodes[i]; if (isGray(n)) continue;
+    var planets = n.planets || [];
+    for (var j = 0; j < planets.length; j++) {
+      var p = planets[j]; var bar = (p.facilities||{}).bar;
+      if (!bar || !bar.active) continue;
+      for (var k = 0; k < (bar.npcs||[]).length; k++) {
+        var npc = bar.npcs[k];
+        if (_fz(q, npc.name.toLowerCase()) < 100 || _fz(q, npc.role.toLowerCase()) < 100) {
+          results.push({ npc: npc, planet: p.name, system: n.name, systemId: n.id });
+        }
+      }
+    }
+  }
+  return results;
+}
+
+function api_searchProduct(name) {
+  var q = name.toLowerCase().trim(), results = [];
+  for (var i = 0; i < state.nodes.length; i++) {
+    var n = state.nodes[i]; if (isGray(n)) continue;
+    var planets = n.planets || [];
+    for (var j = 0; j < planets.length; j++) {
+      var p = planets[j]; var trade = (p.facilities||{}).trade;
+      if (!trade || !trade.active) continue;
+      for (var k = 0; k < (trade.products||[]).length; k++) {
+        var item = trade.products[k]; var pid = item.productId || item;
+        var prod = getProductById(pid);
+        if (prod && prod.name.toLowerCase().indexOf(q) >= 0) {
+          results.push({ product: prod, priceMin: item.priceMin||0, priceMax: item.priceMax||0, trend: item.trend||0, planet: p.name, system: n.name, systemId: n.id });
+        }
+      }
+    }
+  }
+  results.sort(function(a,b){ return (a.priceMin||0) - (b.priceMin||0); });
+  return results;
+}
+
+function buildSystemPrompt() {
+  var summary = [];
+  summary.push('星图: '+state.nodes.length+'星系, '+state.edges.length+'通道, '+state.ships.length+'船, '+state.products.length+'产品');
+  // Detailed system list with explicit facility info
+  for (var i = 0; i < state.nodes.length; i++) {
+    var n = state.nodes[i];
+    var planets = (n.planets||[]).map(function(p){
+      var f = p.facilities||{}, parts = [p.name];
+      if (f.bar&&f.bar.active) {
+        var npcList = (f.bar.npcs||[]).map(function(npc){return npc.name+'('+npc.role+')';}).join(',');
+        parts.push('酒吧['+(npcList||'无NPC')+']');
+      }
+      if (f.mission) parts.push('任务中心');
+      if (f.shipyard&&f.shipyard.active) {
+        var shipNames = (f.shipyard.shipIds||[]).map(function(sid){
+          var s = getShipById(sid); return s?s.name:'?';
+        }).join(',');
+        parts.push('船坞['+(shipNames||'无船')+']');
+      }
+      if (f.equipment) parts.push('装备中心');
+      if (f.trade&&f.trade.active) {
+        var prods = (f.trade.products||[]).map(function(it){
+          var pid=it.productId||it; var pr=getProductById(pid);
+          return (pr?pr.name:pid)+':'+(it.priceMin||0)+'-'+(it.priceMax||0)+'('+({1:'🔴',0:'—','-1':'🟢'})[it.trend||0]+')';
+        }).join(',');
+        parts.push('贸易['+prods+']');
+      }
+      if (f.fleet) parts.push('舰队管理');
+      return parts.join(' | ');
+    }).join('; ');
+    summary.push(n.id+':'+n.name+(n.faction?'['+n.faction+']':'')+' → '+(planets||'灰色星域无行星'));
+  }
+  // Current tool state
+  var toolState = '当前模式:'+(state.mode==='editor'?'编辑器':'地图('+state.mapSubMode+')');
+  if (state.startNodeId && state.endNodeId) {
+    var sn = getNodeById(state.startNodeId), en = getNodeById(state.endNodeId);
+    toolState += ' | 已设路径:'+(sn?sn.name:'?')+'→'+(en?en.name:'?')+' 模式:'+state.pathMode;
+  }
+  if (state.viewNodeId) { var vn = getNodeById(state.viewNodeId); toolState += ' | 查看:'+(vn?vn.name:'?'); }
+
+  return '你是Arkitect，SpaceRPG4星图的AI助手。\n\n'+
+    '## 知识库\n'+
+    '### 工具操作\n'+_kbToolStr+'\n'+
+    '### 游戏机制\n'+_kbGameStr+'\n'+
+    (_kbCustomStr ? '### 用户自定义规则\n'+_kbCustomStr+'\n' : '')+'\n'+
+    '## 可用API(已在下方预计算好，直接引用结果)\n- findPath(星系A, 星系B, mode?) → 预计算路径\n- searchNPC(名字) → 预计算NPC位置\n- searchProduct(名字) → 预计算产品价格(按最低价排序)\n\n'+
+    '## 回答规则（严格遵守！）\n'+
+    '1. 寻路问题：必须使用预计算路径结果！不要编造跳数。如果预计算为空，说"请先在星图上设置起点终点"\n'+
+    '2. 设施查询：严格基于星图数据回答。如果数据中某星系没有船坞，就直说"没有船坞"。不要猜测或建议"可能有"！\n'+
+    '3. NPC/产品查询：使用预计算结果，如实报告找到或未找到\n'+
+    '4. 区分"工具内"vs"游戏中"：工具操作引用工具知识库，游戏操作引用游戏知识库\n'+
+    '5. 简洁中文，emoji辅助。不确定就说不知道，不要编造\n\n'+
+    '## 当前星图\n'+summary.join('\n')+'\n\n工具状态: '+toolState;
+}
+
+// Pre-compute answers for user question
+function precomputeForQuestion(msg) {
+  var pre = '';
+  var q = msg.toLowerCase();
+  // Detect path queries: "从X到Y" "X到Y怎么走" "X去Y"
+  var pathMatch = msg.match(/从\s*(\S+?)\s*到\s*(\S+?)(?:怎么|如何|的路|的路径|走|的走|$|\s|\?|？)/) || msg.match(/(\S+?)\s*到\s*(\S+?)\s*(?:怎么|如何|最|的|走|路径)/);
+  if (pathMatch && pathMatch[2]) {
+    // Clean up trailing text from second capture
+    pathMatch[2] = pathMatch[2].replace(/[怎么走路径的路线呢吗啊呀？?！!.。，,]+$/g, '').trim();
+  }
+  if (pathMatch) {
+    var a = pathMatch[1], b = pathMatch[2];
+    var path = api_findPath(a, b, 'shortest');
+    if (path) {
+      pre += '预计算路径('+a+'→'+b+'): '+path.path+' | 距离:'+path.distance+'跳 | 最长无补给段:'+path.maxNoRefuel+'跳\n';
+      var nopath = api_findPath(a, b, 'norefuel');
+      if (nopath) pre += '无补给路径: '+nopath.path+' | 距离:'+nopath.distance+'跳\n';
+      else pre += '无补给路径: 未计算(需FTL参数)\n';
+    }
+  }
+  // Detect shipyard query: "X有什么船" "X的舰船" "X船坞"
+  var shipMatch = msg.match(/(\S+?)(?:有什么|有哪些|的|有).*(?:船|舰|舰船|船坞)/);
+  if (shipMatch) {
+    var sysName = shipMatch[1];
+    var snode = fuzzyFindNode(sysName);
+    if (snode) {
+      pre += '预计算船坞查询('+sysName+'→'+snode.name+'): ';
+      var hasShipyard = false;
+      for (var si = 0; si < (snode.planets||[]).length; si++) {
+        var sp = snode.planets[si];
+        var sy = (sp.facilities||{}).shipyard;
+        if (sy && sy.active) {
+          hasShipyard = true;
+          var ships = (sy.shipIds||[]).map(function(sid){ var s = getShipById(sid); return s?s.name+'('+(s.type||'')+' 💰'+(s.price||0)+')':'?'; }).join(',');
+          pre += '有船坞: '+ships+'; ';
+        }
+      }
+      if (!hasShipyard) pre += '无船坞; ';
+      pre += '\n';
+    }
+  }
+
+  // Detect NPC search
+  var npcMatch = msg.match(/找\s*(\S+)/) || msg.match(/(\S+)\s*在哪里/) || msg.match(/NPC.*?(\S+)/i);
+  if (npcMatch) {
+    var npcName = npcMatch[1];
+    var npcs = api_searchNPC(npcName);
+    if (npcs.length > 0) {
+      pre += '预计算NPC查找('+npcName+'): ';
+      for (var i = 0; i < npcs.length; i++) {
+        pre += npcs[i].npc.name+'('+npcMatch[i]?.npc?.role+') 在 '+npcs[i].system+'/'+npcs[i].planet+'; ';
+      }
+      pre += '\n';
+    } else { pre += '未找到NPC: '+npcName+'\n'; }
+  }
+  // Detect product search
+  var prodMatch = msg.match(/(?:哪里|在哪|找)\s*.*?(?:买|卖|有)\s*(\S+)/) || msg.match(/(\S+)\s*(?:价格|多少钱)/);
+  if (prodMatch) {
+    var prodName = prodMatch[1];
+    var prods = api_searchProduct(prodName);
+    if (prods.length > 0) {
+      pre += '预计算产品('+prodName+'): ';
+      for (var i = 0; i < Math.min(prods.length, 8); i++) {
+        var tr = prods[i].trend||0, trIcon = tr===1?'🔴':tr===-1?'🟢':'—';
+        pre += prods[i].system+'/'+prods[i].planet+' 💰'+prods[i].priceMin+'-'+prods[i].priceMax+' '+trIcon+'; ';
+      }
+      pre += '\n';
+    } else { pre += '未找到产品: '+prodName+'\n'; }
+  }
+  return pre;
+}
+
+function api_findNearestShip(shipName, fromName) {
+  var q = shipName.toLowerCase().trim();
+  var targets = [];
+  for (var i = 0; i < state.nodes.length; i++) {
+    var n = state.nodes[i]; if (isGray(n)) continue;
+    for (var j = 0; j < (n.planets||[]).length; j++) {
+      var sy = (n.planets[j].facilities||{}).shipyard;
+      if (!sy || !sy.active) continue;
+      for (var k = 0; k < (sy.shipIds||[]).length; k++) {
+        var s = getShipById(sy.shipIds[k]);
+        if (s && s.name.toLowerCase().indexOf(q) >= 0) {
+          targets.push({ systemId: n.id, systemName: n.name, planetName: n.planets[j].name, ship: s });
+          break;
+        }
+      }
+    }
+  }
+  if (targets.length === 0 || !fromName) return targets;
+  var fromNode = fuzzyFindNode(fromName);
+  if (!fromNode) return targets;
+  // Find nearest target by BFS distance
+  for (var t = 0; t < targets.length; t++) {
+    var path = bfs(fromNode.id, targets[t].systemId);
+    targets[t].distance = path ? path.length - 1 : 999;
+  }
+  targets.sort(function(a,b){ return a.distance - b.distance; });
+  return targets;
+}
+
+function executeAPICall(fnName, args) {
+  try {
+    var a = JSON.parse(args);
+    if (fnName === 'findPath') return JSON.stringify(api_findPath(a.from, a.to, a.mode||'shortest'));
+    if (fnName === 'searchNPC') return JSON.stringify(api_searchNPC(a.name));
+    if (fnName === 'searchProduct') return JSON.stringify(api_searchProduct(a.name));
+    if (fnName === 'findNearestShip') return JSON.stringify(api_findNearestShip(a.shipName, a.from));
+    if (fnName === 'getSystemInfo') {
+      var node = fuzzyFindNode(a.name); if (!node) return 'null';
+      var planets = (node.planets||[]).map(function(p){var f=p.facilities||{};return {name:p.name,facilities:f};});
+      return JSON.stringify({id:node.id,name:node.name,faction:node.faction,colorIndex:node.colorIndex,planets:planets});
+    }
+    return '{"error":"unknown function"}';
+  } catch(e) { return '{"error":"'+e.message+'"}'; }
+}
+
+async function sendChat() {
+  var input = document.getElementById("chat-input");
+  var msg = input.value.trim();
+  if (!msg) return;
+  // 每次发送前重新加载配置（支持热更新）
+  _kbConfig = loadKBConfig();
+  var key = (_kbConfig && _kbConfig.apiKey) || '';
+  if (!key) { addChatMessage('⚠️ 请先在 kb_config.html 中配置 API Key，然后刷新本页面。', 'ai'); return; }
+  input.value = "";
+  addChatMessage(msg, "user");
+  document.getElementById("chat-loading").style.display = "block";
+  try {
+    var sp = buildSystemPrompt() + "\n\n## 函数调用协议\n"+
+      "如果你需要精确数据，使用以下格式调用函数：\n"+
+      "[CALL:findPath]{\"from\":\"星系名\",\"to\":\"星系名\",\"mode\":\"shortest|norefuel\"}\n"+
+      "[CALL:searchNPC]{\"name\":\"NPC名\"}\n"+
+      "[CALL:searchProduct]{\"name\":\"产品名\"}\n"+
+      "[CALL:findNearestShip]{\"shipName\":\"船名\",\"from\":\"起点星系\"}\n"+
+      "[CALL:getSystemInfo]{\"name\":\"星系名\"}\n"+
+      "调用后系统返回JSON结果，你再基于真实数据回答。不要在无数据时编造！\n"+
+      "注意：[CALL:xxx]必须单独一行。";
+    var r1 = await fetch(DEEPSEEK_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json","Authorization":"Bearer "+key},
+      body: JSON.stringify({model:"deepseek-chat",messages:[{role:"system",content:sp},{role:"user",content:msg}],max_tokens:500,temperature:0})
+    });
+    var reply1 = (await r1.json()).choices[0].message.content;
+    var callRe = /\[CALL:(\w+)\]\s*(\{[^}]+\})/g;
+    var fnResults = "";
+    var m;
+    while ((m = callRe.exec(reply1)) !== null) {
+      fnResults += "\n函数"+m[1]+"("+m[2]+")返回:\n" + executeAPICall(m[1], m[2]) + "\n";
+    }
+    var userMsg2 = fnResults ? (msg + "\n\n[系统注入-函数调用结果]" + fnResults + "\n请基于以上真实数据回答。") : msg;
+    var r2 = await fetch(DEEPSEEK_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json","Authorization":"Bearer "+key},
+      body: JSON.stringify({model:"deepseek-chat",messages:[{role:"system",content:sp},{role:"user",content:userMsg2}],max_tokens:1500,temperature:0.3})
+    });
+    var reply2 = (await r2.json()).choices[0].message.content;
+    var finalReply = fnResults ? reply2 : reply1;
+    addChatMessage(finalReply, "ai");
+    chatHistory.push({role:"user",content:msg});
+    chatHistory.push({role:"assistant",content:finalReply});
+  } catch(e) {
+    addChatMessage("连接失败: "+e.message, "ai");
+  }
+  document.getElementById("chat-loading").style.display = "none";
+}
+
+function renderMarkdown(text) {
+  // Escape HTML first
+  var html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // Code blocks ```
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+  // Inline code `
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // Bold ** or __
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  html = html.replace(/__([^_]+)__/g, '<b>$1</b>');
+  // Italic * or _
+  html = html.replace(/\*([^*]+)\*/g, '<i>$1</i>');
+  html = html.replace(/_([^_]+)_/g, '<i>$1</i>');
+  // Headers ###
+  html = html.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+  // Unordered lists
+  html = html.replace(/^[\-\*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+  // Ordered lists
+  html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+  // Horizontal rule
+  html = html.replace(/^---+$/gm, '<hr>');
+  // Line breaks
+  html = html.replace(/\n\n/g, '<br><br>');
+  html = html.replace(/\n/g, '<br>');
+  return html;
+}
+
+function addChatMessage(text, role) {
+  var container = document.getElementById('chat-messages');
+  var div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.innerHTML = role === 'ai' ? renderMarkdown(text) : text.replace(/\n/g,'<br>');
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+// ===== 新闻轮询（左下角日志区，最多5条，可折叠） =====
+const _newsEntries = [];
+let _lastNewsTime = '__first__';  // 首次轮询记下当前时间，不显示旧新闻
+let _newsCollapsed = true;
+document.getElementById('news-log').addEventListener('click', function(){
+  _newsCollapsed = !_newsCollapsed;
+  if (_newsCollapsed) {
+    document.getElementById('news-log').innerHTML = '<div style="color:#ff8800;font-size:11px;">📰 新闻日志 (点击展开)</div>';
+  } else {
+    renderNewsLog();
+  }
+});
+document.getElementById('news-log').innerHTML = '<div style="color:#ff8800;font-size:11px;">📰 新闻日志 (点击展开)</div>';
+function renderNewsLog() {
+  if (_newsCollapsed) return;
+  const log = document.getElementById('news-log');
+  let html = '';
+  for (const e of _newsEntries) {
+    html += `<div class="news-entry"><span class="ne-time">${e.time||''}</span>`;
+    for (const u of (e.updates||[])) {
+      html += `<div><span class="ne-system">${u.system}</span></div>`;
+      for (const item of (u.items||[])) {
+        html += `<div class="ne-items" style="padding-left:8px;">${item}</div>`;
+      }
+    }
+    html += '</div>';
+  }
+  log.innerHTML = html || '<div style="color:#888;font-size:10px;">等待新闻更新...</div>';
+}
+setInterval(async ()=>{
+  try {
+    const r = await fetch('http://127.0.0.1:8765/news.json');
+    const news = await r.json();
+    if (news.time && news.time !== _lastNewsTime) {
+      // 首次轮询只记时间，不回放旧新闻
+      if (_lastNewsTime === '__first__') { _lastNewsTime = news.time; return; }
+      _lastNewsTime = news.time;
+      _newsEntries.unshift(news);
+      if (_newsEntries.length > 5) _newsEntries.length = 5;
+      renderNewsLog();
+      // 自动刷新星图数据（从服务端同步OCR/AI修改后的JSON）
+      try {
+        const r2 = await fetch('http://127.0.0.1:8765/starmap.json');
+        const data = await r2.json();
+        state.nodes = data.nodes; state.edges = data.edges;
+        state.ships = data.ships||[]; state.products = data.products||[];
+        render();
+        saveData(); // 同步回localStorage
+      } catch(e2){}
+    }
+  } catch(e){} // 服务器未启动时静默
+}, 3000);
+
+init();
+
+// ============================================================
+// SpaceRPG4 Price Trend API
+// ============================================================
+// 外部AI/脚本可通过以下接口调整星系物价趋势
+//   spacerpgAPI.setTrend(systemId, planetId, productId, trend, price?)
+//     trend: -1=跌🟢  0=平—  1=涨🔴
+//   spacerpgAPI.setTrends([{systemId,planetId,productId,trend,price},...])
+//   spacerpgAPI.getTrends(systemId, planetId?)
+//   spacerpgAPI.refresh()
+window.spacerpgAPI = {
+  setTrend(systemId, planetId, productId, trend, price) {
+    const node = getNodeById(systemId);
+    if (!node) return { error: '星系不存在: '+systemId };
+    const planet = getPlanetById(node, planetId);
+    if (!planet) return { error: '行星不存在: '+planetId };
+    if (!planet.facilities?.trade?.products) return { error: '该行星无贸易中心' };
+    const item = planet.facilities.trade.products.find(x => (x.productId||x) === productId);
+    if (!item) return { error: '产品不在该行星贸易列表中: '+productId };
+    item.trend = trend;
+    if (price !== undefined) { item.priceMin = price; item.priceMax = price; }
+    saveData();
+    return { success: true };
+  },
+  setTrends(updates) {
+    let updated = 0;
+    for (const u of updates) { const r = this.setTrend(u.systemId, u.planetId, u.productId, u.trend, u.price); if (r.success) updated++; }
+    saveData();
+    return { success: true, updated };
+  },
+  getTrends(systemId, planetId) {
+    const node = getNodeById(systemId);
+    if (!node) return [];
+    const planets = planetId ? [getPlanetById(node, planetId)].filter(Boolean) : getPlanets(node);
+    const results = [];
+    for (const p of planets) {
+      if (!p.facilities?.trade?.products) continue;
+      for (const item of p.facilities.trade.products) {
+        const pid = item.productId || item; const prod = getProductById(pid);
+        results.push({ productId:pid, productName:prod?.name||'?', price:item.price||0, trend:item.trend||0, planetId:p.id, planetName:p.name });
+      }
+    }
+    return results;
+  },
+  refresh() { render(); }
+};
+</script>
+</body>
+</html>

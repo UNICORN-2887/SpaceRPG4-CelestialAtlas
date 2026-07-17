@@ -1,0 +1,9 @@
+# Temp/backup files
+*_fix*.py
+*_copy*.html
+spacerpg4_map copy*.html
+_*.json
+_*.png
+*.pyc
+__pycache__/
+.DS_Store

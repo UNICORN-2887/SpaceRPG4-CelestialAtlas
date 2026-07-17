@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceRPG4 知识库配置</title>
+<style>
+  :root {
+    --bg: #0a0e17; --panel-bg: #111827; --border: #1e293b;
+    --text: #cbd5e1; --text-dim: #64748b; --text-bright: #f1f5f9;
+    --accent: #3b82f6; --danger: #ef4444; --success: #10b981;
+    --radius: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px;
+  }
+  .container { max-width:900px; margin:0 auto; }
+  h1 { color: var(--text-bright); margin-bottom:8px; font-size:22px; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--text-dim); font-size:13px; margin-bottom:24px; }
+  .section { background:var(--panel-bg); border:1px solid var(--border); border-radius:var(--radius); padding:18px; margin-bottom:16px; }
+  .section h2 { font-size:15px; color:var(--text-bright); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .section label { display:block; font-size:12px; color:var(--text-dim); margin-bottom:4px; }
+  .section input[type=text], .section input[type=password], .section textarea {
+    width:100%; padding:8px 12px; border:1px solid var(--border); background:var(--bg);
+    color:var(--text-bright); border-radius:4px; font-size:13px; outline:none; font-family:inherit;
+    margin-bottom:8px;
+  }
+  .section textarea { resize:vertical; min-height:50px; line-height:1.5; }
+  .section input:focus, .section textarea:focus { border-color:var(--accent); }
+  .row { display:flex; gap:12px; }
+  .row > * { flex:1; }
+  .btn {
+    padding:6px 14px; border:none; border-radius:var(--radius); cursor:pointer; font-size:12px;
+    font-weight:600; transition:all 0.15s;
+  }
+  .btn-primary { background:var(--accent); color:#fff; }
+  .btn-primary:hover { opacity:0.9; }
+  .btn-danger { background:var(--danger); color:#fff; }
+  .btn-sm { padding:3px 8px; font-size:11px; }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+  .btn-outline:hover { border-color:var(--accent); }
+  .btn-row { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .kb-entry { display:flex; gap:6px; align-items:flex-start; margin-bottom:8px; }
+  .kb-entry textarea { flex:1; min-height:40px; margin-bottom:0; }
+  .kb-entry .btn { flex-shrink:0; margin-top:0; }
+  .kb-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .toast { position:fixed; bottom:20px; right:20px; background:var(--success); color:#fff;
+    padding:10px 20px; border-radius:var(--radius); font-size:13px; z-index:100;
+    animation: fadeInOut 2s ease; display:none; }
+  @keyframes fadeInOut { 0%{opacity:0;transform:translateY(10px)} 20%{opacity:1;transform:translateY(0)} 80%{opacity:1} 100%{opacity:0} }
+  .hint { font-size:11px; color:var(--text-dim); margin-top:2px; }
+  .add-btn { color:var(--accent); cursor:pointer; font-size:12px; }
+  .add-btn:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🚀 Space<span>RPG4</span> 知识库配置</h1>
+  <div class="subtitle">配置 AI 助手知识库和 API 密钥。保存后星图工具自动读取。</div>
+
+  <!-- API Key -->
+  <div class="section">
+    <h2>🔑 DeepSeek API（必填）</h2>
+    <div class="row">
+      <div><label>密钥名称</label><input type="text" id="api-name" placeholder="例如: GUNDAM"></div>
+      <div><label>API Key</label><input type="password" id="api-key" placeholder="sk-..."></div>
+    </div>
+    <div class="hint">密钥存储在浏览器 localStorage，不会上传到任何服务器。</div>
+  </div>
+
+  <!-- Tool KB -->
+  <div class="section">
+    <div class="kb-header"><h2>🛠️ 工具操作知识库</h2><span class="add-btn" onclick="addKBEntry('tool')">+ 添加条目</span></div>
+    <div id="kb-tool-list"></div>
+  </div>
+
+  <!-- Game KB -->
+  <div class="section">
+    <div class="kb-header"><h2>🎮 游戏机制知识库</h2><span class="add-btn" onclick="addKBEntry('game')">+ 添加条目</span></div>
+    <div id="kb-game-list"></div>
+  </div>
+
+  <!-- Custom Rules -->
+  <div class="section">
+    <div class="kb-header"><h2>📋 自定义规则</h2><span class="add-btn" onclick="addRule()">+ 添加规则</span></div>
+    <div id="kb-rules-list"></div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="saveConfig()">💾 保存配置</button>
+    <button class="btn btn-outline" onclick="loadDefaults()">🔄 恢复默认</button>
+    <button class="btn btn-outline" onclick="exportConfig()">📤 导出JSON</button>
+    <button class="btn btn-outline" onclick="document.getElementById('file-import').click()">📥 导入JSON</button>
+    <input type="file" id="file-import" accept=".json" style="display:none" onchange="importConfig(this)">
+    <button class="btn btn-outline" onclick="exportForPython()">🐍 导出给Python</button>
+    <button class="btn btn-outline" onclick="window.open('spacerpg4_map.html','_blank')">🗺️ 打开星图</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'spacerpg4_kb_config';
+
+const DEFAULTS = {
+  apiName: '',
+  apiKey: '',
+  toolKB: [],
+  gameKB: [],
+  customRules: [],
+};
+
+function emptyConfig() {
+  return { apiName:'', apiKey:'', toolKB:[], gameKB:[], customRules:[] };
+}
+
+function loadConfig() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return emptyConfig();
+}
+
+function saveConfig() {
+  var config = {
+    apiName: document.getElementById('api-name').value.trim(),
+    apiKey: document.getElementById('api-key').value.trim(),
+    toolKB: collectEntries('kb-tool-list'),
+    gameKB: collectEntries('kb-game-list'),
+    customRules: collectEntries('kb-rules-list'),
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+  showToast('✅ 配置已保存');
+}
+
+function collectEntries(listId) {
+  var items = [];
+  var list = document.getElementById(listId);
+  var textareas = list.querySelectorAll('textarea');
+  for (var i = 0; i < textareas.length; i++) {
+    var v = textareas[i].value.trim();
+    if (v) items.push(v);
+  }
+  return items;
+}
+
+function addKBEntry(type) {
+  var listId = type === 'tool' ? 'kb-tool-list' : 'kb-game-list';
+  renderEntry(listId, '');
+}
+
+function addRule() {
+  renderEntry('kb-rules-list', '');
+}
+
+function renderEntry(listId, value) {
+  var list = document.getElementById(listId);
+  var div = document.createElement('div');
+  div.className = 'kb-entry';
+  div.innerHTML = '<textarea placeholder="输入知识条目...">' + (value||'') + '</textarea>' +
+    '<button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">✕</button>';
+  list.appendChild(div);
+}
+
+function renderAllEntries(listId, items) {
+  var list = document.getElementById(listId);
+  list.innerHTML = '';
+  for (var i = 0; i < items.length; i++) {
+    renderEntry(listId, items[i]);
+  }
+}
+
+function loadDefaults() {
+  if (!confirm('确定恢复默认？将清空所有自定义内容。')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  populateForm(emptyConfig());
+  showToast('🔄 已恢复默认');
+}
+
+function populateForm(config) {
+  document.getElementById('api-name').value = config.apiName || '';
+  document.getElementById('api-key').value = config.apiKey || '';
+  renderAllEntries('kb-tool-list', config.toolKB || []);
+  renderAllEntries('kb-game-list', config.gameKB || []);
+  renderAllEntries('kb-rules-list', config.customRules || []);
+}
+
+function exportConfig() {
+  var config = loadConfig();
+  var blob = new Blob([JSON.stringify(config, null, 2)], {type:'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'spacerpg4_kb_config.json';
+  a.click();
+}
+
+function importConfig(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var config = JSON.parse(e.target.result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+      populateForm(config);
+      showToast('📥 配置已导入');
+    } catch(err) { alert('无效的配置文件'); }
+  };
+  reader.readAsText(file);
+}
+
+function exportForPython() {
+  var config = loadConfig();
+  var pyConfig = { apiKey: config.apiKey, apiName: config.apiName };
+  var blob = new Blob([JSON.stringify(pyConfig, null, 2)], {type:'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '_api_config.json';
+  a.click();
+  showToast('🐍 请将下载的 _api_config.json 放到脚本目录');
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  setTimeout(function(){ t.style.display = 'none'; }, 2000);
+}
+
+// Init
+var config = loadConfig();
+if (!config.apiKey && !config.toolKB.length && !config.gameKB.length) {
+  // First time: pre-populate with some examples
+  config.toolKB = [
+    '编辑器模式用于编辑星系/行星/设施/通道。地图模式分导航子模式(设起点终点途径点寻路)和查看子模式(点击星系看行星详情)。',
+    '在工具中布置空间站：切换到地图模式→导航子模式→单击灰色星域节点→左侧栏勾选"布置空间站"。',
+    '导航子模式下单击设起点→单击设终点→自动BFS最短路径。Ctrl+单击添加途径点。可切换最短距离/无补给最短模式。',
+    '工具栏搜索支持星系名、星球名、NPC名、资源(产品/设施)。资源搜索可选全局高亮或最近距离。',
+    '无补给路径：输入FTL。蓝(0)/红(2)星系提供燃料。终点无补给时最后段×2≤FTL。',
+  ];
+  config.gameKB = [
+    '游戏中建立空间站：找舰队→存1M credits→离最近蓝色星球≥2跳的灰色星域→停下舰队→布置空间站→运送150吨Metal。',
+    '蓝色和红色星球提供燃料补给。灰色星域和绿/黄/淡蓝星球无补给。',
+    '6种派系/类型：蓝/绿/红/黄/淡蓝/灰。星系颜色和派系独立。',
+    '酒吧新闻影响物价(OCR→AI分析→趋势)。贸易中心看本地价格(OCR→AI分析→更新价格)。买卖船只在船坞，不在贸易中心。',
+  ];
+  config.customRules = [
+    '回答风格：简洁、直接、用中文。用emoji辅助。',
+    '区分"网页工具操作"和"游戏中操作"。',
+    '寻路问题必须调用API获取真实路径，不要编造。',
+    '设施信息严格基于星图数据，不确定就说不知道。',
+  ];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+}
+populateForm(config);
+</script>
+</body>
+</html>
