@@ -87,7 +87,13 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/":
             self.serve_page()
         elif self.path == "/api/entries":
-            self.serve_json(self.get_all_entries())
+            threshold = 0.72
+            if '?' in self.path:
+                try: threshold = float(self.path.split('=')[1])
+                except: pass
+            self.serve_json(self.get_all_entries(threshold))
+        elif self.path == "/api/raw":
+            self.serve_json(self.get_all_entries(1.0))
         elif self.path == "/api/defaults":
             self.serve_json(get_defaults())
         elif self.path == "/sync":
@@ -148,7 +154,7 @@ class Handler(BaseHTTPRequestHandler):
             print(f"AI dedup error: {ex}")
             return entries_list, []
 
-    def get_all_entries(self):
+    def get_all_entries(self, threshold=0.72):
         subs = fetch_submissions()
         defaults = get_defaults()
         all_entries = {}
@@ -156,16 +162,25 @@ class Handler(BaseHTTPRequestHandler):
             for cat in ["toolKB", "gameKB", "customRules"]:
                 for entry in sub.get(cat, []):
                     k = entry.strip()
-                    if self.fuzzy_match_default(k, defaults): continue
+                    if self.fuzzy_match_default(k, defaults, threshold): continue
                     if k not in all_entries:
                         all_entries[k] = {"cat": cat, "entry": entry, "authors": []}
                     all_entries[k]["authors"].append(sub["author"])
 
         entries_list = list(all_entries.values())
-        # AI全局去重
         if len(entries_list) > 1:
             entries_list, _merged = self.ai_dedup_entries(entries_list)
         return entries_list
+
+    def fuzzy_match_default(self, entry, defaults, threshold=0.72):
+        e = entry.replace(' ', '').replace('\n', '')
+        for d in defaults:
+            d2 = d.replace(' ', '').replace('\n', '')
+            if e == d2: return True
+            if len(e) > 10 and len(d2) > 10 and (e.find(d2) >= 0 or d2.find(e) >= 0): return True
+        for d in defaults:
+            if self.similarity(entry.replace(' ',''), d.replace(' ','')) >= threshold: return True
+        return False
 
     def handle_approve(self):
         content_len = int(self.headers.get('Content-Length', 0))
