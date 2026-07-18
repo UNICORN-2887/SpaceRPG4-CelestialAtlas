@@ -223,8 +223,8 @@
       <div class="leg-item">💰 贸易中心</div><div class="leg-item">🏛️ 舰队管理</div>
     </div>
     <div id="legend2">
-      <div class="leg-item">🔴 价格上涨</div><div class="leg-item">🟢 价格下跌</div>
-      <div class="leg-item">— 价格平稳</div>
+      <div class="leg-item">🔴 涨 🟢 跌 — 平</div>
+      <div id="legend2-products"></div>
     </div>
   </div>
 </div>
@@ -942,6 +942,11 @@ function render() {
 
   // Legend visibility
   legendBox.style.display = (state.nodes.some(n=>!isGray(n) && hasAnyFacility(n))) ? 'block' : 'none';
+  // Update product legend
+  var pl2 = document.getElementById('legend2-products');
+  if (pl2 && state.products.length > 0) {
+    pl2.innerHTML = state.products.map(function(p){ return '<div class=\"leg-item\">'+p.icon+' '+p.name+'</div>'; }).join('');
+  }
 }
 
 function isFacilityActive(node, key) {
