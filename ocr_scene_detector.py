@@ -151,12 +151,54 @@ def load_json_region(path):
         with open(path, 'r') as f: return json.load(f)
     return None
 
+# 预设区域（所有用户的MuMu模拟器布局一致，可直接使用）
+PRESET_REGIONS = {
+    'refuel':     [1449, 923, 1561, 971],
+    'planet':     [283, 25, 888, 88],
+    'scene':      [158, 32, 584, 89],     # Bar/Trade检测
+    'news':       [[155, 283, 912, 1019]], # 新闻OCR（Bar场景）
+    'trade':      [1632, 20, 1916, 1006], # 价格OCR（Trade场景）
+}
+
+def apply_presets():
+    global refuel_region, planet_region, watch_region, ocr_regions_data, trade_region_data
+    refuel_region = PRESET_REGIONS['refuel']
+    planet_region = PRESET_REGIONS['planet']
+    watch_region = PRESET_REGIONS['scene']
+    ocr_regions_data = PRESET_REGIONS['news']
+    trade_region_data = PRESET_REGIONS['trade']
+    # 保存到文件（下次启动直接加载）
+    with open(REFUEL_REGION_JSON, 'w') as f: json.dump(refuel_region, f)
+    with open(PLANET_REGION_JSON, 'w') as f: json.dump(planet_region, f)
+    with open(REGION_JSON, 'w') as f: json.dump(watch_region, f)
+    with open(OCR_REGIONS_JSON, 'w') as f: json.dump(ocr_regions_data, f)
+    with open(TRADE_REGION_JSON, 'w') as f: json.dump(trade_region_data, f)
+    print("✅ 已应用预设识别区域")
+
+# 检查是否已有保存的区域
 refuel_region = load_json_region(REFUEL_REGION_JSON)
 planet_region = load_json_region(PLANET_REGION_JSON)
 trade_region_data = load_json_region(TRADE_REGION_JSON)
-if refuel_region: print(f"📂 REFUEL区域: {refuel_region}")
-if planet_region: print(f"📂 星球名区域: {planet_region}")
-if trade_region_data: print(f"📂 Trade区域: {trade_region_data}")
+watch_region = load_region()
+ocr_regions_data = load_json_region(OCR_REGIONS_JSON) if os.path.exists(OCR_REGIONS_JSON) else None
+
+has_saved = refuel_region and planet_region and watch_region and trade_region_data
+
+if not has_saved:
+    print("\n📐 未检测到识别区域配置")
+    print("   [1] 应用预设区域（推荐，MuMu模拟器通用）")
+    print("   [2] 手动标定区域（自定义布局）")
+    choice = input("   请选择 (1/2): ").strip()
+    if choice == '2':
+        print("   进入手动标定模式...")
+    else:
+        apply_presets()
+else:
+    print(f"📂 已加载保存的区域")
+    if refuel_region: print(f"   REFUEL: {refuel_region}")
+    if planet_region: print(f"   星球名: {planet_region}")
+    if watch_region: print(f"   Bar/Trade: {watch_region}")
+    if trade_region_data: print(f"   Trade价格: {trade_region_data}")
 
 # 加载星图
 if os.path.exists(STARMAP_JSON):
