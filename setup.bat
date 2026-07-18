@@ -17,7 +17,7 @@ echo [OK] Python detected
 
 echo.
 echo Installing dependencies...
-pip install easyocr opencv-python numpy Pillow requests -q
+pip install easyocr opencv-python "numpy<2" Pillow requests scikit-image -q
 echo [OK] Dependencies installed
 echo.
 

@@ -11,10 +11,11 @@ def _ensure(pkg, imp):
     try: __import__(imp); return
     except: subprocess.check_call([sys.executable, '-m', 'pip', 'install', pkg, '-q'])
 _ensure('opencv-python', 'cv2')
-_ensure('numpy', 'numpy')
+_ensure('numpy<2', 'numpy')
 _ensure('easyocr', 'easyocr')
 _ensure('requests', 'requests')
 _ensure('Pillow', 'PIL')
+_ensure('scikit-image', 'skimage')
 
 import json, time, re, threading
 import cv2, numpy as np, easyocr, requests
