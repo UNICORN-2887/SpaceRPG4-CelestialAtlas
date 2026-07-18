@@ -112,7 +112,7 @@ class Handler(BaseHTTPRequestHandler):
             if len(e) > 10 and len(d2) > 10 and (e.find(d2) >= 0 or d2.find(e) >= 0): return True
         # 用共同字符比例判断
         for d in defaults:
-            if self.similarity(e, d) >= 0.5: return True
+            if self.similarity(e, d) >= 0.72: return True
         return False
 
     def similarity(self, a, b):
