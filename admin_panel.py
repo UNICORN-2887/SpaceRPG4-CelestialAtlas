@@ -10,6 +10,8 @@ IMAP_SERVER = "imap.qq.com"
 EMAIL_ADDR = "2198823120@qq.com"
 EMAIL_PWD = "bvbgoplsnkijecfb"
 KB_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "kb_config.html")
+BLOG_REPO = r"E:\Project\my_website\My_blog"
+BLOG_KB_PATH = os.path.join(BLOG_REPO, "public", "spacerpg4", "kb_config.html")
 PORT = 8888
 
 # 全局缓存
@@ -88,6 +90,8 @@ class Handler(BaseHTTPRequestHandler):
             self.serve_json(self.get_all_entries())
         elif self.path == "/api/defaults":
             self.serve_json(get_defaults())
+        elif self.path == "/sync":
+            self.handle_sync()
         elif self.path.startswith("/approve"):
             self.handle_approve()
         else:
@@ -119,6 +123,28 @@ class Handler(BaseHTTPRequestHandler):
         if approved:
             self.update_config(approved)
         self.serve_json({"ok": True, "count": len(approved)})
+
+    def handle_sync(self):
+        """同步kb_config到博客仓库并push"""
+        import subprocess, shutil
+        result = []
+        try:
+            # 1. 复制到博客仓库
+            shutil.copy2(KB_CONFIG_PATH, BLOG_KB_PATH)
+            result.append("已复制到博客仓库")
+            # 2. Git add + commit + push
+            r = subprocess.run(["git", "add", "public/spacerpg4/kb_config.html"], cwd=BLOG_REPO, capture_output=True, text=True)
+            r = subprocess.run(["git", "commit", "-m", "更新公共知识库（来自管理员审核）"], cwd=BLOG_REPO, capture_output=True, text=True)
+            if r.returncode == 0:
+                result.append("已提交")
+            r = subprocess.run(["git", "push"], cwd=BLOG_REPO, capture_output=True, text=True)
+            if r.returncode == 0:
+                result.append("已推送 → Cloudflare自动部署")
+            else:
+                result.append("推送失败: " + r.stderr[:100])
+        except Exception as ex:
+            result.append("同步失败: " + str(ex))
+        self.serve_json({"ok": True, "result": "; ".join(result)})
 
     def update_config(self, approved):
         if not os.path.exists(KB_CONFIG_PATH): return
@@ -197,24 +223,39 @@ async function load(){
   document.getElementById("content").innerHTML=h;
   document.getElementById("loading").style.display="none";
 }
-async function approve(){
+async function approve(andSync){
   var checks=document.querySelectorAll("input[type=checkbox]:checked");
   var approved=[];
   for(var c of checks){
     approved.push({cat:c.dataset.cat,entry:c.dataset.entry});
   }
   if(!approved.length){alert("请先勾选条目");return}
-  if(!confirm("确认批准 "+approved.length+" 条条目？")) return;
+  var msg=andSync?"确认批准并部署 "+approved.length+" 条？":"确认批准 "+approved.length+" 条？";
+  if(!confirm(msg)) return;
   document.getElementById("loading").style.display="inline";
   var r=await fetch("/approve",{method:"POST",body:JSON.stringify({approved})});
   var data=await r.json();
-  document.getElementById("status").textContent="✅ 已批准 "+data.count+" 条！现在 git commit && git push 即可部署。";
+  document.getElementById("status").textContent="✅ 已批准 "+data.count+" 条";
+  if(andSync){
+    var r2=await fetch("/sync");
+    var s=await r2.json();
+    document.getElementById("status").textContent+=" | "+s.result;
+  }
   document.getElementById("loading").style.display="none";
   load();
 }
+async function syncOnly(){
+  if(!confirm("将kb_config.html同步到博客仓库并push？")) return;
+  document.getElementById("loading").style.display="inline";
+  var r=await fetch("/sync");var s=await r.json();
+  document.getElementById("status").textContent=s.result;
+  document.getElementById("loading").style.display="none";
+}
 load();
 </script>
-<button class="btn btn-approve" onclick="approve()">✅ 批准选中条目</button>
+<button class="btn btn-approve" onclick="approve(false)">✅ 批准（仅本地）</button>
+<button class="btn btn-approve" style="background:#10b981" onclick="approve(true)">🚀 批准并部署</button>
+<button class="btn btn-refresh" onclick="syncOnly()">📤 仅同步部署</button>
 </body></html>'''
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
