@@ -103,6 +103,19 @@
     </div>
   </div>
 
+  <!-- Community KB -->
+  <div class="section">
+    <h2>🌐 社区共享知识库</h2>
+    <div class="hint">
+      个人知识库（上方的编辑区）立即生效。如果想分享给所有用户，点击下方导出并发送给管理员审核。
+      管理员审核通过后会加入共享知识库，所有用户自动获取更新。
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-outline" onclick="exportPersonalKB()">📤 导出个人知识库（发给管理员审核）</button>
+      <span class="hint" style="margin:0;line-height:2;">导出后发送给管理员即可</span>
+    </div>
+  </div>
+
   <!-- Save buttons -->
   <div class="btn-row" style="margin-bottom:16px;">
     <button class="btn btn-primary" onclick="saveConfig()">💾 保存配置</button>
@@ -162,6 +175,17 @@ function populate(c){
 function exportConfig(){ var b=new Blob([JSON.stringify(loadConfig(),null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='spacerpg4_kb_config.json'; a.click(); }
 function importConfig(i){ var f=i.files[0]; if(!f)return; var r=new FileReader(); r.onload=function(e){ try{ var c=JSON.parse(e.target.result); localStorage.setItem(STORAGE_KEY,JSON.stringify(c)); populate(c); showToast('已导入'); }catch(ex){ alert('无效文件'); } }; r.readAsText(f); }
 function exportForPython(){ var c=loadConfig(); var b=new Blob([JSON.stringify({apiKey:c.apiKey,apiName:c.apiName,ocrConfig:c.ocrConfig},null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='_api_config.json'; a.click(); showToast('🐍 请放到脚本目录'); }
+function exportPersonalKB(){
+  var c = loadConfig();
+  var share = { toolKB: c.toolKB||[], gameKB: c.gameKB||[], customRules: c.customRules||[], author: prompt('你的昵称（可选）:')||'匿名' };
+  var b = new Blob([JSON.stringify(share, null, 2)], {type:'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(b);
+  a.download = 'kb_submission_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  showToast('📤 已导出，请发送给管理员审核');
+}
+
 function showToast(m){ var t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(function(){t.style.display='none'},2000); }
 
 // Init

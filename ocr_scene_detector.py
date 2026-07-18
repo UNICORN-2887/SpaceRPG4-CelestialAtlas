@@ -240,15 +240,14 @@ def build_news_prompt(ocr_texts):
 ## 星图（仅列出有贸易品的星系，括号内为ID）
 {chr(10).join(system_info)}
 
-## 任务
-1. 模糊匹配 OCR 中的星系名到星图中最相似的星系（如 "Sillil"→"Sillil"）
-2. 判断产品价格涨(🔴 trend=1)或跌(🟢 trend=-1)
-3. ⚠️ 必须使用星图中**确切的产品ID**！不要编造ID。产品ID在星图信息的括号中。
-4. ⚠️ 使用星图中**确切的节点ID和行星ID**！不要编造。
+## ⚠️ 关键规则
+1. OCR新闻提到的星系名→模糊匹配到星图中**唯一一个**最相似的星系
+2. 判断该星系中受影响的产品的价格涨(🔴 trend=1)或跌(🟢 trend=-1)
+3. **只为OCR新闻中明确提到的那个星系生成指令！不要为其他星系生成！**
+4. 必须使用星图中确切的产品ID和节点ID
 
-## 输出格式（先简要分析，用 --- 分隔，再逐行输出指令）
-spacerpgAPI.setTrend("节点ID", "", "产品ID", trend)
-（行星ID留空即可，系统会自动搜索该星系所有行星）"""
+## 输出格式（先分析匹配了哪个星系，用 --- 分隔，再逐行输出指令）
+spacerpgAPI.setTrend("节点ID", "", "产品ID", trend)"""
 
 def process_ai_response(response):
     """解析AI返回，验证并执行。返回 (display_lines, executed_count)"""
