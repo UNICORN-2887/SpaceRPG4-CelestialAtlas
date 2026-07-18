@@ -2820,25 +2820,40 @@ if (!_kbToolStr) _kbToolStr = Object.values(ARK_KB.tool).join('\n');
 if (!_kbGameStr) _kbGameStr = Object.values(ARK_KB.game).join('\n');
 
 // ---- API Functions (pre-computed answers) ----
-function api_findPath(nameA, nameB, mode) {
+function api_findPath(nameA, nameB, mode, waypointNames) {
   mode = mode || 'shortest';
   var nA = fuzzyFindNode(nameA), nB = fuzzyFindNode(nameB);
   if (!nA || !nB) return null;
   var oldMode = state.pathMode, oldFtl = state.ftlRange;
   state.pathMode = mode;
-  var path = bfs(nA.id, nB.id);
+  // Resolve waypoints
+  var wpIds = [];
+  if (waypointNames && waypointNames.length) {
+    for (var w = 0; w < waypointNames.length; w++) {
+      var wn = fuzzyFindNode(waypointNames[w]);
+      if (wn) wpIds.push(wn.id);
+    }
+  }
+  // Chain path: start → waypoints → end
+  var order = [nA.id].concat(wpIds).concat([nB.id]);
+  var fullPath = [];
+  for (var i = 0; i < order.length - 1; i++) {
+    var seg = bfs(order[i], order[i+1]);
+    if (!seg) { state.pathMode = oldMode; return null; }
+    if (i > 0) seg.shift();
+    fullPath = fullPath.concat(seg);
+  }
   state.pathMode = oldMode;
-  if (!path) return null;
-  var names = path.map(function(id){ var n=getNodeById(id); return n?n.name:'?'; });
-  var dist = path.length - 1;
+  var names = fullPath.map(function(id){ var n=getNodeById(id); return n?n.name:'?'; });
+  var dist = fullPath.length - 1;
   var maxStreak = 0, cur = 0;
-  for (var i = 0; i < path.length; i++) {
+  for (var i = 0; i < fullPath.length; i++) {
     if (i === 0) continue;
-    var nd = getNodeById(path[i]);
+    var nd = getNodeById(fullPath[i]);
     if (nd && (nd.colorIndex===0||nd.colorIndex===2)) cur = 0;
     else { cur++; maxStreak = Math.max(maxStreak, cur); }
   }
-  return { path: names.join(' → '), distance: dist, maxNoRefuel: maxStreak, nodeIds: path };
+  return { path: names.join(' → '), distance: dist, maxNoRefuel: maxStreak, nodeIds: fullPath, waypointIds: wpIds };
 }
 
 function fuzzyFindNode(name) {
@@ -3059,8 +3074,7 @@ function executeAPICall(fnName, args) {
   try {
     var a = JSON.parse(args);
     if (fnName === 'findPath') {
-      var result = api_findPath(a.from, a.to, a.mode||'shortest');
-      // 自动在地图上绘制路径
+      var result = api_findPath(a.from, a.to, a.mode||'shortest', a.waypoints);
       if (result && result.nodeIds && result.nodeIds.length > 0) {
         state.startNodeId = result.nodeIds[0];
         state.endNodeId = result.nodeIds[result.nodeIds.length - 1];
@@ -3069,6 +3083,8 @@ function executeAPICall(fnName, args) {
         for (var pi = 0; pi < result.nodeIds.length - 1; pi++) {
           state.pathEdgeIds.push(edgeKey(result.nodeIds[pi], result.nodeIds[pi+1]));
         }
+        // 设置途径点
+        state.waypointIds = result.waypointIds || [];
         if (state.mode !== 'map') { state.mode = 'map'; state.mapSubMode = 'nav'; }
         render();
         updatePathDisplay();
