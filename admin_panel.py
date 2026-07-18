@@ -123,20 +123,43 @@ class Handler(BaseHTTPRequestHandler):
             if a[i] == b[i]: common += 1
         return common / max(len(a), len(b))
 
+    def ai_dedup_entries(self, entries_list):
+        """用 DeepSeek 对所有条目做全局去重"""
+        if not DEEPSEEK_KEY or len(entries_list) < 2:
+            return entries_list, []
+        prompt = "以下是从多封邮件中提取的知识库条目，很多重复。找出本质相同的合并（保留最完整的那条）。\n\n"
+        for i, e in enumerate(entries_list):
+            prompt += f"[{i+1}] [{e['cat']}] {e['entry'][:120]}\n"
+        prompt += '\n输出JSON: {"keep":[保留的序号(1开始)],"merge":[{"from":被合并序号,"into":合并到序号}]}。只输出JSON。'
+        try:
+            r = requests.post(DEEPSEEK_URL,
+                headers={"Content-Type":"application/json","Authorization":f"Bearer {DEEPSEEK_KEY}"},
+                json={"model":"deepseek-chat","messages":[{"role":"user","content":prompt}],"max_tokens":500,"temperature":0}, timeout=30)
+            result = json.loads(re.findall(r'\{.*\}', r.json()["choices"][0]["message"]["content"], re.DOTALL)[0])
+            keep_ids = set(result.get("keep", []))
+            return [e for i, e in enumerate(entries_list) if (i+1) in keep_ids], result.get("merge", [])
+        except Exception as ex:
+            print(f"AI dedup error: {ex}")
+            return entries_list, []
+
     def get_all_entries(self):
         subs = fetch_submissions()
         defaults = get_defaults()
-        # 第一步：过滤掉和默认条目模糊匹配的
         all_entries = {}
         for sub in subs:
             for cat in ["toolKB", "gameKB", "customRules"]:
                 for entry in sub.get(cat, []):
                     k = entry.strip()
-                    if self.fuzzy_match_default(k, defaults): continue  # 跳过默认条目
+                    if self.fuzzy_match_default(k, defaults): continue
                     if k not in all_entries:
                         all_entries[k] = {"cat": cat, "entry": entry, "authors": []}
                     all_entries[k]["authors"].append(sub["author"])
-        return list(all_entries.values())
+
+        entries_list = list(all_entries.values())
+        # AI全局去重
+        if len(entries_list) > 1:
+            entries_list, _merged = self.ai_dedup_entries(entries_list)
+        return entries_list
 
     def handle_approve(self):
         content_len = int(self.headers.get('Content-Length', 0))
