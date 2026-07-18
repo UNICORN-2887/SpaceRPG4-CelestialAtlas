@@ -133,7 +133,7 @@ class Handler(BaseHTTPRequestHandler):
             except: pass
         if not key or len(entries_list) < 2:
             return entries_list, []
-        prompt = "以下是从多封邮件中提取的知识库条目，很多重复。找出本质相同的合并（保留最完整的那条）。\n\n"
+        prompt = "你是知识库审核助手。对条目去重合并。\n规则：\n1. 完全包含关系->删除简短版，保留详细版\n  例: [A]蓝和红星提供燃料补给 -> 删除\n      [B]蓝色和红色星球提供燃料补给。灰色星域无补给 -> 保留(B包含A全部含义)\n2. 高度相似(>70%)->合并保留更完整的那条\n3. 不相关->都保留\n\n待审核条目:\n\n"
         for i, e in enumerate(entries_list):
             prompt += f"[{i+1}] [{e['cat']}] {e['entry'][:120]}\n"
         prompt += '\n输出JSON: {"keep":[保留的序号(1开始)],"merge":[{"from":被合并序号,"into":合并到序号}]}。只输出JSON。'
