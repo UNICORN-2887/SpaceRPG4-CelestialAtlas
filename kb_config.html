@@ -110,9 +110,13 @@
       个人知识库（上方编辑区）立即生效，存在你本地浏览器。<br>
       共享知识库：点击下方导出JSON → 通过QQ/微信/GitHub发给管理员 → 管理员审核后加入初始化JSON → 下次网站更新时所有用户自动获取。
     </div>
-    <div style="display:flex;gap:8px;">
-      <button class="btn btn-outline" onclick="exportPersonalKB()">📤 导出个人知识库（发给管理员审核）</button>
-      <span class="hint" style="margin:0;line-height:2;">导出后发送给管理员即可</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <button class="btn btn-outline" onclick="exportPersonalKB()">📤 导出JSON文件</button>
+      <button class="btn btn-primary" onclick="submitKB()" id="btn-submit-kb">📧 一键发送给管理员</button>
+      <span class="hint" style="margin:0;line-height:2;" id="submit-status"></span>
+    </div>
+    <div class="hint" style="margin-top:4px;">
+      推荐使用"一键发送"（通过EmailJS）。如发送失败请用"导出JSON"手动发给管理员。
     </div>
   </div>
 
@@ -184,6 +188,52 @@ function exportPersonalKB(){
   a.download = 'kb_submission_' + new Date().toISOString().slice(0,10) + '.json';
   a.click();
   showToast('📤 已导出，请发送给管理员审核');
+}
+
+// ===== EmailJS 提交（需配置） =====
+// 1. 注册 https://www.emailjs.com/ (免费)
+// 2. 创建 Email Service (选Gmail) → 获取 Service ID
+// 3. 创建 Email Template → 获取 Template ID
+// 4. 获取 Public Key (Account → API Keys)
+// 5. 填入下方三个值
+const EMAILJS_PUBLIC_KEY = '';  // 你的 Public Key
+const EMAILJS_SERVICE_ID = '';  // Service ID
+const EMAILJS_TEMPLATE_ID = ''; // Template ID
+
+async function submitKB() {
+  if (!EMAILJS_PUBLIC_KEY) {
+    document.getElementById('submit-status').innerHTML = '<span style=\"color:#ff8800\">⚠️ 管理员尚未配置EmailJS，请用导出JSON方式发送</span>';
+    return;
+  }
+  var c = loadConfig();
+  var author = prompt('你的昵称（可选）:') || '匿名';
+  var note = prompt('备注说明（可选）:') || '';
+  var kbData = JSON.stringify({ toolKB: c.toolKB||[], gameKB: c.gameKB||[], customRules: c.customRules||[], author: author, note: note }, null, 2);
+
+  document.getElementById('btn-submit-kb').disabled = true;
+  document.getElementById('submit-status').innerHTML = '发送中...';
+
+  // 动态加载 EmailJS
+  if (!window.emailjs) {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+    document.head.appendChild(s);
+    await new Promise(function(r){ s.onload = r; });
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      author: author,
+      note: note,
+      kb_data: kbData,
+      time: new Date().toISOString(),
+    });
+    document.getElementById('submit-status').innerHTML = '<span style=\"color:#10b981\">✅ 已发送！管理员审核后会加入共享知识库</span>';
+  } catch(e) {
+    document.getElementById('submit-status').innerHTML = '<span style=\"color:#ef4444\">❌ 发送失败，请导出JSON手动发送: '+e.message+'</span>';
+  }
+  document.getElementById('btn-submit-kb').disabled = false;
 }
 
 function showToast(m){ var t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; setTimeout(function(){t.style.display='none'},2000); }
