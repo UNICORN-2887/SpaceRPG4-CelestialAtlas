@@ -116,12 +116,12 @@ class Handler(BaseHTTPRequestHandler):
         return False
 
     def similarity(self, a, b):
-        a = a.replace(' ', ''); b = b.replace(' ', '')
+        """用 difflib 做真正的序列匹配"""
+        import difflib
+        a = a.replace(' ', '').replace('\n', '')
+        b = b.replace(' ', '').replace('\n', '')
         if not a or not b: return 0
-        common = 0
-        for i in range(min(len(a), len(b))):
-            if a[i] == b[i]: common += 1
-        return common / max(len(a), len(b))
+        return difflib.SequenceMatcher(None, a, b).ratio()
 
     def ai_dedup_entries(self, entries_list):
         """用 DeepSeek 对所有条目做全局去重"""
