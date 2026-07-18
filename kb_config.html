@@ -249,8 +249,17 @@ async function submitKB() {
     return;
   }
   var author = prompt('你的昵称（可选）:') || '匿名';
+  if (!author) return;
   var note = prompt('备注说明（可选）:') || '';
   var kbData = JSON.stringify({ toolKB: newTool, gameKB: newGame, customRules: newRules, author: author, note: note }, null, 2);
+
+  // 先预览
+  var preview = '将发送以下 '+ (newTool.length+newGame.length+newRules.length) +' 条新条目:\n\n';
+  if (newTool.length) preview += '【工具操作】('+newTool.length+'条)\n' + newTool.map(function(x,i){ return (i+1)+'. '+x; }).join('\n') + '\n\n';
+  if (newGame.length) preview += '【游戏机制】('+newGame.length+'条)\n' + newGame.map(function(x,i){ return (i+1)+'. '+x; }).join('\n') + '\n\n';
+  if (newRules.length) preview += '【自定义规则】('+newRules.length+'条)\n' + newRules.map(function(x,i){ return (i+1)+'. '+x; }).join('\n') + '\n\n';
+  preview += '确认发送？';
+  if (!confirm(preview)) { document.getElementById('submit-status').innerHTML = ''; return; }
 
   document.getElementById('btn-submit-kb').disabled = true;
   document.getElementById('submit-status').innerHTML = '发送中...';
