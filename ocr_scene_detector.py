@@ -80,6 +80,9 @@ def pil_text(img, text, xy, size, color):
     img[:] = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 
 def capture_screen():
+    # 自动连接（支持 IP:port 格式）
+    if ':' in ADB_DEVICE and not ADB_DEVICE.startswith('emulator'):
+        subprocess.run(f'"{ADB_EXE}" connect {ADB_DEVICE}', shell=True, capture_output=True)
     cmd = f'"{ADB_EXE}" -s {ADB_DEVICE} exec-out screencap -p > "{TEMP_SCREENSHOT}"'
     subprocess.run(cmd, shell=True, capture_output=True, text=True)
     return cv2.imread(TEMP_SCREENSHOT)
