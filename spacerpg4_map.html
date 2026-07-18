@@ -1276,6 +1276,16 @@ function renderPlanetTab() {
     }
     html += '<div class="panel-section"><div class="panel-label">💡 操作</div>';
     html += '<div class="panel-hint"><kbd>单击</kbd> 起点/终点<br><kbd>Ctrl+单击</kbd> 途径点<br><kbd>Shift+单击</kbd> 障碍⛔<br><kbd>右键</kbd> 详情/空间站<br><kbd>点击空白</kbd> 清除</div>';
+    // 障碍列表
+    if (state.blockedNodeIds.length > 0) {
+      html += '<div class="panel-label">⛔ 障碍节点 ('+state.blockedNodeIds.length+')</div>';
+      html += '<div class="item-list">';
+      for (var bi = 0; bi < state.blockedNodeIds.length; bi++) {
+        var bn = getNodeById(state.blockedNodeIds[bi]);
+        html += '<div class="item-chip"><span>⛔ '+(bn?bn.name:'?')+'</span><span class="rm-btn" data-action="unblock" data-nid="'+state.blockedNodeIds[bi]+'">✕</span></div>';
+      }
+      html += '</div>';
+    }
     // 空间站
     const selGray = state.startNodeId ? getNodeById(state.startNodeId) : null;
     if (selGray && isGray(selGray)) {
@@ -1667,6 +1677,14 @@ function bindPlanetTabEvents() {
   // Simulate prices button
   const simBtn = panelContent.querySelector('#btn-sim-prices');
   if (simBtn) simBtn.addEventListener('click', simulateAllPrices);
+
+  // Unblock
+  panelContent.querySelectorAll('[data-action="unblock"]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var idx = state.blockedNodeIds.indexOf(b.dataset.nid);
+      if (idx >= 0) { state.blockedNodeIds.splice(idx,1); if(state.startNodeId&&state.endNodeId) computePath(); updatePathDisplay(); render(); }
+    });
+  });
 
   // ---- Map mode: waypoint & station management ----
   panelContent.querySelectorAll('[data-action="del-waypoint"]').forEach(b=>{
