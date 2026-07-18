@@ -31,7 +31,7 @@ def fetch_submissions():
         except: continue
         status, msgs = mail.search(None, 'ALL')
         if status != "OK": continue
-        for num in msgs[0].split()[-30:]:
+        for num in msgs[0].split()[-10:]:
             status, data = mail.fetch(num, "(RFC822)")
             if status != "OK": continue
             msg = email.message_from_bytes(data[0][1])
