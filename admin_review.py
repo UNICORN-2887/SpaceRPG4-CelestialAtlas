@@ -16,8 +16,8 @@ from email.header import decode_header
 # ========== 配置 ==========
 IMAP_SERVER = "imap.qq.com"
 IMAP_PORT = 993
-EMAIL_ADDR = ""  # 你的QQ邮箱
-EMAIL_PWD = ""   # QQ邮箱授权码（不是密码）
+EMAIL_ADDR = "2198823120@qq.com"  # 你的QQ邮箱
+EMAIL_PWD = "bvbgoplsnkijecfb"   # QQ邮箱授权码（不是密码）
 KB_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "kb_config.html")
 
 # ========== 获取邮件 ==========
@@ -31,14 +31,14 @@ def fetch_submissions():
     mail.login(EMAIL_ADDR, EMAIL_PWD)
     mail.select("INBOX")
 
-    # 搜索标题包含"新的知识库提交"的邮件
-    status, messages = mail.search(None, 'SUBJECT', '"新的知识库提交"')
+    # IMAP 不支持中文搜索，先获取所有邮件再 Python 过滤
+    status, messages = mail.search(None, 'ALL')
     if status != "OK":
         print("❌ 搜索失败")
         return []
 
     submissions = []
-    for num in messages[0].split():
+    for num in messages[0].split()[-50:]:  # 只查最近50封
         status, data = mail.fetch(num, "(RFC822)")
         if status != "OK":
             continue
@@ -51,6 +51,9 @@ def fetch_submissions():
                 subject += s.decode(charset or "utf-8", errors="ignore")
             else:
                 subject += s
+        # Python端过滤标题
+        if "新的知识库提交" not in subject:
+            continue
 
         # 提取正文
         body = ""

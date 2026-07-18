@@ -230,11 +230,20 @@ async function submitKB() {
     return;
   }
   var c = loadConfig();
-  // 只发送新增条目（和默认值不同的）
-  var defaultSet = new Set(DEFAULTS.toolKB.concat(DEFAULTS.gameKB).concat(DEFAULTS.customRules));
-  var newTool = (c.toolKB||[]).filter(function(x){ return !defaultSet.has(x); });
-  var newGame = (c.gameKB||[]).filter(function(x){ return !defaultSet.has(x); });
-  var newRules = (c.customRules||[]).filter(function(x){ return !defaultSet.has(x); });
+  // 只发送新增条目（用模糊匹配：条目包含默认关键词或默认条目包含该条目视为已存在）
+  function isDefault(entry) {
+    var allDefs = DEFAULTS.toolKB.concat(DEFAULTS.gameKB).concat(DEFAULTS.customRules);
+    for (var i = 0; i < allDefs.length; i++) {
+      var d = allDefs[i].replace(/\s/g, '');
+      var e = entry.replace(/\s/g, '');
+      if (d === e) return true;  // 去空格后完全相同
+      if (d.length > 15 && e.length > 15 && (d.indexOf(e) >= 0 || e.indexOf(d) >= 0)) return true;  // 互相包含
+    }
+    return false;
+  }
+  var newTool = (c.toolKB||[]).filter(function(x){ return !isDefault(x); });
+  var newGame = (c.gameKB||[]).filter(function(x){ return !isDefault(x); });
+  var newRules = (c.customRules||[]).filter(function(x){ return !isDefault(x); });
   if (!newTool.length && !newGame.length && !newRules.length) {
     document.getElementById('submit-status').innerHTML = '<span style=\"color:#ff8800\">⚠️ 没有新增条目，无需提交</span>';
     return;
