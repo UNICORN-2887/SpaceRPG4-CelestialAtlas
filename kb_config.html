@@ -83,6 +83,20 @@
     <div id="kb-game-list"></div>
   </div>
 
+  <!-- Local OCR Config -->
+  <div class="section">
+    <h2>🔌 本地OCR检测器</h2>
+    <div class="hint" style="margin-bottom:12px;">需本地运行 <code>python ocr_scene_detector.py</code>。网页通过 HTTP 轮询获取结果。</div>
+    <div class="row">
+      <div><label>ADB路径</label><input type="text" id="ocr-adb" placeholder="D:\工程\MuMu Player 12\nx_main\adb.exe"></div>
+      <div><label>设备ID</label><input type="text" id="ocr-device" placeholder="emulator-5554"></div>
+    </div>
+    <div class="row">
+      <div><label>扫描间隔(秒)</label><input type="number" id="ocr-interval" placeholder="1.0" step="0.5" min="0.5"></div>
+      <div><label>HTTP端口</label><input type="number" id="ocr-port" placeholder="8765"></div>
+    </div>
+  </div>
+
   <!-- Custom Rules -->
   <div class="section">
     <div class="kb-header"><h2>📋 自定义规则</h2><span class="add-btn" onclick="addRule()">+ 添加规则</span></div>
@@ -109,13 +123,14 @@ const STORAGE_KEY = 'spacerpg4_kb_config';
 const DEFAULTS = {
   apiName: '',
   apiKey: '',
+  ocrConfig: { adbPath: 'D:\\工程\\MuMu Player 12\\nx_main\\adb.exe', deviceId: 'emulator-5554', interval: 1.0, port: 8765 },
   toolKB: [],
   gameKB: [],
   customRules: [],
 };
 
 function emptyConfig() {
-  return { apiName:'', apiKey:'', toolKB:[], gameKB:[], customRules:[] };
+  return { apiName:'', apiKey:'', ocrConfig:{ adbPath:'', deviceId:'emulator-5554', interval:1.0, port:8765 }, toolKB:[], gameKB:[], customRules:[] };
 }
 
 function loadConfig() {
@@ -130,6 +145,12 @@ function saveConfig() {
   var config = {
     apiName: document.getElementById('api-name').value.trim(),
     apiKey: document.getElementById('api-key').value.trim(),
+    ocrConfig: {
+      adbPath: document.getElementById('ocr-adb').value.trim(),
+      deviceId: document.getElementById('ocr-device').value.trim() || 'emulator-5554',
+      interval: parseFloat(document.getElementById('ocr-interval').value) || 1.0,
+      port: parseInt(document.getElementById('ocr-port').value) || 8765,
+    },
     toolKB: collectEntries('kb-tool-list'),
     gameKB: collectEntries('kb-game-list'),
     customRules: collectEntries('kb-rules-list'),
@@ -185,6 +206,11 @@ function loadDefaults() {
 function populateForm(config) {
   document.getElementById('api-name').value = config.apiName || '';
   document.getElementById('api-key').value = config.apiKey || '';
+  var oc = config.ocrConfig || {};
+  document.getElementById('ocr-adb').value = oc.adbPath || '';
+  document.getElementById('ocr-device').value = oc.deviceId || 'emulator-5554';
+  document.getElementById('ocr-interval').value = oc.interval || 1.0;
+  document.getElementById('ocr-port').value = oc.port || 8765;
   renderAllEntries('kb-tool-list', config.toolKB || []);
   renderAllEntries('kb-game-list', config.gameKB || []);
   renderAllEntries('kb-rules-list', config.customRules || []);
@@ -216,7 +242,7 @@ function importConfig(input) {
 
 function exportForPython() {
   var config = loadConfig();
-  var pyConfig = { apiKey: config.apiKey, apiName: config.apiName };
+  var pyConfig = { apiKey: config.apiKey, apiName: config.apiName, ocrConfig: config.ocrConfig };
   var blob = new Blob([JSON.stringify(pyConfig, null, 2)], {type:'application/json'});
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);

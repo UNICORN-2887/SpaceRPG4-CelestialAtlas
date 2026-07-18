@@ -1,0 +1,7768 @@
+{
+  "nodes": [
+    {
+      "id": "n1",
+      "name": "Azimidi",
+      "colorIndex": 1,
+      "x": 99.10057448004208,
+      "y": 96.58168191765283,
+      "planets": [
+        {
+          "id": "pl1",
+          "name": "Azimidi",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n2",
+      "name": "Jishui",
+      "colorIndex": 5,
+      "x": 145.62323335084037,
+      "y": 275.0434307726948,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n3",
+      "name": "Haedus",
+      "colorIndex": 5,
+      "x": 336,
+      "y": 461.66666412353516,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n4",
+      "name": "HD-2088",
+      "colorIndex": 5,
+      "x": 339.16713777310923,
+      "y": 296.37487968025783,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n5",
+      "name": "HD-2365",
+      "colorIndex": 5,
+      "x": 305.28895780462193,
+      "y": 61.91313082521588,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n6",
+      "name": "HD-2032",
+      "colorIndex": 5,
+      "x": 201.5807422478992,
+      "y": 6.85222080945956,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n7",
+      "name": "HD-2630",
+      "colorIndex": 5,
+      "x": 373.14589222163863,
+      "y": -107.33898915377569,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n8",
+      "name": "Bosona",
+      "colorIndex": 1,
+      "x": 539.3555210976891,
+      "y": -96.59110913276723,
+      "planets": [
+        {
+          "id": "pl2",
+          "name": "Bosona",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n9",
+      "name": "Silence",
+      "colorIndex": 5,
+      "x": 685.5651499737393,
+      "y": -211.46646246259917,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n10",
+      "name": "Ustah",
+      "colorIndex": 5,
+      "x": 805.8356888655461,
+      "y": -147.27807913801934,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n11",
+      "name": "Amal",
+      "colorIndex": 5,
+      "x": 696.3555210976891,
+      "y": 16.05619640819913,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n12",
+      "name": "Balraki",
+      "colorIndex": 1,
+      "x": 546,
+      "y": 385.66666412353516,
+      "planets": [
+        {
+          "id": "pl3",
+          "name": "Balraki",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n13",
+      "name": "Iklil",
+      "colorIndex": 5,
+      "x": 547,
+      "y": 532.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n14",
+      "name": "GM-0027",
+      "colorIndex": 5,
+      "x": 481,
+      "y": 693.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n15",
+      "name": "HD-7229",
+      "colorIndex": 5,
+      "x": 403,
+      "y": 834.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n16",
+      "name": "Belenos",
+      "colorIndex": 5,
+      "x": 241,
+      "y": 654.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n17",
+      "name": "Alzirr",
+      "colorIndex": 5,
+      "x": 117,
+      "y": 711.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n18",
+      "name": "HD-5541",
+      "colorIndex": 5,
+      "x": 95,
+      "y": 885.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n19",
+      "name": "Irtak",
+      "colorIndex": 2,
+      "x": -17,
+      "y": 1016.6666641235352,
+      "planets": [
+        {
+          "id": "pl4",
+          "name": "Irtak",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n20",
+      "name": "Anruoi",
+      "colorIndex": 5,
+      "x": 106,
+      "y": 1158.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n21",
+      "name": "Hatysa",
+      "colorIndex": 5,
+      "x": 321,
+      "y": 1088.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n22",
+      "name": "HD-3280",
+      "colorIndex": 5,
+      "x": 428,
+      "y": 985.6666641235352,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n23",
+      "name": "Intan",
+      "colorIndex": 5,
+      "x": 305.00355411580534,
+      "y": 1210.6782810233585,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n24",
+      "name": "HD-1388",
+      "colorIndex": 5,
+      "x": 504.4959982556435,
+      "y": 1300.7348700921998,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n25",
+      "name": "Dombay",
+      "colorIndex": 1,
+      "x": 157.9491238641532,
+      "y": 1330.3737475072614,
+      "planets": [
+        {
+          "id": "pl5",
+          "name": "Dombay",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n26",
+      "name": "Fulu",
+      "colorIndex": 5,
+      "x": 348.3219134147416,
+      "y": 1348.613056685761,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n27",
+      "name": "Takamib",
+      "colorIndex": 5,
+      "x": -10.764486036967048,
+      "y": 1251.7167266749825,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n28",
+      "name": "Romirmiq",
+      "colorIndex": 5,
+      "x": 29.134002791000576,
+      "y": 1379.391890924479,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n29",
+      "name": "Iruhat",
+      "colorIndex": 2,
+      "x": 77.01218938456172,
+      "y": 1509.3469688212874,
+      "planets": [
+        {
+          "id": "pl6",
+          "name": "Iruhat",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n30",
+      "name": "HD-4717",
+      "colorIndex": 5,
+      "x": 339.2022588254918,
+      "y": 1559.5050690621613,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n31",
+      "name": "Misam",
+      "colorIndex": 4,
+      "x": 463.4575526040196,
+      "y": 1494.5275301137567,
+      "planets": [
+        {
+          "id": "pl7",
+          "name": "Misam",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n32",
+      "name": "HD-6904",
+      "colorIndex": 5,
+      "x": 657.2502126255765,
+      "y": 1504.7871415266627,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n33",
+      "name": "Rapeto",
+      "colorIndex": 5,
+      "x": 531.8549620233927,
+      "y": 1629.0424353051906,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n34",
+      "name": "Adhara",
+      "colorIndex": 5,
+      "x": 365.42126576958486,
+      "y": 1692.8800174299388,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n35",
+      "name": "Dagobia",
+      "colorIndex": 5,
+      "x": 22.29426184906327,
+      "y": 1657.5413558965959,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n36",
+      "name": "Orugomib",
+      "colorIndex": 5,
+      "x": 230.90636057815115,
+      "y": 1756.717599554687,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n37",
+      "name": "Saclateni",
+      "colorIndex": 5,
+      "x": 595.6925441481408,
+      "y": 1792.0562610880297,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n38",
+      "name": "Iruoi",
+      "colorIndex": 2,
+      "x": 364.28130894592863,
+      "y": 1838.7944908579348,
+      "planets": [
+        {
+          "id": "pl8",
+          "name": "Iruoi",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n39",
+      "name": "Iro",
+      "colorIndex": 2,
+      "x": -169.21848452518134,
+      "y": 1764.6972973202805,
+      "planets": [
+        {
+          "id": "pl9",
+          "name": "Iro",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n40",
+      "name": "Hamib",
+      "colorIndex": 5,
+      "x": -30.143752039122752,
+      "y": 1857.033800036434,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n41",
+      "name": "Hamia",
+      "colorIndex": 5,
+      "x": 34.83378690928166,
+      "y": 1927.7111231031197,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n42",
+      "name": "Hamiq",
+      "colorIndex": 5,
+      "x": -50.66297486493467,
+      "y": 1960.76987098915,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n43",
+      "name": "Irajahae",
+      "colorIndex": 2,
+      "x": -14.184356507935702,
+      "y": 2098.704646651552,
+      "planets": [
+        {
+          "id": "pl10",
+          "name": "Irajahae",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n44",
+      "name": "Kaojiq",
+      "colorIndex": 5,
+      "x": 186.44804445555866,
+      "y": 2055.386287352616,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n45",
+      "name": "Anhaeb",
+      "colorIndex": 5,
+      "x": 360.86143847496,
+      "y": 2038.286934997773,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n46",
+      "name": "Haeph",
+      "colorIndex": 5,
+      "x": 342.62212929646046,
+      "y": 2196.740933485987,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n47",
+      "name": "Bahaeb",
+      "colorIndex": 5,
+      "x": -96.2612478111834,
+      "y": 2210.4204153698615,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n48",
+      "name": "Maruhat",
+      "colorIndex": 5,
+      "x": 18.874391378094618,
+      "y": 2375.7141548000136,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n49",
+      "name": "Tytloten",
+      "colorIndex": 5,
+      "x": 253.7054970512755,
+      "y": 2477.1703121054165,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n50",
+      "name": "Quilentyatin",
+      "colorIndex": 1,
+      "x": 482.83681860617526,
+      "y": 2347.215234208608,
+      "planets": [
+        {
+          "id": "pl11",
+          "name": "Quilentyatin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n51",
+      "name": "Kolvuiloten",
+      "colorIndex": 5,
+      "x": 771.2458949911984,
+      "y": 2427.012211864543,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n52",
+      "name": "Irtachaekar's system",
+      "colorIndex": 5,
+      "x": 715.3880106320437,
+      "y": 2566.0869443506012,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n53",
+      "name": "Tyenbotyatin",
+      "colorIndex": 5,
+      "x": 1055.0951440815966,
+      "y": 2338.095579619358,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n54",
+      "name": "Guiwiloten",
+      "colorIndex": 5,
+      "x": 1129.1923376192506,
+      "y": 2202.440717604268,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n55",
+      "name": "Milatyatin",
+      "colorIndex": 1,
+      "x": 540.9746166126424,
+      "y": 2017.7677121719607,
+      "planets": [
+        {
+          "id": "pl12",
+          "name": "Milatyatin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n56",
+      "name": "Lenwiltyatin",
+      "colorIndex": 1,
+      "x": 710.8281833374187,
+      "y": 1934.5508640450569,
+      "planets": [
+        {
+          "id": "pl13",
+          "name": "Lenwiltyatin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n57",
+      "name": "Amorloten",
+      "colorIndex": 5,
+      "x": 795.1849882879789,
+      "y": 2037.1469781741166,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n58",
+      "name": "Lienloten",
+      "colorIndex": 5,
+      "x": 604.8121987373905,
+      "y": 2172.8018401892064,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n59",
+      "name": "Okabe",
+      "colorIndex": 1,
+      "x": 716.5279674556999,
+      "y": 1629.0424353051906,
+      "planets": [
+        {
+          "id": "pl14",
+          "name": "Okabe",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n60",
+      "name": "HD-7427",
+      "colorIndex": 5,
+      "x": 838.5033475869152,
+      "y": 1426.1301206943838,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n61",
+      "name": "Karaka",
+      "colorIndex": 5,
+      "x": 717.6679242793562,
+      "y": 1292.7551723266063,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n62",
+      "name": "Segin",
+      "colorIndex": 1,
+      "x": 561.4938394384543,
+      "y": 1130.8813033674232,
+      "planets": [
+        {
+          "id": "pl15",
+          "name": "Segin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n63",
+      "name": "HD-6859",
+      "colorIndex": 5,
+      "x": 628.7512920341711,
+      "y": 950.7681252297409,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n64",
+      "name": "Cujam",
+      "colorIndex": 4,
+      "x": 911.4605843009132,
+      "y": 975.8471753501776,
+      "planets": [
+        {
+          "id": "pl16",
+          "name": "Cujam",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n65",
+      "name": "HD-1723",
+      "colorIndex": 5,
+      "x": 742.7469743997929,
+      "y": 1085.2830304211745,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n66",
+      "name": "Neque",
+      "colorIndex": 5,
+      "x": 892.0813182987574,
+      "y": 1149.1206125459228,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n67",
+      "name": "Bunda",
+      "colorIndex": 5,
+      "x": 1002.6571301934106,
+      "y": 1268.8160790298257,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n68",
+      "name": "Tiaki",
+      "colorIndex": 1,
+      "x": 1083.5940646730019,
+      "y": 1447.789300343852,
+      "planets": [
+        {
+          "id": "pl17",
+          "name": "Tiaki",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n69",
+      "name": "Alya",
+      "colorIndex": 4,
+      "x": 1144.0117763267815,
+      "y": 1320.1141360943557,
+      "planets": [
+        {
+          "id": "pl18",
+          "name": "Alya",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n70",
+      "name": "Merak",
+      "colorIndex": 5,
+      "x": 1037.9957917267534,
+      "y": 1557.2251554148486,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n71",
+      "name": "HD-5052",
+      "colorIndex": 5,
+      "x": 1034.5759212557846,
+      "y": 1647.2817444836899,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n72",
+      "name": "Tinboloten",
+      "colorIndex": 5,
+      "x": 1100.6934170278455,
+      "y": 1778.3767792041551,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n73",
+      "name": "Tapecue",
+      "colorIndex": 5,
+      "x": 1235.2083222192791,
+      "y": 1586.8640328299105,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n74",
+      "name": "Dawn",
+      "colorIndex": 5,
+      "x": 1360.603572821463,
+      "y": 1417.742228071374,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n75",
+      "name": "Quityaloten",
+      "colorIndex": 5,
+      "x": 1216.9690130407796,
+      "y": 1894.6523752170895,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n76",
+      "name": "Beemim",
+      "colorIndex": 5,
+      "x": 1329.824738582745,
+      "y": 1772.676995085874,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n77",
+      "name": "Vuiguiloten",
+      "colorIndex": 5,
+      "x": 1330.1622424641785,
+      "y": 2183.5114567773567,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n78",
+      "name": "Vienloten",
+      "colorIndex": 5,
+      "x": 1552.7066992099813,
+      "y": 2091.273518582405,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n80",
+      "name": "GW-0043",
+      "colorIndex": 5,
+      "x": 1367.1615569724045,
+      "y": 1975.3921806542774,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n81",
+      "name": "Alkes",
+      "colorIndex": 4,
+      "x": 1483.127522649124,
+      "y": 1763.4587759754224,
+      "planets": [
+        {
+          "id": "pl19",
+          "name": "Alkes",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n82",
+      "name": "Homam",
+      "colorIndex": 5,
+      "x": 1552.2985043525653,
+      "y": 1664.4935981323442,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n83",
+      "name": "Gumala",
+      "colorIndex": 5,
+      "x": 1679.5087195412714,
+      "y": 1732.735688827142,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n84",
+      "name": "Tyentloten",
+      "colorIndex": 5,
+      "x": 1616.051458728721,
+      "y": 1973.1401405521835,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n85",
+      "name": "Wilquityatin",
+      "colorIndex": 1,
+      "x": 1755.6329505933973,
+      "y": 2048.05372380467,
+      "planets": [
+        {
+          "id": "pl20",
+          "name": "Wilquityatin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n86",
+      "name": "Alkaid",
+      "colorIndex": 5,
+      "x": 1697.4383983835567,
+      "y": 2177.6284803892813,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n87",
+      "name": "Meleph",
+      "colorIndex": 5,
+      "x": 1913.1013038695946,
+      "y": 2207.4644868467462,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n88",
+      "name": "Baten",
+      "colorIndex": 5,
+      "x": 1882.4210341520784,
+      "y": 2087.332951960209,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n89",
+      "name": "Nicole's Star",
+      "colorIndex": 5,
+      "x": 2040.4807745554856,
+      "y": 2094.0034374049615,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n90",
+      "name": "Sansuna",
+      "colorIndex": 5,
+      "x": 1816.2756648347993,
+      "y": 1848.068457058823,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n91",
+      "name": "Sterope",
+      "colorIndex": 5,
+      "x": 1925.6129553845944,
+      "y": 1878.1294661039103,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n92",
+      "name": "Marohu",
+      "colorIndex": 5,
+      "x": 2064.2366755824723,
+      "y": 1899.8872102745802,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n93",
+      "name": "Formosa",
+      "colorIndex": 4,
+      "x": 2171.631556366388,
+      "y": 2030.4476120712088,
+      "planets": [
+        {
+          "id": "pl21",
+          "name": "Formosa",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n95",
+      "name": "Eltanin",
+      "colorIndex": 5,
+      "x": 2121.4873928981237,
+      "y": 1718.5633843372586,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n96",
+      "name": "Ginan",
+      "colorIndex": 5,
+      "x": 633.7896069098261,
+      "y": 127.75473973873463,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n97",
+      "name": "Imai",
+      "colorIndex": 5,
+      "x": 487.11540254007826,
+      "y": 205.67541081016313,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n98",
+      "name": "Dryne",
+      "colorIndex": 5,
+      "x": 633.7207193785365,
+      "y": 257.0620430031079,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n99",
+      "name": "Sonambulist",
+      "colorIndex": 5,
+      "x": 763.303572768068,
+      "y": 320.1550027245234,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n100",
+      "name": "Algedi",
+      "colorIndex": 5,
+      "x": 882.6422836941409,
+      "y": 287.60040570475604,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n101",
+      "name": "Funi",
+      "colorIndex": 5,
+      "x": 904.2201712165486,
+      "y": 76.18958976499519,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n102",
+      "name": "Inquill",
+      "colorIndex": 5,
+      "x": 1157.1993999786748,
+      "y": 246.45791597526966,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n103",
+      "name": "Claws",
+      "colorIndex": 5,
+      "x": 915.679093432935,
+      "y": -36.10784795559296,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n104",
+      "name": "Undon",
+      "colorIndex": 1,
+      "x": 1064.64508224596,
+      "y": 2.8524875801212923,
+      "planets": [
+        {
+          "id": "pl22",
+          "name": "Undon",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n105",
+      "name": "Milnub",
+      "colorIndex": 2,
+      "x": 1008.4963633856661,
+      "y": -266.4321845049625,
+      "planets": [
+        {
+          "id": "pl23",
+          "name": "Milnub",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n106",
+      "name": "Gur",
+      "colorIndex": 5,
+      "x": 1140.2739688741115,
+      "y": -96.84013570244164,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n107",
+      "name": "Crossroads",
+      "colorIndex": 3,
+      "x": 975.2654889581452,
+      "y": -469.2551077350044,
+      "planets": [
+        {
+          "id": "pl24",
+          "name": "Crossroads",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n108",
+      "name": "Dilli",
+      "colorIndex": 4,
+      "x": 1294.9694187953296,
+      "y": -5.168757971349289,
+      "planets": [
+        {
+          "id": "pl25",
+          "name": "Dilli Rock",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n109",
+      "name": "HD-7310",
+      "colorIndex": 5,
+      "x": 1361.4311676503717,
+      "y": -259.5568311751306,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n110",
+      "name": "Tralia",
+      "colorIndex": 1,
+      "x": 1440.497730943439,
+      "y": -130.07101012996262,
+      "planets": [
+        {
+          "id": "pl26",
+          "name": "Tralia Alpha",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        },
+        {
+          "id": "pl71",
+          "name": "Tralia Delta",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        },
+        {
+          "id": "pl72",
+          "name": "Tralia Gamma",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        },
+        {
+          "id": "pl73",
+          "name": "Tralia Beta",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n111",
+      "name": "Northbound",
+      "colorIndex": 3,
+      "x": 1363.722952093649,
+      "y": -432.5865566425674,
+      "planets": [
+        {
+          "id": "pl27",
+          "name": "Northbound",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n112",
+      "name": "Uklun",
+      "colorIndex": 5,
+      "x": 1586.026043091548,
+      "y": 21.186763126339763,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n113",
+      "name": "Petra",
+      "colorIndex": 5,
+      "x": 1654.7795763898673,
+      "y": -159.86420789256763,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n114",
+      "name": "Yildun",
+      "colorIndex": 5,
+      "x": 1857.6024996199092,
+      "y": -202.26222009319787,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n115",
+      "name": "Alderamin",
+      "colorIndex": 2,
+      "x": 1627.2781630705394,
+      "y": -309.9760889272314,
+      "planets": [
+        {
+          "id": "pl28",
+          "name": "Alderamin",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n116",
+      "name": "HIghway",
+      "colorIndex": 3,
+      "x": 1764.785229667178,
+      "y": -512.7990121572732,
+      "planets": [
+        {
+          "id": "pl29",
+          "name": "HIghway",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n117",
+      "name": "HD-3818",
+      "colorIndex": 5,
+      "x": 2011.1520573194887,
+      "y": -220.59649563941633,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n118",
+      "name": "Tejat",
+      "colorIndex": 5,
+      "x": 1711.7016050022783,
+      "y": 67.8239065570769,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n119",
+      "name": "Pherkad",
+      "colorIndex": 5,
+      "x": 1884.2617156558304,
+      "y": 62.06630063580973,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n120",
+      "name": "HD-3927",
+      "colorIndex": 5,
+      "x": 2130.324848369909,
+      "y": -102.56959681063492,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n121",
+      "name": "Syrma",
+      "colorIndex": 4,
+      "x": 2054.695961741758,
+      "y": 45.25049978075151,
+      "planets": [
+        {
+          "id": "pl30",
+          "name": "Syrma",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n122",
+      "name": "GW-0084",
+      "colorIndex": 5,
+      "x": 2184.181782786926,
+      "y": 24.62443979125573,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n123",
+      "name": "HD-4250",
+      "colorIndex": 5,
+      "x": 2333.147771599951,
+      "y": -220.59649563941633,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n124",
+      "name": "Sargas",
+      "colorIndex": 5,
+      "x": 2373.253999357303,
+      "y": -88.81889015097106,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n125",
+      "name": "HD-5839",
+      "colorIndex": 5,
+      "x": 2367.52453824911,
+      "y": 104.83689530596155,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n126",
+      "name": "HD-4436",
+      "colorIndex": 5,
+      "x": 2534.824802608354,
+      "y": -42.98320128542489,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n127",
+      "name": "HD-5112",
+      "colorIndex": 5,
+      "x": 2659.727054766967,
+      "y": -84.23532126441646,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n128",
+      "name": "Serpent's Star",
+      "colorIndex": 5,
+      "x": 2608.1619047932277,
+      "y": 50.97996088894478,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n129",
+      "name": "HD-3851",
+      "colorIndex": 5,
+      "x": 2608.1619047932277,
+      "y": -207.99168120139115,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n130",
+      "name": "HD-5192",
+      "colorIndex": 5,
+      "x": 2430.5486104392357,
+      "y": 277.8666207733983,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n131",
+      "name": "HD-4074",
+      "colorIndex": 1,
+      "x": 2557.742647041127,
+      "y": 316.82695630911263,
+      "planets": [
+        {
+          "id": "pl31",
+          "name": "HD-4074 Uncharted",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n132",
+      "name": "Anser",
+      "colorIndex": 5,
+      "x": 2912.9692357491094,
+      "y": -119.75798013521474,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n133",
+      "name": "Fawaris",
+      "colorIndex": 4,
+      "x": 2844.21570245079,
+      "y": -45.2749857287022,
+      "planets": [
+        {
+          "id": "pl32",
+          "name": "Fawaris",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n134",
+      "name": "Atria",
+      "colorIndex": 5,
+      "x": 2904.947990197639,
+      "y": 136.9218775118439,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n135",
+      "name": "Sruluru",
+      "colorIndex": 5,
+      "x": 2843.0698102291517,
+      "y": 240.05217745932276,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n136",
+      "name": "Arneb",
+      "colorIndex": 5,
+      "x": 2545.1378326031013,
+      "y": 431.41617847297806,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n137",
+      "name": "Zibal",
+      "colorIndex": 5,
+      "x": 2728.480588065286,
+      "y": 433.7079629162554,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n138",
+      "name": "Anadolu",
+      "colorIndex": 5,
+      "x": 3055.0598712323026,
+      "y": 116.29581752234809,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n139",
+      "name": "Kuma",
+      "colorIndex": 5,
+      "x": 3287.67599222495,
+      "y": 92.23208086793635,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n140",
+      "name": "Tuiren",
+      "colorIndex": 5,
+      "x": 2822.443750239656,
+      "y": 480.68954400344023,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n143",
+      "name": "Kochab",
+      "colorIndex": 5,
+      "x": 3017.245427918227,
+      "y": 352.3496151799109,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n144",
+      "name": "Lerna",
+      "colorIndex": 5,
+      "x": 3218.9224589266305,
+      "y": 291.6173274330622,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n145",
+      "name": "Miram",
+      "colorIndex": 5,
+      "x": 3099.7496678762104,
+      "y": 526.5252328689864,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n146",
+      "name": "UNKNOWN",
+      "colorIndex": 5,
+      "x": 3255.591010019067,
+      "y": 460.06348401394445,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n147",
+      "name": "Shaula",
+      "colorIndex": 5,
+      "x": 2847.6533791157062,
+      "y": 604.4459039404148,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n148",
+      "name": "Aludra",
+      "colorIndex": 4,
+      "x": 2956.5131401713784,
+      "y": 622.7801794866334,
+      "planets": [
+        {
+          "id": "pl33",
+          "name": "Aludra",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n149",
+      "name": "Tevel",
+      "colorIndex": 5,
+      "x": 3064.2270090054117,
+      "y": 647.9898083626838,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n150",
+      "name": "Wezen",
+      "colorIndex": 5,
+      "x": 3206.3176444886053,
+      "y": 686.950143898398,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n151",
+      "name": "Giausar",
+      "colorIndex": 5,
+      "x": 2988.031475219012,
+      "y": 872.3217315838436,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n152",
+      "name": "HD-7826",
+      "colorIndex": 5,
+      "x": 3068.521958481195,
+      "y": 973.6882142107225,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n153",
+      "name": "HD-7143",
+      "colorIndex": 5,
+      "x": 3175.791408311627,
+      "y": 909.9063791764115,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n154",
+      "name": "Yed",
+      "colorIndex": 5,
+      "x": 3193.1864542300755,
+      "y": 1136.0419761162414,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n155",
+      "name": "Dalim",
+      "colorIndex": 5,
+      "x": 2456.796177015758,
+      "y": 583.7492682055031,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n156",
+      "name": "Bharani",
+      "colorIndex": 5,
+      "x": 2645.242507798949,
+      "y": 517.0682588514508,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n157",
+      "name": "Heze",
+      "colorIndex": 4,
+      "x": 2578.561498444897,
+      "y": 737.4055071517977,
+      "planets": [
+        {
+          "id": "pl34",
+          "name": "Heze",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n158",
+      "name": "Chalawan",
+      "colorIndex": 5,
+      "x": 2771.356590707701,
+      "y": 714.2121125938664,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n159",
+      "name": "Ankaa",
+      "colorIndex": 5,
+      "x": 2852.53347166046,
+      "y": 809.884865145333,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n160",
+      "name": "Rotanev",
+      "colorIndex": 1,
+      "x": 2869.9285175789087,
+      "y": 999.7807830883952,
+      "planets": [
+        {
+          "id": "pl35",
+          "name": "Rotanev",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n161",
+      "name": "HD-9705",
+      "colorIndex": 1,
+      "x": 3325.0988857783095,
+      "y": 1223.0172057084835,
+      "planets": [
+        {
+          "id": "pl36",
+          "name": "HD-9705",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n162",
+      "name": "HD-9140",
+      "colorIndex": 5,
+      "x": 3216.3798487880067,
+      "y": 1336.0850041783983,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n163",
+      "name": "Ukdah",
+      "colorIndex": 5,
+      "x": 3049.677325402876,
+      "y": 1240.412251626932,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n164",
+      "name": "HD-8470",
+      "colorIndex": 5,
+      "x": 2890.2227378170987,
+      "y": 1243.3114259466734,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n165",
+      "name": "Pincoya",
+      "colorIndex": 5,
+      "x": 2753.9615447892525,
+      "y": 1140.3907375958536,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n166",
+      "name": "Fuyue",
+      "colorIndex": 5,
+      "x": 2464.0441128151115,
+      "y": 912.8055534961529,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n167",
+      "name": "Citala",
+      "colorIndex": 5,
+      "x": 2622.0491132410184,
+      "y": 1018.6254161667142,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n168",
+      "name": "Minchir",
+      "colorIndex": 4,
+      "x": 2522.02759920994,
+      "y": 1156.3361963544312,
+      "planets": [
+        {
+          "id": "pl37",
+          "name": "Minchir Core",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n169",
+      "name": "Acrab",
+      "colorIndex": 5,
+      "x": 2413.3085622196368,
+      "y": 1283.899866423053,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n170",
+      "name": "Samaya",
+      "colorIndex": 5,
+      "x": 2564.0656268461903,
+      "y": 1341.8833528178814,
+      "facilities": null,
+      "planets": null,
+      "faction": "磁暴区 慎入",
+      "hasStation": false
+    },
+    {
+      "id": "n171",
+      "name": "HD-7594",
+      "colorIndex": 5,
+      "x": 2782.953287986666,
+      "y": 1428.8585824101235,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n172",
+      "name": "HD-7368",
+      "colorIndex": 5,
+      "x": 2691.629296914812,
+      "y": 1517.2833991622363,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n173",
+      "name": "Toliman",
+      "colorIndex": 5,
+      "x": 2733.6673245510624,
+      "y": 1660.7925279894362,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n174",
+      "name": "Nunki",
+      "colorIndex": 5,
+      "x": 1358.0726192321688,
+      "y": 115.07361390384395,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n175",
+      "name": "Highridge",
+      "colorIndex": 2,
+      "x": 1671.1199363658366,
+      "y": 227.1508268773101,
+      "planets": [
+        {
+          "id": "pl38",
+          "name": "Davin",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Jack Ontro",
+                  "role": "Drunkard"
+                },
+                {
+                  "name": "Rose Jordan",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Cedric Olson",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Emma Higgens",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n176",
+      "name": "Tair",
+      "colorIndex": 2,
+      "x": 1475.4256697832916,
+      "y": 247.44504711549993,
+      "planets": [
+        {
+          "id": "pl39",
+          "name": "Dagah",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Ankit Shant",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Kate Brooks",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Madelyn Roix",
+                  "role": "Local Worker"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s291",
+                "s292",
+                "s293",
+                "s294",
+                "s279",
+                "s287",
+                "s295",
+                "s281",
+                "s288",
+                "s296",
+                "s297",
+                "s289",
+                "s285",
+                "s324"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0,
+                  "trend": -1
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Independent",
+      "hasStation": false
+    },
+    {
+      "id": "n177",
+      "name": "Gloas",
+      "colorIndex": 5,
+      "x": 1331.916540956092,
+      "y": 257.5921572345949,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n178",
+      "name": "Megrez",
+      "colorIndex": 4,
+      "x": 853.5527781987597,
+      "y": 469.2318825757176,
+      "planets": [
+        {
+          "id": "pl40",
+          "name": "Megrez",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n179",
+      "name": "Propus",
+      "colorIndex": 5,
+      "x": 1014.4569529444077,
+      "y": 489.5261028139075,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n180",
+      "name": "Fish's Eye",
+      "colorIndex": 5,
+      "x": 1136.222274373547,
+      "y": 418.496331980243,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n181",
+      "name": "Caldoon",
+      "colorIndex": 5,
+      "x": 1279.7314032007466,
+      "y": 366.31119422489763,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n182",
+      "name": "Jabbar's Dream",
+      "colorIndex": 5,
+      "x": 792.6701174841901,
+      "y": 773.6451861485655,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n183",
+      "name": "Rukabt",
+      "colorIndex": 5,
+      "x": 934.7296591515191,
+      "y": 657.678213358909,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n184",
+      "name": "Atik",
+      "colorIndex": 5,
+      "x": 1010.1081914647957,
+      "y": 795.3889935466259,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n185",
+      "name": "Fartale",
+      "colorIndex": 5,
+      "x": 1133.3231000538055,
+      "y": 789.5906449071431,
+      "facilities": null,
+      "planets": null,
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n186",
+      "name": "New Milton",
+      "colorIndex": 0,
+      "x": 1191.3065864486337,
+      "y": 675.0732592773576,
+      "planets": [
+        {
+          "id": "pl41",
+          "name": "Mog",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Lora Darman",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Steven Hayes",
+                  "role": "Drunkard"
+                },
+                {
+                  "name": "Trevor Scott",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Carli Bennett",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n187",
+      "name": "Otak",
+      "colorIndex": 1,
+      "x": 1334.8157152758333,
+      "y": 560.555873647572,
+      "planets": [
+        {
+          "id": "pl42",
+          "name": "Otak's World",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Sophia Trent",
+                  "role": "Faction Rep"
+                },
+                {
+                  "name": "Keith Baker",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Clair Butler",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Jon Gordon",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s277",
+                "s292",
+                "s278",
+                "s298",
+                "s279",
+                "s280",
+                "s296",
+                "s301",
+                "s302",
+                "s303",
+                "s304",
+                "s305",
+                "s306"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n188",
+      "name": "Iliford",
+      "colorIndex": 1,
+      "x": 1429.038880667429,
+      "y": 477.92940553494185,
+      "planets": [
+        {
+          "id": "pl43",
+          "name": "New Douglas",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Hank Jeffries",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Ava Marshall",
+                  "role": "Local Worker"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s277",
+                "s292",
+                "s278",
+                "s298",
+                "s295",
+                "s299",
+                "s296",
+                "s282",
+                "s300"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n189",
+      "name": "Ondoset",
+      "colorIndex": 5,
+      "x": 1498.619064341223,
+      "y": 364.86160706502693,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n190",
+      "name": "Ruthsway",
+      "colorIndex": 5,
+      "x": 1703.0108538829923,
+      "y": 361.9624327452855,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n191",
+      "name": "Dria",
+      "colorIndex": 5,
+      "x": 1892.9067718260544,
+      "y": 485.1773413342953,
+      "facilities": null,
+      "planets": null,
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n192",
+      "name": "Keydun",
+      "colorIndex": 1,
+      "x": 1668.2207620460954,
+      "y": 505.4715615724852,
+      "planets": [
+        {
+          "id": "pl44",
+          "name": "Cantar I",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Lindsey Jones",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Alex Brown",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Doug Price",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Mike Weber",
+                  "role": "Drunkard"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n194",
+      "name": "Old Frontier",
+      "colorIndex": 5,
+      "x": 1536.3083304978613,
+      "y": 573.6021580864083,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n195",
+      "name": "Holdfast",
+      "colorIndex": 5,
+      "x": 1455.1314495451018,
+      "y": 669.2749106378748,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n196",
+      "name": "Saintsway",
+      "colorIndex": 0,
+      "x": 1379.7529172318252,
+      "y": 792.4898192268845,
+      "planets": [
+        {
+          "id": "pl45",
+          "name": "Grace",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Maureen Hill",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Kara Evans",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s291",
+                "s292",
+                "s293",
+                "s287",
+                "s296",
+                "s289",
+                "s301",
+                "s286"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Independent",
+      "hasStation": false
+    },
+    {
+      "id": "n197",
+      "name": "Sillil",
+      "colorIndex": 0,
+      "x": 1621.8339729302327,
+      "y": 798.2881678663673,
+      "planets": [
+        {
+          "id": "pl46",
+          "name": "Triumph",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Ana Crebil",
+                  "role": "Faction Rep"
+                },
+                {
+                  "name": "Neil Bradford",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Tomas Lee",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Nola Slade",
+                  "role": "Drunkard"
+                },
+                {
+                  "name": "Bruce Jensen",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Julian White",
+                  "role": "Local Worker"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s291",
+                "s293",
+                "s287",
+                "s288",
+                "s315",
+                "s282",
+                "s289",
+                "s316",
+                "s317",
+                "s318",
+                "s285",
+                "s303",
+                "s319"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "trend": -1,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "T.A.",
+      "hasStation": false
+    },
+    {
+      "id": "n198",
+      "name": "Baronsgate",
+      "colorIndex": 0,
+      "x": 1289.8785133198414,
+      "y": 909.9063791764115,
+      "planets": [
+        {
+          "id": "pl47",
+          "name": "Kydan",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Jessica Munn",
+                  "role": "Regular Patron"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s277",
+                "s292",
+                "s278",
+                "s279",
+                "s295",
+                "s296",
+                "s283"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p313",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n199",
+      "name": "Jill's Star",
+      "colorIndex": 1,
+      "x": 1198.5545222479873,
+      "y": 1012.8270675272315,
+      "planets": [
+        {
+          "id": "pl48",
+          "name": "Jill's Star",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "O.S.C.",
+      "hasStation": false
+    },
+    {
+      "id": "n200",
+      "name": "Tangent",
+      "colorIndex": 5,
+      "x": 1401.4967246298856,
+      "y": 969.3394527311104,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n201",
+      "name": "Silvia",
+      "colorIndex": 5,
+      "x": 1608.7876884913962,
+      "y": 989.6336729693003,
+      "facilities": null,
+      "planets": null,
+      "faction": "T.A.",
+      "hasStation": false
+    },
+    {
+      "id": "n202",
+      "name": "Tenarcha",
+      "colorIndex": 0,
+      "x": 1463.828972504326,
+      "y": 1094.0039484799909,
+      "planets": [
+        {
+          "id": "pl49",
+          "name": "Aalo",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Brian Sully",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Kathy Simmons",
+                  "role": "Regular Patron"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s295",
+                "s296",
+                "s316",
+                "s283",
+                "s300",
+                "s285"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "T.A.",
+      "hasStation": false
+    },
+    {
+      "id": "n203",
+      "name": "Gullet",
+      "colorIndex": 5,
+      "x": 1613.1364499710085,
+      "y": 1170.8320679531382,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n204",
+      "name": "Dima",
+      "colorIndex": 0,
+      "x": 1766.7926889173032,
+      "y": 1065.0122052825768,
+      "planets": [
+        {
+          "id": "pl50",
+          "name": "Dima I",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Sally Moore",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Greg Baker",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Walter Mills",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s291",
+                "s292",
+                "s293",
+                "s287",
+                "s296",
+                "s297",
+                "s308",
+                "s283",
+                "s284",
+                "s302",
+                "s305",
+                "s310",
+                "s311"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        },
+        {
+          "id": "pl70",
+          "name": "Dima II",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Joe Boly",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Stu Thomas",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Barney Olson",
+                  "role": "Drunkard"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": []
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Independent",
+      "hasStation": false
+    },
+    {
+      "id": "n205",
+      "name": "Pethylon",
+      "colorIndex": 0,
+      "x": 1903.0538819451492,
+      "y": 967.8898655712397,
+      "planets": [
+        {
+          "id": "pl51",
+          "name": "Peth Minor",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "John Harris",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Bret Cole",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Craig Bailey",
+                  "role": "Regular Patron"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "T.A.",
+      "hasStation": false
+    },
+    {
+      "id": "n206",
+      "name": "Equina",
+      "colorIndex": 5,
+      "x": 1762.4439274376912,
+      "y": 809.8848651453329,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n207",
+      "name": "Yuul",
+      "colorIndex": 5,
+      "x": 1885.658836026701,
+      "y": 824.38073674404,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n208",
+      "name": "New Saoki",
+      "colorIndex": 0,
+      "x": 1743.599294359372,
+      "y": 640.2831674404607,
+      "planets": [
+        {
+          "id": "pl52",
+          "name": "Kinsworth",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Yuto Saito",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Hans Wolff",
+                  "role": "Regular Patron"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s292",
+                "s278",
+                "s279",
+                "s295",
+                "s280",
+                "s297",
+                "s283",
+                "s301",
+                "s284",
+                "s302"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p276",
+                  "price": 0,
+                  "trend": 1
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Independent",
+      "hasStation": false
+    },
+    {
+      "id": "n209",
+      "name": "Kamui",
+      "colorIndex": 5,
+      "x": 1821.8770009923899,
+      "y": 160.46981752325772,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n210",
+      "name": "Parum",
+      "colorIndex": 5,
+      "x": 1976.9828270985552,
+      "y": 231.49958835692217,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n211",
+      "name": "Judd",
+      "colorIndex": 1,
+      "x": 1981.3315885781672,
+      "y": 393.853350262441,
+      "planets": [
+        {
+          "id": "pl53",
+          "name": "Athena",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Andy Hayes",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Joseph Kang",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s277",
+                "s292",
+                "s278",
+                "s314",
+                "s295",
+                "s280",
+                "s281",
+                "s296"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0,
+                  "priceMin": 7425,
+                  "priceMax": 7425
+                },
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 9100,
+                  "priceMax": 9200
+                },
+                {
+                  "productId": "p276",
+                  "price": 0,
+                  "priceMin": 14150,
+                  "priceMax": 14150
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n212",
+      "name": "Furud",
+      "colorIndex": 5,
+      "x": 2081.353102609246,
+      "y": 257.5921572345949,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n213",
+      "name": "Regor",
+      "colorIndex": 5,
+      "x": 2200.219249718644,
+      "y": 195.2599093601546,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n214",
+      "name": "Subra",
+      "colorIndex": 5,
+      "x": 2182.824203800195,
+      "y": 311.22688214981093,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n215",
+      "name": "Daroway",
+      "colorIndex": 0,
+      "x": 2012.123816769192,
+      "y": 552.5165384761347,
+      "planets": [
+        {
+          "id": "pl54",
+          "name": "Hope",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Luke Narrow",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Kohl Weber",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Irene Wolfe",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Judy Losue",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p276",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n216",
+      "name": "Levin",
+      "colorIndex": 0,
+      "x": 2114.6936072862723,
+      "y": 627.2368830016244,
+      "planets": [
+        {
+          "id": "pl55",
+          "name": "Skyhall",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Jan Turner",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Harry Martin",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Barney Powell",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Victor Wood",
+                  "role": "Regular Patron"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s279",
+                "s287",
+                "s281",
+                "s288",
+                "s289"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n217",
+      "name": "Sol",
+      "colorIndex": 0,
+      "x": 1963.936542659719,
+      "y": 701.1658281550302,
+      "planets": [
+        {
+          "id": "pl56",
+          "name": "Earth",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Blake Kybar",
+                  "role": "Faction Rep"
+                },
+                {
+                  "name": "Jacob Darman",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Ryan Bradford",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Anton Slade",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s277",
+                "s278",
+                "s279",
+                "s280",
+                "s281",
+                "s282",
+                "s283",
+                "s284",
+                "s285",
+                "s286",
+                "s307"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        },
+        {
+          "id": "pl68",
+          "name": "Luna",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Sam Foster",
+                  "role": "Drunkard"
+                },
+                {
+                  "name": "Ingrid Bates",
+                  "role": "Local Worker"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n218",
+      "name": "Pengon",
+      "colorIndex": 5,
+      "x": 1965.3861298195895,
+      "y": 1092.5543613201203,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n219",
+      "name": "Laehu",
+      "colorIndex": 5,
+      "x": 1978.4324142584258,
+      "y": 1205.622159790035,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n220",
+      "name": "Sansdale",
+      "colorIndex": 0,
+      "x": 2150.9332862830397,
+      "y": 1086.7560126806375,
+      "planets": [
+        {
+          "id": "pl57",
+          "name": "Virma",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Gus Simpson",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Matt Palmer",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Adrian White",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Val Cole",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s271",
+                "s292",
+                "s278",
+                "s314",
+                "s295",
+                "s296"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n221",
+      "name": "Urbo",
+      "colorIndex": 5,
+      "x": 2130.6390660448496,
+      "y": 809.884865145333,
+      "facilities": null,
+      "planets": null,
+      "faction": "F.E.R",
+      "hasStation": false
+    },
+    {
+      "id": "n222",
+      "name": "Renudan",
+      "colorIndex": 1,
+      "x": 2237.908515875282,
+      "y": 486.62692849416607,
+      "planets": [
+        {
+          "id": "pl69",
+          "name": "Herac",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Ray Kelly",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Trent Simmons",
+                  "role": "Local Worker"
+                },
+                {
+                  "name": "Harry Warner",
+                  "role": "Starship Captain"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s296",
+                "s308",
+                "s283",
+                "s301",
+                "s300",
+                "s285",
+                "s302",
+                "s303",
+                "s309",
+                "s305",
+                "s310",
+                "s311",
+                "s312"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "F.E.R.",
+      "hasStation": false
+    },
+    {
+      "id": "n223",
+      "name": "Ryugul",
+      "colorIndex": 0,
+      "x": 2298.7911765898516,
+      "y": 886.7129846184803,
+      "planets": [
+        {
+          "id": "pl59",
+          "name": "Jewel",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Arthur Brown",
+                  "role": "Regular Patron"
+                },
+                {
+                  "name": "Max Atria",
+                  "role": "Starship Captain"
+                },
+                {
+                  "name": "Irene Shaw",
+                  "role": "Drunkard"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p313",
+                  "price": 0
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Independent",
+      "hasStation": false
+    },
+    {
+      "id": "n224",
+      "name": "Tarak",
+      "colorIndex": 5,
+      "x": 2330.682094107007,
+      "y": 1056.3146823233526,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n225",
+      "name": "Rund",
+      "colorIndex": 5,
+      "x": 2233.5597543956696,
+      "y": 1241.8618387868025,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n226",
+      "name": "Sanctuary",
+      "colorIndex": 2,
+      "x": 1634.880257369069,
+      "y": 1269.403994824346,
+      "planets": [
+        {
+          "id": "pl61",
+          "name": "Yurt",
+          "facilities": {
+            "bar": {
+              "active": true,
+              "npcs": [
+                {
+                  "name": "Ironblood Ben",
+                  "role": "Cargo Transfer Facilitator"
+                },
+                {
+                  "name": "Slicer",
+                  "role": "\"Negotiation\" Specialist"
+                },
+                {
+                  "name": "Old Mark",
+                  "role": "Acquisitions Specialist"
+                },
+                {
+                  "name": "Smooth Billy-J",
+                  "role": "\"Negotiation\" Specialist"
+                },
+                {
+                  "name": "Heather Olson",
+                  "role": "\"Negotiation\" Specialist"
+                },
+                {
+                  "name": "Andy Peterson",
+                  "role": "Drunkard"
+                }
+              ]
+            },
+            "mission": true,
+            "shipyard": {
+              "active": true,
+              "shipIds": [
+                "s277",
+                "s320",
+                "s292",
+                "s321",
+                "s282",
+                "s322",
+                "s283",
+                "s300",
+                "s318",
+                "s285",
+                "s323"
+              ]
+            },
+            "equipment": true,
+            "trade": {
+              "active": true,
+              "products": [
+                {
+                  "productId": "p273",
+                  "price": 0
+                },
+                {
+                  "productId": "p274",
+                  "price": 0,
+                  "priceMin": 10075,
+                  "priceMax": 10675
+                },
+                {
+                  "productId": "p276",
+                  "price": 0
+                },
+                {
+                  "productId": "p275",
+                  "price": 0
+                },
+                {
+                  "productId": "p290",
+                  "price": 0,
+                  "priceMin": 21925,
+                  "priceMax": 21975
+                }
+              ]
+            },
+            "fleet": true
+          }
+        }
+      ],
+      "faction": "Pirate",
+      "hasStation": false
+    },
+    {
+      "id": "n227",
+      "name": "Tedium",
+      "colorIndex": 5,
+      "x": 1581.245532453853,
+      "y": 1467.9974357266326,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n228",
+      "name": "Chara",
+      "colorIndex": 5,
+      "x": 1463.828972504326,
+      "y": 1298.39573802176,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n229",
+      "name": "Wark",
+      "colorIndex": 5,
+      "x": 1575.4471838143702,
+      "y": 1336.0850041783985,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n230",
+      "name": "Charior",
+      "colorIndex": 5,
+      "x": 1808.8307165535534,
+      "y": 1266.5048205046046,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n232",
+      "name": "Trine",
+      "colorIndex": 5,
+      "x": 1700.1116795632508,
+      "y": 1353.4800500968468,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n233",
+      "name": "Typhoon",
+      "colorIndex": 5,
+      "x": 1729.1034227606647,
+      "y": 1472.3461972062446,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n234",
+      "name": "Zaurak",
+      "colorIndex": 5,
+      "x": 1953.789432540624,
+      "y": 1347.6817014573642,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n235",
+      "name": "Naos",
+      "colorIndex": 5,
+      "x": 1804.4819550739414,
+      "y": 1556.4222524787453,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n236",
+      "name": "Felis",
+      "colorIndex": 5,
+      "x": 1981.3315885781672,
+      "y": 1591.2123443156422,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n237",
+      "name": "Diadem",
+      "colorIndex": 5,
+      "x": 2168.328332201488,
+      "y": 1469.447022886503,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n238",
+      "name": "Belel 还差一颗",
+      "colorIndex": 4,
+      "x": 2298.791176589851,
+      "y": 1404.2156006923212,
+      "planets": [
+        {
+          "id": "pl62",
+          "name": "Belel Alpha",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        },
+        {
+          "id": "pl74",
+          "name": "Belel Gamma",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n239",
+      "name": "Nembus",
+      "colorIndex": 1,
+      "x": 2311.837461028688,
+      "y": 1624.5528489926685,
+      "planets": [
+        {
+          "id": "pl63",
+          "name": "Nembus Major",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        },
+        {
+          "id": "pl75",
+          "name": "Nembus Minor(Artifact)",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n240",
+      "name": "HD-8559",
+      "colorIndex": 5,
+      "x": 2498.8342046520083,
+      "y": 1607.15780307422,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n241",
+      "name": "Alhena",
+      "colorIndex": 4,
+      "x": 2514.779663410586,
+      "y": 1459.2999127674082,
+      "planets": [
+        {
+          "id": "pl64",
+          "name": "Alhena Rock",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n242",
+      "name": "Kalausi",
+      "colorIndex": 5,
+      "x": 2333.581268426748,
+      "y": 1795.6041338574116,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n243",
+      "name": "Tangihu",
+      "colorIndex": 5,
+      "x": 2475.640810094077,
+      "y": 1884.0289506095244,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n244",
+      "name": "HD-5802",
+      "colorIndex": 5,
+      "x": 2478.5399844138187,
+      "y": 2118.8620705085787,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n245",
+      "name": "Almach",
+      "colorIndex": 5,
+      "x": 2629.297049040372,
+      "y": 1727.4735373434883,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n246",
+      "name": "Alshat",
+      "colorIndex": 5,
+      "x": 2594.506957203475,
+      "y": 1878.2306019700416,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n247",
+      "name": "HD-4736",
+      "colorIndex": 5,
+      "x": 2433.6027824578264,
+      "y": 2298.610878332546,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n248",
+      "name": "Kwaan",
+      "colorIndex": 5,
+      "x": 2556.8176910468364,
+      "y": 2417.4770254419436,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n249",
+      "name": "Distant Twinkle",
+      "colorIndex": 5,
+      "x": 2524.926773529681,
+      "y": 2527.645649592117,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n250",
+      "name": "Hualogol",
+      "colorIndex": 5,
+      "x": 2759.7598934287353,
+      "y": 2608.8225305448764,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n251",
+      "name": "Pipoltr",
+      "colorIndex": 5,
+      "x": 2713.373104312873,
+      "y": 2136.257116427027,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n252",
+      "name": "Fang",
+      "colorIndex": 5,
+      "x": 2900.3698479361933,
+      "y": 2129.0091806276732,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n253",
+      "name": "Avior",
+      "colorIndex": 5,
+      "x": 2797.4491595853733,
+      "y": 1933.3149140451283,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n254",
+      "name": "Phecda",
+      "colorIndex": 4,
+      "x": 2840.9367743814946,
+      "y": 1599.9098672748662,
+      "planets": [
+        {
+          "id": "pl65",
+          "name": "Phecda",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n255",
+      "name": "Sarir",
+      "colorIndex": 1,
+      "x": 2878.626040538133,
+      "y": 2289.913355373322,
+      "planets": [
+        {
+          "id": "pl66",
+          "name": "Sarir",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n256",
+      "name": "Rasalas",
+      "colorIndex": 5,
+      "x": 3004.740123446884,
+      "y": 2458.0654659183233,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n257",
+      "name": "Journey's End",
+      "colorIndex": 5,
+      "x": 3126.5054448760234,
+      "y": 2785.6721640491023,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n258",
+      "name": "HD-9050",
+      "colorIndex": 5,
+      "x": 3374.384849213913,
+      "y": 2342.098493128667,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n259",
+      "name": "Schedar",
+      "colorIndex": 5,
+      "x": 3122.156683396411,
+      "y": 2204.3877129409498,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n260",
+      "name": "Vakda",
+      "colorIndex": 5,
+      "x": 3120.7070962365406,
+      "y": 1994.197574759698,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n261",
+      "name": "Jasper",
+      "colorIndex": 5,
+      "x": 3258.4178764242574,
+      "y": 1982.6008774807324,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n262",
+      "name": "Albali",
+      "colorIndex": 5,
+      "x": 2980.097141729082,
+      "y": 1886.9281249292658,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n263",
+      "name": "HD-9251",
+      "colorIndex": 1,
+      "x": 3238.1236561860674,
+      "y": 1823.1462898949549,
+      "planets": [
+        {
+          "id": "pl67",
+          "name": "HD-9251",
+          "facilities": {
+            "bar": {
+              "active": false,
+              "npcs": []
+            },
+            "mission": false,
+            "shipyard": {
+              "active": false,
+              "shipIds": []
+            },
+            "equipment": false,
+            "trade": {
+              "active": false,
+              "products": []
+            },
+            "fleet": false
+          }
+        }
+      ],
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n264",
+      "name": "HD-9656",
+      "colorIndex": 5,
+      "x": 3404.8261795711983,
+      "y": 1770.9611521396096,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n265",
+      "name": "HD-9820",
+      "colorIndex": 5,
+      "x": 3287.4096196216715,
+      "y": 1631.800784792022,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n266",
+      "name": "HD-9318",
+      "colorIndex": 5,
+      "x": 3362.788151934948,
+      "y": 1463.6486742470204,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n267",
+      "name": "Taika",
+      "colorIndex": 5,
+      "x": 3136.652554995118,
+      "y": 1475.245371525986,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n268",
+      "name": "HD-9941",
+      "colorIndex": 5,
+      "x": 3116.3583347569283,
+      "y": 1663.6917023091773,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n269",
+      "name": "Revati",
+      "colorIndex": 5,
+      "x": 3043.878976763393,
+      "y": 1566.5693625978404,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n270",
+      "name": "UNKNOWN",
+      "colorIndex": 5,
+      "x": -222.04089442530247,
+      "y": 1112.8485815583101,
+      "facilities": null,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    },
+    {
+      "id": "n325",
+      "name": "Arena",
+      "colorIndex": 5,
+      "x": 1535.573460691597,
+      "y": 130.40268525205244,
+      "planets": null,
+      "faction": "",
+      "hasStation": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "n3"
+    },
+    {
+      "from": "n9",
+      "to": "n11"
+    },
+    {
+      "from": "n11",
+      "to": "n8"
+    },
+    {
+      "from": "n7",
+      "to": "n6"
+    },
+    {
+      "from": "n6",
+      "to": "n5"
+    },
+    {
+      "from": "n5",
+      "to": "n7"
+    },
+    {
+      "from": "n6",
+      "to": "n1"
+    },
+    {
+      "from": "n8",
+      "to": "n7"
+    },
+    {
+      "from": "n4",
+      "to": "n3"
+    },
+    {
+      "from": "n5",
+      "to": "n4"
+    },
+    {
+      "from": "n12",
+      "to": "n4"
+    },
+    {
+      "from": "n3",
+      "to": "n13"
+    },
+    {
+      "from": "n12",
+      "to": "n13"
+    },
+    {
+      "from": "n13",
+      "to": "n14"
+    },
+    {
+      "from": "n18",
+      "to": "n17"
+    },
+    {
+      "from": "n17",
+      "to": "n16"
+    },
+    {
+      "from": "n16",
+      "to": "n3"
+    },
+    {
+      "from": "n14",
+      "to": "n15"
+    },
+    {
+      "from": "n15",
+      "to": "n16"
+    },
+    {
+      "from": "n18",
+      "to": "n19"
+    },
+    {
+      "from": "n19",
+      "to": "n20"
+    },
+    {
+      "from": "n15",
+      "to": "n22"
+    },
+    {
+      "from": "n22",
+      "to": "n21"
+    },
+    {
+      "from": "n20",
+      "to": "n21"
+    },
+    {
+      "from": "n23",
+      "to": "n21"
+    },
+    {
+      "from": "n21",
+      "to": "n24"
+    },
+    {
+      "from": "n23",
+      "to": "n25"
+    },
+    {
+      "from": "n26",
+      "to": "n23"
+    },
+    {
+      "from": "n20",
+      "to": "n27"
+    },
+    {
+      "from": "n28",
+      "to": "n27"
+    },
+    {
+      "from": "n29",
+      "to": "n28"
+    },
+    {
+      "from": "n30",
+      "to": "n29"
+    },
+    {
+      "from": "n31",
+      "to": "n30"
+    },
+    {
+      "from": "n31",
+      "to": "n24"
+    },
+    {
+      "from": "n31",
+      "to": "n33"
+    },
+    {
+      "from": "n32",
+      "to": "n31"
+    },
+    {
+      "from": "n34",
+      "to": "n30"
+    },
+    {
+      "from": "n34",
+      "to": "n33"
+    },
+    {
+      "from": "n35",
+      "to": "n29"
+    },
+    {
+      "from": "n36",
+      "to": "n34"
+    },
+    {
+      "from": "n37",
+      "to": "n34"
+    },
+    {
+      "from": "n37",
+      "to": "n38"
+    },
+    {
+      "from": "n36",
+      "to": "n38"
+    },
+    {
+      "from": "n39",
+      "to": "n35"
+    },
+    {
+      "from": "n42",
+      "to": "n41"
+    },
+    {
+      "from": "n40",
+      "to": "n41"
+    },
+    {
+      "from": "n40",
+      "to": "n42"
+    },
+    {
+      "from": "n39",
+      "to": "n40"
+    },
+    {
+      "from": "n36",
+      "to": "n41"
+    },
+    {
+      "from": "n44",
+      "to": "n43"
+    },
+    {
+      "from": "n43",
+      "to": "n42"
+    },
+    {
+      "from": "n45",
+      "to": "n38"
+    },
+    {
+      "from": "n45",
+      "to": "n44"
+    },
+    {
+      "from": "n45",
+      "to": "n46"
+    },
+    {
+      "from": "n46",
+      "to": "n44"
+    },
+    {
+      "from": "n43",
+      "to": "n47"
+    },
+    {
+      "from": "n48",
+      "to": "n47"
+    },
+    {
+      "from": "n50",
+      "to": "n46"
+    },
+    {
+      "from": "n49",
+      "to": "n50"
+    },
+    {
+      "from": "n49",
+      "to": "n48"
+    },
+    {
+      "from": "n52",
+      "to": "n51"
+    },
+    {
+      "from": "n50",
+      "to": "n51"
+    },
+    {
+      "from": "n53",
+      "to": "n51"
+    },
+    {
+      "from": "n54",
+      "to": "n53"
+    },
+    {
+      "from": "n56",
+      "to": "n37"
+    },
+    {
+      "from": "n56",
+      "to": "n55"
+    },
+    {
+      "from": "n55",
+      "to": "n45"
+    },
+    {
+      "from": "n57",
+      "to": "n56"
+    },
+    {
+      "from": "n57",
+      "to": "n55"
+    },
+    {
+      "from": "n58",
+      "to": "n50"
+    },
+    {
+      "from": "n58",
+      "to": "n57"
+    },
+    {
+      "from": "n57",
+      "to": "n54"
+    },
+    {
+      "from": "n59",
+      "to": "n32"
+    },
+    {
+      "from": "n32",
+      "to": "n60"
+    },
+    {
+      "from": "n61",
+      "to": "n60"
+    },
+    {
+      "from": "n61",
+      "to": "n31"
+    },
+    {
+      "from": "n62",
+      "to": "n61"
+    },
+    {
+      "from": "n62",
+      "to": "n21"
+    },
+    {
+      "from": "n63",
+      "to": "n62"
+    },
+    {
+      "from": "n64",
+      "to": "n63"
+    },
+    {
+      "from": "n65",
+      "to": "n64"
+    },
+    {
+      "from": "n66",
+      "to": "n64"
+    },
+    {
+      "from": "n66",
+      "to": "n61"
+    },
+    {
+      "from": "n66",
+      "to": "n67"
+    },
+    {
+      "from": "n67",
+      "to": "n60"
+    },
+    {
+      "from": "n68",
+      "to": "n60"
+    },
+    {
+      "from": "n69",
+      "to": "n67"
+    },
+    {
+      "from": "n69",
+      "to": "n68"
+    },
+    {
+      "from": "n68",
+      "to": "n70"
+    },
+    {
+      "from": "n71",
+      "to": "n70"
+    },
+    {
+      "from": "n72",
+      "to": "n71"
+    },
+    {
+      "from": "n70",
+      "to": "n73"
+    },
+    {
+      "from": "n73",
+      "to": "n72"
+    },
+    {
+      "from": "n74",
+      "to": "n73"
+    },
+    {
+      "from": "n74",
+      "to": "n69"
+    },
+    {
+      "from": "n72",
+      "to": "n56"
+    },
+    {
+      "from": "n75",
+      "to": "n72"
+    },
+    {
+      "from": "n76",
+      "to": "n75"
+    },
+    {
+      "from": "n76",
+      "to": "n73"
+    },
+    {
+      "from": "n75",
+      "to": "n54"
+    },
+    {
+      "from": "n77",
+      "to": "n54"
+    },
+    {
+      "from": "n78",
+      "to": "n77"
+    },
+    {
+      "from": "n78",
+      "to": "n80"
+    },
+    {
+      "from": "n80",
+      "to": "n76"
+    },
+    {
+      "from": "n81",
+      "to": "n76"
+    },
+    {
+      "from": "n82",
+      "to": "n81"
+    },
+    {
+      "from": "n83",
+      "to": "n82"
+    },
+    {
+      "from": "n84",
+      "to": "n78"
+    },
+    {
+      "from": "n85",
+      "to": "n84"
+    },
+    {
+      "from": "n85",
+      "to": "n78"
+    },
+    {
+      "from": "n86",
+      "to": "n78"
+    },
+    {
+      "from": "n87",
+      "to": "n86"
+    },
+    {
+      "from": "n88",
+      "to": "n87"
+    },
+    {
+      "from": "n88",
+      "to": "n85"
+    },
+    {
+      "from": "n89",
+      "to": "n87"
+    },
+    {
+      "from": "n91",
+      "to": "n88"
+    },
+    {
+      "from": "n90",
+      "to": "n91"
+    },
+    {
+      "from": "n90",
+      "to": "n83"
+    },
+    {
+      "from": "n91",
+      "to": "n92"
+    },
+    {
+      "from": "n93",
+      "to": "n89"
+    },
+    {
+      "from": "n93",
+      "to": "n92"
+    },
+    {
+      "from": "n95",
+      "to": "n93"
+    },
+    {
+      "from": "n96",
+      "to": "n11"
+    },
+    {
+      "from": "n97",
+      "to": "n96"
+    },
+    {
+      "from": "n98",
+      "to": "n97"
+    },
+    {
+      "from": "n98",
+      "to": "n12"
+    },
+    {
+      "from": "n99",
+      "to": "n98"
+    },
+    {
+      "from": "n100",
+      "to": "n99"
+    },
+    {
+      "from": "n100",
+      "to": "n11"
+    },
+    {
+      "from": "n101",
+      "to": "n11"
+    },
+    {
+      "from": "n102",
+      "to": "n100"
+    },
+    {
+      "from": "n102",
+      "to": "n101"
+    },
+    {
+      "from": "n103",
+      "to": "n101"
+    },
+    {
+      "from": "n104",
+      "to": "n101"
+    },
+    {
+      "from": "n104",
+      "to": "n103"
+    },
+    {
+      "from": "n103",
+      "to": "n10"
+    },
+    {
+      "from": "n105",
+      "to": "n10"
+    },
+    {
+      "from": "n106",
+      "to": "n104"
+    },
+    {
+      "from": "n106",
+      "to": "n105"
+    },
+    {
+      "from": "n107",
+      "to": "n105"
+    },
+    {
+      "from": "n108",
+      "to": "n106"
+    },
+    {
+      "from": "n109",
+      "to": "n106"
+    },
+    {
+      "from": "n110",
+      "to": "n109"
+    },
+    {
+      "from": "n111",
+      "to": "n109"
+    },
+    {
+      "from": "n112",
+      "to": "n108"
+    },
+    {
+      "from": "n113",
+      "to": "n110"
+    },
+    {
+      "from": "n113",
+      "to": "n112"
+    },
+    {
+      "from": "n114",
+      "to": "n113"
+    },
+    {
+      "from": "n115",
+      "to": "n113"
+    },
+    {
+      "from": "n115",
+      "to": "n114"
+    },
+    {
+      "from": "n116",
+      "to": "n115"
+    },
+    {
+      "from": "n117",
+      "to": "n114"
+    },
+    {
+      "from": "n118",
+      "to": "n112"
+    },
+    {
+      "from": "n119",
+      "to": "n118"
+    },
+    {
+      "from": "n117",
+      "to": "n119"
+    },
+    {
+      "from": "n117",
+      "to": "n120"
+    },
+    {
+      "from": "n121",
+      "to": "n120"
+    },
+    {
+      "from": "n121",
+      "to": "n119"
+    },
+    {
+      "from": "n122",
+      "to": "n121"
+    },
+    {
+      "from": "n123",
+      "to": "n122"
+    },
+    {
+      "from": "n124",
+      "to": "n123"
+    },
+    {
+      "from": "n125",
+      "to": "n122"
+    },
+    {
+      "from": "n125",
+      "to": "n124"
+    },
+    {
+      "from": "n126",
+      "to": "n124"
+    },
+    {
+      "from": "n127",
+      "to": "n126"
+    },
+    {
+      "from": "n126",
+      "to": "n128"
+    },
+    {
+      "from": "n128",
+      "to": "n127"
+    },
+    {
+      "from": "n129",
+      "to": "n123"
+    },
+    {
+      "from": "n129",
+      "to": "n127"
+    },
+    {
+      "from": "n130",
+      "to": "n125"
+    },
+    {
+      "from": "n131",
+      "to": "n130"
+    },
+    {
+      "from": "n131",
+      "to": "n128"
+    },
+    {
+      "from": "n132",
+      "to": "n127"
+    },
+    {
+      "from": "n133",
+      "to": "n132"
+    },
+    {
+      "from": "n133",
+      "to": "n134"
+    },
+    {
+      "from": "n135",
+      "to": "n134"
+    },
+    {
+      "from": "n135",
+      "to": "n128"
+    },
+    {
+      "from": "n136",
+      "to": "n131"
+    },
+    {
+      "from": "n137",
+      "to": "n136"
+    },
+    {
+      "from": "n137",
+      "to": "n135"
+    },
+    {
+      "from": "n138",
+      "to": "n134"
+    },
+    {
+      "from": "n139",
+      "to": "n138"
+    },
+    {
+      "from": "n140",
+      "to": "n137"
+    },
+    {
+      "from": "n143",
+      "to": "n140"
+    },
+    {
+      "from": "n143",
+      "to": "n134"
+    },
+    {
+      "from": "n144",
+      "to": "n139"
+    },
+    {
+      "from": "n143",
+      "to": "n145"
+    },
+    {
+      "from": "n146",
+      "to": "n144"
+    },
+    {
+      "from": "n146",
+      "to": "n145"
+    },
+    {
+      "from": "n147",
+      "to": "n140"
+    },
+    {
+      "from": "n148",
+      "to": "n147"
+    },
+    {
+      "from": "n149",
+      "to": "n148"
+    },
+    {
+      "from": "n149",
+      "to": "n145"
+    },
+    {
+      "from": "n150",
+      "to": "n149"
+    },
+    {
+      "from": "n150",
+      "to": "n146"
+    },
+    {
+      "from": "n151",
+      "to": "n149"
+    },
+    {
+      "from": "n151",
+      "to": "n148"
+    },
+    {
+      "from": "n153",
+      "to": "n154"
+    },
+    {
+      "from": "n153",
+      "to": "n152"
+    },
+    {
+      "from": "n152",
+      "to": "n151"
+    },
+    {
+      "from": "n155",
+      "to": "n136"
+    },
+    {
+      "from": "n156",
+      "to": "n137"
+    },
+    {
+      "from": "n157",
+      "to": "n155"
+    },
+    {
+      "from": "n157",
+      "to": "n156"
+    },
+    {
+      "from": "n158",
+      "to": "n140"
+    },
+    {
+      "from": "n158",
+      "to": "n157"
+    },
+    {
+      "from": "n159",
+      "to": "n158"
+    },
+    {
+      "from": "n160",
+      "to": "n151"
+    },
+    {
+      "from": "n160",
+      "to": "n159"
+    },
+    {
+      "from": "n154",
+      "to": "n161"
+    },
+    {
+      "from": "n162",
+      "to": "n154"
+    },
+    {
+      "from": "n162",
+      "to": "n161"
+    },
+    {
+      "from": "n163",
+      "to": "n154"
+    },
+    {
+      "from": "n164",
+      "to": "n163"
+    },
+    {
+      "from": "n165",
+      "to": "n160"
+    },
+    {
+      "from": "n165",
+      "to": "n164"
+    },
+    {
+      "from": "n166",
+      "to": "n157"
+    },
+    {
+      "from": "n167",
+      "to": "n166"
+    },
+    {
+      "from": "n167",
+      "to": "n165"
+    },
+    {
+      "from": "n168",
+      "to": "n167"
+    },
+    {
+      "from": "n168",
+      "to": "n165"
+    },
+    {
+      "from": "n169",
+      "to": "n168"
+    },
+    {
+      "from": "n170",
+      "to": "n169"
+    },
+    {
+      "from": "n171",
+      "to": "n164"
+    },
+    {
+      "from": "n171",
+      "to": "n170"
+    },
+    {
+      "from": "n172",
+      "to": "n171"
+    },
+    {
+      "from": "n172",
+      "to": "n173"
+    },
+    {
+      "from": "n174",
+      "to": "n108"
+    },
+    {
+      "from": "n176",
+      "to": "n175"
+    },
+    {
+      "from": "n176",
+      "to": "n174"
+    },
+    {
+      "from": "n175",
+      "to": "n118"
+    },
+    {
+      "from": "n177",
+      "to": "n102"
+    },
+    {
+      "from": "n177",
+      "to": "n176"
+    },
+    {
+      "from": "n178",
+      "to": "n99"
+    },
+    {
+      "from": "n178",
+      "to": "n100"
+    },
+    {
+      "from": "n13",
+      "to": "n178"
+    },
+    {
+      "from": "n179",
+      "to": "n178"
+    },
+    {
+      "from": "n180",
+      "to": "n179"
+    },
+    {
+      "from": "n180",
+      "to": "n102"
+    },
+    {
+      "from": "n181",
+      "to": "n177"
+    },
+    {
+      "from": "n181",
+      "to": "n180"
+    },
+    {
+      "from": "n182",
+      "to": "n14"
+    },
+    {
+      "from": "n183",
+      "to": "n182"
+    },
+    {
+      "from": "n183",
+      "to": "n179"
+    },
+    {
+      "from": "n184",
+      "to": "n183"
+    },
+    {
+      "from": "n64",
+      "to": "n184"
+    },
+    {
+      "from": "n185",
+      "to": "n184"
+    },
+    {
+      "from": "n186",
+      "to": "n185"
+    },
+    {
+      "from": "n189",
+      "to": "n176"
+    },
+    {
+      "from": "n189",
+      "to": "n188"
+    },
+    {
+      "from": "n187",
+      "to": "n188"
+    },
+    {
+      "from": "n187",
+      "to": "n186"
+    },
+    {
+      "from": "n190",
+      "to": "n175"
+    },
+    {
+      "from": "n191",
+      "to": "n190"
+    },
+    {
+      "from": "n192",
+      "to": "n189"
+    },
+    {
+      "from": "n192",
+      "to": "n190"
+    },
+    {
+      "from": "n192",
+      "to": "n191"
+    },
+    {
+      "from": "n194",
+      "to": "n189"
+    },
+    {
+      "from": "n194",
+      "to": "n192"
+    },
+    {
+      "from": "n195",
+      "to": "n194"
+    },
+    {
+      "from": "n195",
+      "to": "n187"
+    },
+    {
+      "from": "n196",
+      "to": "n195"
+    },
+    {
+      "from": "n197",
+      "to": "n195"
+    },
+    {
+      "from": "n197",
+      "to": "n196"
+    },
+    {
+      "from": "n198",
+      "to": "n196"
+    },
+    {
+      "from": "n198",
+      "to": "n186"
+    },
+    {
+      "from": "n199",
+      "to": "n185"
+    },
+    {
+      "from": "n199",
+      "to": "n198"
+    },
+    {
+      "from": "n201",
+      "to": "n197"
+    },
+    {
+      "from": "n202",
+      "to": "n201"
+    },
+    {
+      "from": "n202",
+      "to": "n200"
+    },
+    {
+      "from": "n200",
+      "to": "n198"
+    },
+    {
+      "from": "n203",
+      "to": "n202"
+    },
+    {
+      "from": "n204",
+      "to": "n201"
+    },
+    {
+      "from": "n204",
+      "to": "n203"
+    },
+    {
+      "from": "n205",
+      "to": "n204"
+    },
+    {
+      "from": "n205",
+      "to": "n201"
+    },
+    {
+      "from": "n207",
+      "to": "n205"
+    },
+    {
+      "from": "n207",
+      "to": "n206"
+    },
+    {
+      "from": "n206",
+      "to": "n197"
+    },
+    {
+      "from": "n194",
+      "to": "n208"
+    },
+    {
+      "from": "n208",
+      "to": "n206"
+    },
+    {
+      "from": "n209",
+      "to": "n119"
+    },
+    {
+      "from": "n210",
+      "to": "n209"
+    },
+    {
+      "from": "n211",
+      "to": "n191"
+    },
+    {
+      "from": "n211",
+      "to": "n210"
+    },
+    {
+      "from": "n212",
+      "to": "n211"
+    },
+    {
+      "from": "n213",
+      "to": "n125"
+    },
+    {
+      "from": "n213",
+      "to": "n212"
+    },
+    {
+      "from": "n214",
+      "to": "n211"
+    },
+    {
+      "from": "n214",
+      "to": "n130"
+    },
+    {
+      "from": "n215",
+      "to": "n191"
+    },
+    {
+      "from": "n216",
+      "to": "n215"
+    },
+    {
+      "from": "n191",
+      "to": "n208"
+    },
+    {
+      "from": "n217",
+      "to": "n215"
+    },
+    {
+      "from": "n217",
+      "to": "n207"
+    },
+    {
+      "from": "n218",
+      "to": "n205"
+    },
+    {
+      "from": "n218",
+      "to": "n204"
+    },
+    {
+      "from": "n219",
+      "to": "n218"
+    },
+    {
+      "from": "n220",
+      "to": "n218"
+    },
+    {
+      "from": "n220",
+      "to": "n219"
+    },
+    {
+      "from": "n221",
+      "to": "n220"
+    },
+    {
+      "from": "n221",
+      "to": "n217"
+    },
+    {
+      "from": "n222",
+      "to": "n215"
+    },
+    {
+      "from": "n223",
+      "to": "n222"
+    },
+    {
+      "from": "n223",
+      "to": "n220"
+    },
+    {
+      "from": "n223",
+      "to": "n166"
+    },
+    {
+      "from": "n224",
+      "to": "n223"
+    },
+    {
+      "from": "n224",
+      "to": "n169"
+    },
+    {
+      "from": "n225",
+      "to": "n224"
+    },
+    {
+      "from": "n225",
+      "to": "n219"
+    },
+    {
+      "from": "n226",
+      "to": "n203"
+    },
+    {
+      "from": "n227",
+      "to": "n74"
+    },
+    {
+      "from": "n229",
+      "to": "n226"
+    },
+    {
+      "from": "n229",
+      "to": "n228"
+    },
+    {
+      "from": "n228",
+      "to": "n227"
+    },
+    {
+      "from": "n230",
+      "to": "n219"
+    },
+    {
+      "from": "n232",
+      "to": "n233"
+    },
+    {
+      "from": "n233",
+      "to": "n229"
+    },
+    {
+      "from": "n230",
+      "to": "n233"
+    },
+    {
+      "from": "n234",
+      "to": "n230"
+    },
+    {
+      "from": "n235",
+      "to": "n233"
+    },
+    {
+      "from": "n236",
+      "to": "n235"
+    },
+    {
+      "from": "n236",
+      "to": "n90"
+    },
+    {
+      "from": "n237",
+      "to": "n234"
+    },
+    {
+      "from": "n237",
+      "to": "n236"
+    },
+    {
+      "from": "n238",
+      "to": "n225"
+    },
+    {
+      "from": "n238",
+      "to": "n237"
+    },
+    {
+      "from": "n237",
+      "to": "n95"
+    },
+    {
+      "from": "n239",
+      "to": "n237"
+    },
+    {
+      "from": "n240",
+      "to": "n238"
+    },
+    {
+      "from": "n240",
+      "to": "n239"
+    },
+    {
+      "from": "n241",
+      "to": "n240"
+    },
+    {
+      "from": "n241",
+      "to": "n170"
+    },
+    {
+      "from": "n241",
+      "to": "n172"
+    },
+    {
+      "from": "n242",
+      "to": "n95"
+    },
+    {
+      "from": "n242",
+      "to": "n240"
+    },
+    {
+      "from": "n242",
+      "to": "n243"
+    },
+    {
+      "from": "n244",
+      "to": "n243"
+    },
+    {
+      "from": "n244",
+      "to": "n93"
+    },
+    {
+      "from": "n245",
+      "to": "n173"
+    },
+    {
+      "from": "n246",
+      "to": "n243"
+    },
+    {
+      "from": "n246",
+      "to": "n245"
+    },
+    {
+      "from": "n244",
+      "to": "n247"
+    },
+    {
+      "from": "n248",
+      "to": "n247"
+    },
+    {
+      "from": "n248",
+      "to": "n249"
+    },
+    {
+      "from": "n250",
+      "to": "n249"
+    },
+    {
+      "from": "n251",
+      "to": "n248"
+    },
+    {
+      "from": "n253",
+      "to": "n251"
+    },
+    {
+      "from": "n252",
+      "to": "n253"
+    },
+    {
+      "from": "n254",
+      "to": "n253"
+    },
+    {
+      "from": "n254",
+      "to": "n171"
+    },
+    {
+      "from": "n255",
+      "to": "n251"
+    },
+    {
+      "from": "n255",
+      "to": "n252"
+    },
+    {
+      "from": "n256",
+      "to": "n255"
+    },
+    {
+      "from": "n256",
+      "to": "n250"
+    },
+    {
+      "from": "n257",
+      "to": "n256"
+    },
+    {
+      "from": "n258",
+      "to": "n256"
+    },
+    {
+      "from": "n259",
+      "to": "n256"
+    },
+    {
+      "from": "n260",
+      "to": "n259"
+    },
+    {
+      "from": "n261",
+      "to": "n260"
+    },
+    {
+      "from": "n261",
+      "to": "n258"
+    },
+    {
+      "from": "n262",
+      "to": "n252"
+    },
+    {
+      "from": "n262",
+      "to": "n260"
+    },
+    {
+      "from": "n262",
+      "to": "n173"
+    },
+    {
+      "from": "n263",
+      "to": "n262"
+    },
+    {
+      "from": "n263",
+      "to": "n264"
+    },
+    {
+      "from": "n265",
+      "to": "n263"
+    },
+    {
+      "from": "n265",
+      "to": "n264"
+    },
+    {
+      "from": "n266",
+      "to": "n265"
+    },
+    {
+      "from": "n266",
+      "to": "n162"
+    },
+    {
+      "from": "n267",
+      "to": "n162"
+    },
+    {
+      "from": "n267",
+      "to": "n265"
+    },
+    {
+      "from": "n268",
+      "to": "n265"
+    },
+    {
+      "from": "n269",
+      "to": "n268"
+    },
+    {
+      "from": "n269",
+      "to": "n254"
+    },
+    {
+      "from": "n270",
+      "to": "n19"
+    },
+    {
+      "from": "n27",
+      "to": "n270"
+    },
+    {
+      "from": "n176",
+      "to": "n325"
+    }
+  ],
+  "ships": [
+    {
+      "id": "s271",
+      "name": "Crate",
+      "price": 25000,
+      "fuelMax": 3,
+      "fuelPerJump": 1,
+      "type": "Flying Crate",
+      "turnRate": 150,
+      "maxSpeed": 120,
+      "shield": 20,
+      "shieldRecharge": 12.5,
+      "cargoSpace": 10,
+      "mass": 10,
+      "hp": 12,
+      "acceleration": 0.063,
+      "generator": 12,
+      "generatorRate": 0.5,
+      "equipment": "5 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s277",
+      "name": "Amigo",
+      "price": 45000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "Cargo Hauler",
+      "turnRate": 120,
+      "maxSpeed": 108,
+      "shield": 30,
+      "shieldRecharge": 15,
+      "cargoSpace": 30,
+      "mass": 10,
+      "hp": 25,
+      "acceleration": 0.015,
+      "generator": 15,
+      "generatorRate": 0.5,
+      "equipment": "15 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s278",
+      "name": "Courier",
+      "price": 84000,
+      "fuelMax": 6,
+      "fuelPerJump": 1,
+      "type": "Cargo Hauler",
+      "turnRate": 63,
+      "maxSpeed": 97.5,
+      "shield": 40,
+      "shieldRecharge": 16,
+      "cargoSpace": 40,
+      "mass": 20,
+      "hp": 30,
+      "acceleration": 0.037,
+      "generator": 20,
+      "generatorRate": 0.5,
+      "equipment": "25 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s279",
+      "name": "Wander",
+      "price": 225000,
+      "fuelMax": 20,
+      "fuelPerJump": 2,
+      "type": "Entry Explorer",
+      "turnRate": 78,
+      "maxSpeed": 112.5,
+      "shield": 78,
+      "shieldRecharge": 22.75,
+      "cargoSpace": 50,
+      "mass": 60,
+      "hp": 52,
+      "acceleration": 0.012,
+      "generator": 30,
+      "generatorRate": 0.75,
+      "equipment": "F:25, B:25 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s280",
+      "name": "Bruiser",
+      "price": 252000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "Frigate",
+      "turnRate": 72,
+      "maxSpeed": 97.5,
+      "shield": 65,
+      "shieldRecharge": 22.75,
+      "cargoSpace": 20,
+      "mass": 50,
+      "hp": 65,
+      "acceleration": 0.025,
+      "generator": 70,
+      "generatorRate": 0.5,
+      "equipment": "F:35, B:30 (AR:0)",
+      "weapons": "1x Medium",
+      "condition": ""
+    },
+    {
+      "id": "s281",
+      "name": "Prospero",
+      "price": 255000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "Frigate",
+      "turnRate": 72,
+      "maxSpeed": 90,
+      "shield": 81,
+      "shieldRecharge": 22.75,
+      "cargoSpace": 120,
+      "mass": 50,
+      "hp": 81,
+      "acceleration": 0.037,
+      "generator": 20,
+      "generatorRate": 0.5,
+      "equipment": "F:50, B:40 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s282",
+      "name": "Intrepid",
+      "price": 455000,
+      "fuelMax": 36,
+      "fuelPerJump": 3,
+      "type": "Entry Explorer",
+      "turnRate": 60,
+      "maxSpeed": 67.5,
+      "shield": 150,
+      "shieldRecharge": 30,
+      "cargoSpace": 180,
+      "mass": 130,
+      "hp": 112,
+      "acceleration": 0.012,
+      "generator": 60,
+      "generatorRate": 1.5,
+      "equipment": "F:75, B:62, L:75, R:75 (AR:2)",
+      "weapons": "2x Small, 1x Medium",
+      "condition": ""
+    },
+    {
+      "id": "s283",
+      "name": "Tanker",
+      "price": 650000,
+      "fuelMax": 120,
+      "fuelPerJump": 4,
+      "type": "Fuel Tanker",
+      "turnRate": 48,
+      "maxSpeed": 60,
+      "shield": 272,
+      "shieldRecharge": 34,
+      "cargoSpace": 10,
+      "mass": 20,
+      "hp": 255,
+      "acceleration": 0.015,
+      "generator": 40,
+      "generatorRate": 1,
+      "equipment": "F:50, B:25, L:50, R:50 (AR:0)",
+      "weapons": "None",
+      "condition": ""
+    },
+    {
+      "id": "s284",
+      "name": "FT Conveyor",
+      "price": 950000,
+      "fuelMax": 20,
+      "fuelPerJump": 4,
+      "type": "Fast Cargo",
+      "turnRate": 40,
+      "maxSpeed": 81,
+      "shield": 212,
+      "shieldRecharge": 31.45,
+      "cargoSpace": 550,
+      "mass": 50,
+      "hp": 255,
+      "acceleration": 0.019,
+      "generator": 40,
+      "generatorRate": 1,
+      "equipment": "F:50, B:25, L:50, R:50 (AR:0)",
+      "weapons": "3x Small",
+      "condition": "None"
+    },
+    {
+      "id": "s285",
+      "name": "Pioneer",
+      "price": 980000,
+      "fuelMax": 64,
+      "fuelPerJump": 4,
+      "type": "Explorer",
+      "turnRate": 47,
+      "maxSpeed": 60,
+      "shield": 238,
+      "shieldRecharge": 38.25,
+      "cargoSpace": 400,
+      "mass": 200,
+      "hp": 170,
+      "acceleration": 0.011,
+      "generator": 110,
+      "generatorRate": 2,
+      "equipment": "F:37, B:12, L:37, R:37 (AR:0)",
+      "weapons": "2x Small, 2x Medium, 1x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s286",
+      "name": "Sovereign",
+      "price": 1600000,
+      "fuelMax": 110,
+      "fuelPerJump": 5,
+      "type": "Grand Explorer",
+      "turnRate": 30,
+      "maxSpeed": 52.5,
+      "shield": 550,
+      "shieldRecharge": 50,
+      "cargoSpace": 500,
+      "mass": 370,
+      "hp": 425,
+      "acceleration": 0.008,
+      "generator": 300,
+      "generatorRate": 6,
+      "equipment": "F:100, B:50, L:100, R:100 (AR:2)",
+      "weapons": "6x Small, 3x Medium, 1x Large, 2x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s287",
+      "name": "Gryllidae",
+      "price": 250000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "General",
+      "turnRate": 120,
+      "maxSpeed": 105,
+      "shield": 78,
+      "shieldRecharge": 22.75,
+      "cargoSpace": 70,
+      "mass": 50,
+      "hp": 58,
+      "acceleration": 0.063,
+      "generator": 30,
+      "generatorRate": 1,
+      "equipment": "F:50, B:15 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s288",
+      "name": "Dawnstar",
+      "price": 265000,
+      "fuelMax": 10,
+      "fuelPerJump": 2,
+      "type": "General",
+      "turnRate": 82,
+      "maxSpeed": 97.5,
+      "shield": 105,
+      "shieldRecharge": 32.5,
+      "cargoSpace": 60,
+      "mass": 80,
+      "hp": 39,
+      "acceleration": 0.044,
+      "generator": 50,
+      "generatorRate": 1.25,
+      "equipment": "F:15, B:15 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s289",
+      "name": "Voidstalker",
+      "price": 550000,
+      "fuelMax": 12,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 63,
+      "maxSpeed": 90,
+      "shield": 210,
+      "shieldRecharge": 33,
+      "cargoSpace": 60,
+      "mass": 150,
+      "hp": 112,
+      "acceleration": 0.019,
+      "generator": 100,
+      "generatorRate": 3.5,
+      "equipment": "F:40, B:40, L:40, R:40 (AR:0)",
+      "weapons": "2x Small, 2x Medium",
+      "condition": ""
+    },
+    {
+      "id": "s291",
+      "name": "Mustang",
+      "price": 76000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "General",
+      "turnRate": 120,
+      "maxSpeed": 180,
+      "shield": 40,
+      "shieldRecharge": 17.5,
+      "cargoSpace": 20,
+      "mass": 30,
+      "hp": 25,
+      "acceleration": 0.1,
+      "generator": 15,
+      "generatorRate": 0.5,
+      "equipment": "15 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s292",
+      "name": "MG 500 Series",
+      "price": 80000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "Cargo Hauler",
+      "turnRate": 63,
+      "maxSpeed": 75,
+      "shield": 40,
+      "shieldRecharge": 15,
+      "cargoSpace": 80,
+      "mass": 20,
+      "hp": 40,
+      "acceleration": 0.015,
+      "generator": 20,
+      "generatorRate": 0.5,
+      "equipment": "15 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s293",
+      "name": "Reliant Mk2",
+      "price": 101000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "General",
+      "turnRate": 93,
+      "maxSpeed": 90,
+      "shield": 45,
+      "shieldRecharge": 18,
+      "cargoSpace": 30,
+      "mass": 20,
+      "hp": 55,
+      "acceleration": 0.037,
+      "generator": 25,
+      "generatorRate": 0.7,
+      "equipment": "45 (AR:1)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s294",
+      "name": "IM Reliant",
+      "price": 160000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "General",
+      "turnRate": 93,
+      "maxSpeed": 120,
+      "shield": 45,
+      "shieldRecharge": 18,
+      "cargoSpace": 10,
+      "mass": 20,
+      "hp": 55,
+      "acceleration": 0.037,
+      "generator": 25,
+      "generatorRate": 0.7,
+      "equipment": "45 (AR:1)",
+      "weapons": "1x Small",
+      "condition": "Independent独立联盟专属"
+    },
+    {
+      "id": "s295",
+      "name": "Small Tanker",
+      "price": 250000,
+      "fuelMax": 48,
+      "fuelPerJump": 2,
+      "type": "Fuel Tanker",
+      "turnRate": 63,
+      "maxSpeed": 75,
+      "shield": 65,
+      "shieldRecharge": 22.75,
+      "cargoSpace": 10,
+      "mass": 10,
+      "hp": 52,
+      "acceleration": 0.015,
+      "generator": 30,
+      "generatorRate": 0.5,
+      "equipment": "F:37, B:25 (AR:0)",
+      "weapons": "None",
+      "condition": ""
+    },
+    {
+      "id": "s296",
+      "name": "MG 1000 Series",
+      "price": 450000,
+      "fuelMax": 15,
+      "fuelPerJump": 3,
+      "type": "Cargo Hauler",
+      "turnRate": 54,
+      "maxSpeed": 60,
+      "shield": 120,
+      "shieldRecharge": 26.25,
+      "cargoSpace": 300,
+      "mass": 60,
+      "hp": 142,
+      "acceleration": 0.015,
+      "generator": 30,
+      "generatorRate": 1,
+      "equipment": "F:35, B:20, L:35, R:35 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s297",
+      "name": "Onager",
+      "price": 540000,
+      "fuelMax": 15,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 54,
+      "maxSpeed": 67.5,
+      "shield": 150,
+      "shieldRecharge": 26.25,
+      "cargoSpace": 120,
+      "mass": 140,
+      "hp": 135,
+      "acceleration": 0.012,
+      "generator": 70,
+      "generatorRate": 1.5,
+      "equipment": "F:60, B:40, L:60, R:60 (AR:0)",
+      "weapons": "2x Small, 1x Medium, 1x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s298",
+      "name": "OSC Corvette",
+      "price": 160000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "Corvette",
+      "turnRate": 100,
+      "maxSpeed": 120,
+      "shield": 20,
+      "shieldRecharge": 12.5,
+      "cargoSpace": 10,
+      "mass": 40,
+      "hp": 62,
+      "acceleration": 0.022,
+      "generator": 25,
+      "generatorRate": 0.5,
+      "equipment": "35 (AR:1)",
+      "weapons": "1x Small",
+      "condition": "OSC联盟专属"
+    },
+    {
+      "id": "s299",
+      "name": "OSC Frigate",
+      "price": 384000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "Frigate",
+      "turnRate": 48,
+      "maxSpeed": 72,
+      "shield": 42,
+      "shieldRecharge": 19.5,
+      "cargoSpace": 30,
+      "mass": 100,
+      "hp": 130,
+      "acceleration": 0.015,
+      "generator": 50,
+      "generatorRate": 1,
+      "equipment": "F:70, B:50 (AR:1)",
+      "weapons": "2x Small",
+      "condition": "OSC联盟专属"
+    },
+    {
+      "id": "s300",
+      "name": "Venture",
+      "price": 915000,
+      "fuelMax": 48,
+      "fuelPerJump": 4,
+      "type": "Explorer",
+      "turnRate": 28,
+      "maxSpeed": 75,
+      "shield": 212,
+      "shieldRecharge": 34,
+      "cargoSpace": 280,
+      "mass": 220,
+      "hp": 212,
+      "acceleration": 0.019,
+      "generator": 110,
+      "generatorRate": 2,
+      "equipment": "F:75, B:50, L:75, R:75 (AR:1)",
+      "weapons": "2x Small, 2x Medium, 1x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s301",
+      "name": "Bulk Freighter",
+      "price": 850000,
+      "fuelMax": 16,
+      "fuelPerJump": 4,
+      "type": "Cargo Hauler",
+      "turnRate": 27,
+      "maxSpeed": 45,
+      "shield": 170,
+      "shieldRecharge": 27.2,
+      "cargoSpace": 750,
+      "mass": 20,
+      "hp": 255,
+      "acceleration": 0.006,
+      "generator": 20,
+      "generatorRate": 0.5,
+      "equipment": "F:25, B:20, L:25, R:25 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s302",
+      "name": "MG 2000 Series",
+      "price": 1020000,
+      "fuelMax": 24,
+      "fuelPerJump": 4,
+      "type": "Cargo Hauler",
+      "turnRate": 40,
+      "maxSpeed": 52.5,
+      "shield": 238,
+      "shieldRecharge": 42.5,
+      "cargoSpace": 700,
+      "mass": 100,
+      "hp": 297,
+      "acceleration": 0.011,
+      "generator": 50,
+      "generatorRate": 1.5,
+      "equipment": "F:50, B:25, L:50, R:50 (AR:0)",
+      "weapons": "4x Small",
+      "condition": ""
+    },
+    {
+      "id": "s303",
+      "name": "Odyssey",
+      "price": 1100000,
+      "fuelMax": 64,
+      "fuelPerJump": 4,
+      "type": "Grand Explorer",
+      "turnRate": 32,
+      "maxSpeed": 45,
+      "shield": 272,
+      "shieldRecharge": 42.5,
+      "cargoSpace": 450,
+      "mass": 350,
+      "hp": 255,
+      "acceleration": 0.008,
+      "generator": 150,
+      "generatorRate": 3,
+      "equipment": "F:150, B:112, L:150, R:150 (AR:4)",
+      "weapons": "6x Small, 2x Medium, 2x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s304",
+      "name": "OSC Cruiser",
+      "price": 1390000,
+      "fuelMax": 16,
+      "fuelPerJump": 4,
+      "type": "Cruiser",
+      "turnRate": 27,
+      "maxSpeed": 48,
+      "shield": 170,
+      "shieldRecharge": 35.7,
+      "cargoSpace": 120,
+      "mass": 400,
+      "hp": 403,
+      "acceleration": 0.008,
+      "generator": 230,
+      "generatorRate": 3,
+      "equipment": "F:162, B:112, L:162, R:162 (AR:4)",
+      "weapons": "3x Small, 3x Medium, 3x Large, 1x Torpedo",
+      "condition": "OSC联盟专属"
+    },
+    {
+      "id": "s305",
+      "name": "Super Tanker",
+      "price": 1450000,
+      "fuelMax": 360,
+      "fuelPerJump": 5,
+      "type": "Fuel Tanker",
+      "turnRate": 35,
+      "maxSpeed": 52.5,
+      "shield": 600,
+      "shieldRecharge": 50,
+      "cargoSpace": 20,
+      "mass": 30,
+      "hp": 550,
+      "acceleration": 0.011,
+      "generator": 50,
+      "generatorRate": 1.5,
+      "equipment": "F:50, B:25, L:50, R:50 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s306",
+      "name": "OSC Battleship",
+      "price": 2050000,
+      "fuelMax": 20,
+      "fuelPerJump": 5,
+      "type": "Capital Warship",
+      "turnRate": 20,
+      "maxSpeed": 42,
+      "shield": 310,
+      "shieldRecharge": 45,
+      "cargoSpace": 200,
+      "mass": 600,
+      "hp": 750,
+      "acceleration": 0.005,
+      "generator": 360,
+      "generatorRate": 5,
+      "equipment": "F:175, B:122, L:175, R:175 (AR:7)",
+      "weapons": "4x Small, 5x Medium, 5x Large, 2x Torpedo",
+      "condition": "OSC联盟专属"
+    },
+    {
+      "id": "s307",
+      "name": "FER Destroyer",
+      "price": 800000,
+      "fuelMax": 18,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 52,
+      "maxSpeed": 60,
+      "shield": 210,
+      "shieldRecharge": 30,
+      "cargoSpace": 40,
+      "mass": 150,
+      "hp": 180,
+      "acceleration": 0.015,
+      "generator": 140,
+      "generatorRate": 2.5,
+      "equipment": "F:60, B:40, L:60, R:60 (AR:0)",
+      "weapons": "4x Small, 2x Medium, 1x Torpedo",
+      "condition": "FER联盟专属"
+    },
+    {
+      "id": "s308",
+      "name": "FT barbant",
+      "price": 730000,
+      "fuelMax": 12,
+      "fuelPerJump": 3,
+      "type": "Cargo Hauler",
+      "turnRate": 45,
+      "maxSpeed": 60,
+      "shield": 187,
+      "shieldRecharge": 30,
+      "cargoSpace": 400,
+      "mass": 120,
+      "hp": 225,
+      "acceleration": 0.012,
+      "generator": 60,
+      "generatorRate": 1.5,
+      "equipment": "F:70, B:50, L:70, R:70 (AR:3)",
+      "weapons": "2x Small, 1x Medium",
+      "condition": ""
+    },
+    {
+      "id": "s309",
+      "name": "FER Cruiser",
+      "price": 1380000,
+      "fuelMax": 24,
+      "fuelPerJump": 4,
+      "type": "Cruiser",
+      "turnRate": 40,
+      "maxSpeed": 52.5,
+      "shield": 340,
+      "shieldRecharge": 42.5,
+      "cargoSpace": 70,
+      "mass": 380,
+      "hp": 340,
+      "acceleration": 0.011,
+      "generator": 320,
+      "generatorRate": 5,
+      "equipment": "F:70, B;45, L:70, R:70 (AR:2)",
+      "weapons": "3x Small, 5x Medium, 2x Large, 2x Torpedo",
+      "condition": "FER联盟专属"
+    },
+    {
+      "id": "s310",
+      "name": "MG Goliath",
+      "price": 1500000,
+      "fuelMax": 30,
+      "fuelPerJump": 5,
+      "type": "Super Cargo",
+      "turnRate": 30,
+      "maxSpeed": 45,
+      "shield": 540,
+      "shieldRecharge": 50,
+      "cargoSpace": 1600,
+      "mass": 100,
+      "hp": 650,
+      "acceleration": 0.008,
+      "generator": 60,
+      "generatorRate": 1.5,
+      "equipment": "F:50, B:25, L:50, R:50 (AR:0)",
+      "weapons": "4x Small",
+      "condition": ""
+    },
+    {
+      "id": "s311",
+      "name": "Prinsceps Navis",
+      "price": 1580000,
+      "fuelMax": 20,
+      "fuelPerJump": 5,
+      "type": "Capital Warship",
+      "turnRate": 30,
+      "maxSpeed": 45,
+      "shield": 550,
+      "shieldRecharge": 50,
+      "cargoSpace": 200,
+      "mass": 400,
+      "hp": 450,
+      "acceleration": 0.008,
+      "generator": 360,
+      "generatorRate": 6,
+      "equipment": "F:125, B:50, L:125, R:125 (AR:3)",
+      "weapons": "4x Small, 4x Medium, 2x Large",
+      "condition": ""
+    },
+    {
+      "id": "s312",
+      "name": "FER Battleship",
+      "price": 2000000,
+      "fuelMax": 30,
+      "fuelPerJump": 5,
+      "type": "Capital Warship",
+      "turnRate": 30,
+      "maxSpeed": 45,
+      "shield": 600,
+      "shieldRecharge": 54,
+      "cargoSpace": 120,
+      "mass": 500,
+      "hp": 600,
+      "acceleration": 0.008,
+      "generator": 440,
+      "generatorRate": 7,
+      "equipment": "F:75, B:50, L:75, R:75 (AR:3)",
+      "weapons": "4x Small, 4x Medium, 5x Large, 2x Torpedo",
+      "condition": "FER联盟专属"
+    },
+    {
+      "id": "s314",
+      "name": "Reliant",
+      "price": 95000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "General",
+      "turnRate": 78,
+      "maxSpeed": 90,
+      "shield": 40,
+      "shieldRecharge": 16,
+      "cargoSpace": 30,
+      "mass": 20,
+      "hp": 55,
+      "acceleration": 0.025,
+      "generator": 20,
+      "generatorRate": 0.5,
+      "equipment": "45 (AR:1)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s315",
+      "name": "TA Frigate",
+      "price": 360000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "Frigate",
+      "turnRate": 80,
+      "maxSpeed": 90,
+      "shield": 110,
+      "shieldRecharge": 29.25,
+      "cargoSpace": 30,
+      "mass": 80,
+      "hp": 81,
+      "acceleration": 0.027,
+      "generator": 60,
+      "generatorRate": 1.75,
+      "equipment": "F:35, B:25 (AR:0)",
+      "weapons": "5x Small",
+      "condition": "TA联盟专属"
+    },
+    {
+      "id": "s316",
+      "name": "TA Destroyer",
+      "price": 850000,
+      "fuelMax": 15,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 54,
+      "maxSpeed": 67.5,
+      "shield": 262,
+      "shieldRecharge": 37.5,
+      "cargoSpace": 40,
+      "mass": 180,
+      "hp": 150,
+      "acceleration": 0.019,
+      "generator": 170,
+      "generatorRate": 3.5,
+      "equipment": "F:45, B:30, L:45, R:45 (AR:0)",
+      "weapons": "3x Small, 2x Medium, 1x Torpedo",
+      "condition": "TA联盟专属"
+    },
+    {
+      "id": "s317",
+      "name": "TA Aggressor",
+      "price": 895000,
+      "fuelMax": 12,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 42,
+      "maxSpeed": 55.5,
+      "shield": 285,
+      "shieldRecharge": 37.5,
+      "cargoSpace": 40,
+      "mass": 200,
+      "hp": 165,
+      "acceleration": 0.014,
+      "generator": 210,
+      "generatorRate": 5,
+      "equipment": "F:50, B:35, L:50, R:50 (AR:1)",
+      "weapons": "1x Small, 2x Medium, 1x Large",
+      "condition": "TA联盟专属"
+    },
+    {
+      "id": "s318",
+      "name": "Valiant",
+      "price": 950000,
+      "fuelMax": 24,
+      "fuelPerJump": 4,
+      "type": "Destroyer",
+      "turnRate": 47,
+      "maxSpeed": 67.5,
+      "shield": 238,
+      "shieldRecharge": 34,
+      "cargoSpace": 200,
+      "mass": 230,
+      "hp": 212,
+      "acceleration": 0.012,
+      "generator": 160,
+      "generatorRate": 3.5,
+      "equipment": "F:37, B:25, L:37, R:50 (AR:0)",
+      "weapons": "2x Small, 1x Medium, 1x Large, 2x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s319",
+      "name": "TA Battleship",
+      "price": 2080000,
+      "fuelMax": 25,
+      "fuelPerJump": 5,
+      "type": "Capital Warship",
+      "turnRate": 31,
+      "maxSpeed": 51,
+      "shield": 750,
+      "shieldRecharge": 60,
+      "cargoSpace": 100,
+      "mass": 500,
+      "hp": 500,
+      "acceleration": 0.009,
+      "generator": 550,
+      "generatorRate": 10.5,
+      "equipment": "F:55, B:40, L:55, R:55 (AR:2)",
+      "weapons": "6x Small, 5x Medium, 3x Large, 2x Torpedo",
+      "condition": "TA联盟专属"
+    },
+    {
+      "id": "s320",
+      "name": "Skiff",
+      "price": 60000,
+      "fuelMax": 4,
+      "fuelPerJump": 1,
+      "type": "Corvette",
+      "turnRate": 180,
+      "maxSpeed": 157,
+      "shield": 35,
+      "shieldRecharge": 12,
+      "cargoSpace": 10,
+      "mass": 30,
+      "hp": 25,
+      "acceleration": 0.063,
+      "generator": 30,
+      "generatorRate": 0.4,
+      "equipment": "15 (AR:0)",
+      "weapons": "1x Small",
+      "condition": ""
+    },
+    {
+      "id": "s321",
+      "name": "Raider",
+      "price": 320000,
+      "fuelMax": 8,
+      "fuelPerJump": 2,
+      "type": "Frigate",
+      "turnRate": 128,
+      "maxSpeed": 120,
+      "shield": 84,
+      "shieldRecharge": 16.9,
+      "cargoSpace": 50,
+      "mass": 70,
+      "hp": 65,
+      "acceleration": 0.05,
+      "generator": 70,
+      "generatorRate": 1,
+      "equipment": "F:25, B:20 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s322",
+      "name": "Scythe",
+      "price": 760000,
+      "fuelMax": 15,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 75,
+      "maxSpeed": 90,
+      "shield": 187,
+      "shieldRecharge": 27,
+      "cargoSpace": 110,
+      "mass": 180,
+      "hp": 127,
+      "acceleration": 0.025,
+      "generator": 160,
+      "generatorRate": 1.5,
+      "equipment": "F:45, B:25, L:45, R:45 (AR:0)",
+      "weapons": "2x Small",
+      "condition": ""
+    },
+    {
+      "id": "s323",
+      "name": "Dreadhulk",
+      "price": 1280000,
+      "fuelMax": 20,
+      "fuelPerJump": 4,
+      "type": "Cruiser",
+      "turnRate": 54,
+      "maxSpeed": 75,
+      "shield": 314,
+      "shieldRecharge": 35.7,
+      "cargoSpace": 200,
+      "mass": 350,
+      "hp": 255,
+      "acceleration": 0.019,
+      "generator": 370,
+      "generatorRate": 2,
+      "equipment": "F:50, B:30, L:50, R:50 (AR:0)",
+      "weapons": "4x Small, 4x Medium, 2x Large, 1x Torpedo",
+      "condition": ""
+    },
+    {
+      "id": "s324",
+      "name": "IM Onager",
+      "price": 490000,
+      "fuelMax": 15,
+      "fuelPerJump": 3,
+      "type": "Destroyer",
+      "turnRate": 54,
+      "maxSpeed": 90,
+      "shield": 150,
+      "shieldRecharge": 26.25,
+      "cargoSpace": 40,
+      "mass": 140,
+      "hp": 135,
+      "acceleration": 0.012,
+      "generator": 70,
+      "generatorRate": 1.5,
+      "equipment": "F:60, B:40, L:60, R:60 (AR:0)",
+      "weapons": "2x Small, 1x Medium, 1x Torpedo",
+      "condition": "Independent联盟专属"
+    }
+  ],
+  "products": [
+    {
+      "id": "p273",
+      "name": "食品Food",
+      "icon": "🍖"
+    },
+    {
+      "id": "p274",
+      "name": "金属Metal",
+      "icon": "🔩"
+    },
+    {
+      "id": "p275",
+      "name": "医疗物资Medical Supplies",
+      "icon": "🏥"
+    },
+    {
+      "id": "p276",
+      "name": "设备Equipment",
+      "icon": "⚙️"
+    },
+    {
+      "id": "p290",
+      "name": "奢侈品luxury",
+      "icon": "💎"
+    },
+    {
+      "id": "p313",
+      "name": "水water",
+      "icon": "🛢️"
+    }
+  ],
+  "nextId": 326,
+  "planetNextId": 76,
+  "_version": 3
+}

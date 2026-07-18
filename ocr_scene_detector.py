@@ -20,8 +20,22 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from PIL import Image, ImageDraw, ImageFont
 
 # ========== 配置 ==========
-ADB_EXE = r"D:\工程\MuMu Player 12\nx_main\adb.exe"
-ADB_DEVICE = "emulator-5554"
+# 从配置文件读取（优先），否则使用默认值
+def _load_ocr_config():
+    import json as _json
+    config_path = os.path.join(os.path.dirname(__file__), "_api_config.json")
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                cfg = _json.load(f)
+            oc = cfg.get('ocrConfig', {})
+            return oc.get('adbPath', ADB_EXE_DEFAULT), oc.get('deviceId', ADB_DEVICE_DEFAULT), oc.get('interval', 1.0), oc.get('port', 8765)
+        except: pass
+    return ADB_EXE_DEFAULT, ADB_DEVICE_DEFAULT, 1.0, 8765
+
+ADB_EXE_DEFAULT = r"D:\工程\MuMu Player 12\nx_main\adb.exe"
+ADB_DEVICE_DEFAULT = "emulator-5554"
+ADB_EXE, ADB_DEVICE, SCAN_INTERVAL, HTTP_PORT = _load_ocr_config()
 TEMP_SCREENSHOT = os.path.join(os.path.dirname(__file__), "_ocr_temp_scene.png")
 REGION_JSON = os.path.join(os.path.dirname(__file__), "_scene_region.json")        # Bar/Trade 检测区
 REFUEL_REGION_JSON = os.path.join(os.path.dirname(__file__), "_refuel_region.json")  # REFUEL 检测区
@@ -43,7 +57,6 @@ def _load_api_key():
 
 DEEPSEEK_API_KEY = _load_api_key()
 DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
-SCAN_INTERVAL = 1.0
 SIDEBAR_W = 320
 
 print("🔤 加载 EasyOCR (ch_sim+en)...", end=" ", flush=True)
@@ -575,8 +588,8 @@ class NewsHandler(BaseHTTPRequestHandler):
 
 def start_http_server():
     try:
-        server = HTTPServer(('127.0.0.1', 8765), NewsHandler)
-        print("🌐 HTTP服务: http://127.0.0.1:8765")
+        server = HTTPServer(('127.0.0.1', HTTP_PORT), NewsHandler)
+        print(f"🌐 HTTP服务: http://127.0.0.1:{HTTP_PORT}")
         server.serve_forever()
     except:
         print("⚠️ HTTP服务启动失败（端口可能被占用）")

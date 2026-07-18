@@ -2820,6 +2820,8 @@ function loadKBConfig() {
 var _kbConfig = loadKBConfig();
 const DEEPSEEK_KEY = (_kbConfig && _kbConfig.apiKey) || '';
 const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
+const OCR_PORT = (_kbConfig && _kbConfig.ocrConfig && _kbConfig.ocrConfig.port) || 8765;
+const OCR_URL = 'http://127.0.0.1:' + OCR_PORT;
 let chatHistory = [];
 
 function toggleChat() {
@@ -3278,7 +3280,7 @@ function renderNewsLog() {
 }
 setInterval(async ()=>{
   try {
-    const r = await fetch('http://127.0.0.1:8765/news.json');
+    const r = await fetch(OCR_URL+'/news.json');
     const news = await r.json();
     if (news.time && news.time !== _lastNewsTime) {
       // 首次轮询只记时间，不回放旧新闻
@@ -3289,7 +3291,7 @@ setInterval(async ()=>{
       renderNewsLog();
       // 自动刷新星图数据（从服务端同步OCR/AI修改后的JSON）
       try {
-        const r2 = await fetch('http://127.0.0.1:8765/starmap.json');
+        const r2 = await fetch(OCR_URL+'/starmap.json');
         const data = await r2.json();
         state.nodes = data.nodes; state.edges = data.edges;
         state.ships = data.ships||[]; state.products = data.products||[];
