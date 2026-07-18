@@ -3123,6 +3123,13 @@ function executeAPICall(fnName, args) {
     var a = JSON.parse(args);
     if (fnName === 'findPath') {
       var result = api_findPath(a.from, a.to, a.mode||'shortest', a.waypoints, a.blocked);
+      // 将AI指定的障碍星系标记到地图上
+      if (a.blocked && a.blocked.length) {
+        for (var bi = 0; bi < a.blocked.length; bi++) {
+          var bnode = fuzzyFindNode(a.blocked[bi]);
+          if (bnode && !state.blockedNodeIds.includes(bnode.id)) state.blockedNodeIds.push(bnode.id);
+        }
+      }
       if (result && result.nodeIds && result.nodeIds.length > 0) {
         state.startNodeId = result.nodeIds[0];
         state.endNodeId = result.nodeIds[result.nodeIds.length - 1];
@@ -3171,7 +3178,7 @@ async function sendChat() {
       "[CALL:findNearestShip]{\"shipName\":\"船名\",\"from\":\"起点星系\"}\n"+
       "[CALL:getSystemInfo]{\"name\":\"星系名\"}\n"+
       "调用后系统返回JSON结果，你再基于真实数据回答。不要在无数据时编造！\n"+
-      "用户提到途径/经过某地时必须在findPath中用waypoints参数！注意：[CALL:xxx]必须单独一行。";
+      "用户提到避开/绕过/不经过某星系时必须在findPath中用blocked参数！用户提到途径/经过某地时用waypoints参数！注意：[CALL:xxx]必须单独一行。不要自己判断路径是否可能，直接调用API！";
     var r1 = await fetch(DEEPSEEK_URL, {
       method: "POST",
       headers: {"Content-Type":"application/json","Authorization":"Bearer "+key},
