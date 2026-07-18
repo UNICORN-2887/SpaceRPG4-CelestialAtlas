@@ -137,10 +137,10 @@
 const STORAGE_KEY = 'spacerpg4_kb_config';
 const DEFAULTS = {
   apiName:'', apiKey:'',
-  ocrConfig:{ adbPath:'D:\\工程\\MuMu Player 12\\nx_main\\adb.exe', deviceId:'', interval:1.0, port:8765 },
+  ocrConfig:{ adbPath:'D:\\工程\\MuMu Player 12\\nx_main\\adb.exe', deviceId:'emulator-5554', interval:1.0, port:8765 },
   toolKB:[], gameKB:[], customRules:[],
 };
-function emptyConfig(){ return { apiName:'',apiKey:'',ocrConfig:{ adbPath:'',deviceId:'',interval:1.0,port:8765 },toolKB:[],gameKB:[],customRules:[] }; }
+function emptyConfig(){ return { apiName:'',apiKey:'',ocrConfig:{ adbPath:'',deviceId:'emulator-5554',interval:1.0,port:8765 },toolKB:[],gameKB:[],customRules:[] }; }
 function loadConfig(){ try{ var r=localStorage.getItem(STORAGE_KEY); if(r) return JSON.parse(r); }catch(e){} return emptyConfig(); }
 function saveConfig(){
   var c={ apiName:document.getElementById('api-name').value.trim(), apiKey:document.getElementById('api-key').value.trim(),
