@@ -86,15 +86,15 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
             self.serve_page()
-        elif self.path == "/api/entries":
+        elif self.path.startswith("/api/entries"):
             threshold = 0.72
-            if '?' in self.path:
+            if '=' in self.path:
                 try: threshold = float(self.path.split('=')[1])
                 except: pass
             self.serve_json(self.get_all_entries(threshold))
-        elif self.path == "/api/raw":
+        elif self.path.startswith("/api/raw"):
             self.serve_json(self.get_all_entries(1.0))
-        elif self.path == "/api/defaults":
+        elif self.path.startswith("/api/defaults"):
             self.serve_json(get_defaults())
         elif self.path == "/sync":
             self.handle_sync()
