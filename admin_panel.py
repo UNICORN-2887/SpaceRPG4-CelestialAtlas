@@ -104,15 +104,15 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(404); self.end_headers()
 
     def fuzzy_match_default(self, entry, defaults):
-        """模糊匹配：去空格完全相同 或 互相包含"""
-        e = entry.replace(' ', '').replace('\n', '')
+        """模糊匹配：去空格相同、互相包含、或相似度>=50%"""
+        e = entry.replace(' ', '').replace('\n', '').replace('→','>').replace('≥','>=')
         for d in defaults:
-            d2 = d.replace(' ', '').replace('\n', '')
+            d2 = d.replace(' ', '').replace('\n', '').replace('→','>').replace('≥','>=')
             if e == d2: return True
-            if len(e) > 15 and len(d2) > 15 and (e.find(d2) >= 0 or d2.find(e) >= 0): return True
-        # 相似度>80%也视为匹配
+            if len(e) > 10 and len(d2) > 10 and (e.find(d2) >= 0 or d2.find(e) >= 0): return True
+        # 用共同字符比例判断
         for d in defaults:
-            if self.similarity(entry, d) >= 0.8: return True
+            if self.similarity(e, d) >= 0.5: return True
         return False
 
     def similarity(self, a, b):
