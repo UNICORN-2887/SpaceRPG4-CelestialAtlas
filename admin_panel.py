@@ -139,6 +139,7 @@ class Handler(BaseHTTPRequestHandler):
             for e in entries:
                 esc = e.replace("\\", "\\\\").replace("'", "\\'")
                 insert += f"\n    '{esc}',"
+            insert += "\n"
             content = content[:end_pos] + insert + content[end_pos:]
         with open(KB_CONFIG_PATH, "w", encoding="utf-8") as f: f.write(content)
 
