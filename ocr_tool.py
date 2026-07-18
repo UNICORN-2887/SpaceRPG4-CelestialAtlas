@@ -6,15 +6,18 @@ SpaceRPG4 OCR 框选工具 + AI 分析
 - DeepSeek AI 分析 → 生成物价波动指令
 """
 
-import subprocess
-import os
-import sys
-import json
-import cv2
-import numpy as np
-import easyocr
-import requests
-import re
+# 自动安装依赖
+import subprocess, os, sys
+def _ensure(pkg, imp):
+    try: __import__(imp); return
+    except: subprocess.check_call([sys.executable, '-m', 'pip', 'install', pkg, '-q'])
+_ensure('opencv-python', 'cv2')
+_ensure('numpy', 'numpy')
+_ensure('easyocr', 'easyocr')
+_ensure('requests', 'requests')
+_ensure('Pillow', 'PIL')
+
+import json, cv2, numpy as np, easyocr, requests, re
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 

@@ -5,17 +5,19 @@ SpaceRPG4 场景检测器
 - 检测 "Bar"→进入酒吧  "Trade"→进入贸易中心
 """
 
-import subprocess
-import os
-import sys
-import json
-import time
-import re
-import threading
-import cv2
-import numpy as np
-import easyocr
-import requests
+# 自动安装依赖
+import subprocess, os, sys
+def _ensure(pkg, imp):
+    try: __import__(imp); return
+    except: subprocess.check_call([sys.executable, '-m', 'pip', 'install', pkg, '-q'])
+_ensure('opencv-python', 'cv2')
+_ensure('numpy', 'numpy')
+_ensure('easyocr', 'easyocr')
+_ensure('requests', 'requests')
+_ensure('Pillow', 'PIL')
+
+import json, time, re, threading
+import cv2, numpy as np, easyocr, requests
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from PIL import Image, ImageDraw, ImageFont
 
