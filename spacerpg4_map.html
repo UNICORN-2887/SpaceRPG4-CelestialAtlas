@@ -514,27 +514,26 @@ function validateRefuelPath(path, startId, endId, ftl) {
   const endIsRefuel = isRefuelNode(endNode);
 
   if (!endIsRefuel) {
-    // End is non-refuel: Jl = distance from last refuel (or start) to end, excluding start
+    // End is non-refuel: Jl = distance from last refuel on path to end (excluding start)
     let Jl = 0;
-    for (let i = path.length - 1; i >= 1; i--) { // skip i=0 (start node: fleet departs with full fuel)
+    for (let i = path.length - 1; i >= 1; i--) {
       const node = getNodeById(path[i]);
       if (isRefuelNode(node)) break;
       Jl++;
     }
-    // Path before last segment must have maxStreak <= FTL
+    // 中段验证
     const restPath = path.slice(0, path.length - Jl);
     const restMaxStreak = maxConsecutiveNoRefuel(restPath.length > 0 ? restPath : [path[0]]);
-    if (restMaxStreak > ftl) return { valid: false, reason: `路径中段最长无补给${restMaxStreak}跳>FTL(${ftl})` };
-    // Js = nearest refuel to end (anywhere on map)
+    if (restMaxStreak > ftl) return { valid: false, reason: `中段最长无补给${restMaxStreak}跳>FTL(${ftl})` };
+    // Js = 终点到最近补给的距离
     const Js = distToNearestRefuel(endId);
+    // 到达终点后剩余燃料 = FTL - Jl，需足够到达最近补给: FTL - Jl >= Js → Js + Jl <= FTL
+    const remaining = ftl - Jl;
+    if (Js <= remaining) return { valid: true };
     if (Js < Jl) {
-      // Closer refuel exists elsewhere: one-way to end then go to that refuel
-      if (Js + Jl <= ftl) return { valid: true };
-      return { valid: false, reason: `终点${endNode?.name}无补给，Jl=${Jl} Js=${Js}，Js+Jl=${Js+Jl}>FTL(${ftl})` };
+      return { valid: false, reason: `终点${endNode?.name}无补给，到终点${Jl}跳+到最近补给${Js}跳=${Js+Jl}>FTL(${ftl})，剩余燃料${remaining}不足` };
     } else {
-      // Last refuel is nearest: round trip
-      if (Jl * 2 <= ftl) return { valid: true };
-      return { valid: false, reason: `终点${endNode?.name}无补给，Jl=${Jl} Js=${Js}，2×Jl=${Jl*2}>FTL(${ftl})` };
+      return { valid: false, reason: `终点${endNode?.name}无补给，最近补给比来路更远(Js=${Js}>Jl=${Jl})，需2×${Jl}=${Jl*2}>FTL(${ftl})` };
     }
   } else {
     // End is refuel: longest streak in whole path <= FTL
