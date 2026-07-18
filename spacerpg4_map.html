@@ -558,14 +558,25 @@ function updatePathDisplay() {
     const names=state.pathNodeIds.map(id=>getNodeById(id)?.name||'?');
     const modeLabel=state.pathMode==='norefuel'?'⛽ 无补给':'🟢 最短';
     statusPath.style.display='inline';
-    // Check FTL validation
     if (state.pathMode==='norefuel' && state.ftlRange>0) {
       const val = validateRefuelPath(state.pathNodeIds, state.startNodeId, state.endNodeId, state.ftlRange);
+      // 计算剩余燃料和最近补给距离
+      let Jl=0, Js=0, remaining=0;
+      for (let i=state.pathNodeIds.length-1; i>=1; i--) {
+        if (isRefuelNode(getNodeById(state.pathNodeIds[i]))) break;
+        Jl++;
+      }
+      Js=distToNearestRefuel(state.endNodeId);
+      remaining=state.ftlRange-Jl;
+      const extraInfo=` | 距离:${names.length-1}跳 | 到终点剩${remaining}跳 | 最近补给距${Js}跳`;
       if (!val.valid) {
         statusPath.style.color='#ff4444';
-        statusPath.innerHTML=`⚠️ <strong>FTL不足</strong> — ${val.reason} | 距离: ${names.length-1}跳`;
+        statusPath.innerHTML=`⚠️ <strong>FTL不足</strong> — ${val.reason}${extraInfo}`;
         return;
       }
+      statusPath.style.color='#00ff88';
+      statusPath.innerHTML=`${modeLabel}: <strong>${names.join(' → ')}</strong>${extraInfo}`;
+      return;
     }
     statusPath.style.color='#00ff88';
     statusPath.innerHTML=`${modeLabel}: <strong>${names.join(' → ')}</strong> | 距离: <strong>${names.length-1}</strong> 跳`;
