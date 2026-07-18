@@ -95,7 +95,10 @@ def fetch_submissions():
             json_match = re.search(r'\{[\s\S]*"toolKB"[\s\S]*\}', body)
             if json_match:
                 try:
-                    data = json.loads(json_match.group(0))
+                    raw = json_match.group(0)
+                    # EmailJS 会转义引号 → 还原
+                    raw = raw.replace('\\"', '"').replace('\\n', '\n')
+                    data = json.loads(raw)
                     submissions.append({
                         "author": data.get("author", "?"),
                         "note": data.get("note", ""),
