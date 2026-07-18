@@ -213,14 +213,14 @@ async function submitKB() {
   document.getElementById('btn-submit-kb').disabled = true;
   document.getElementById('submit-status').innerHTML = '发送中...';
 
-  // 动态加载 EmailJS
+  // 动态加载 EmailJS v4
   if (!window.emailjs) {
     var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+    s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
     document.head.appendChild(s);
     await new Promise(function(r){ s.onload = r; });
-    emailjs.init(EMAILJS_PUBLIC_KEY);
   }
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   try {
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
