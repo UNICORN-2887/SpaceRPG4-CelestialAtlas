@@ -670,6 +670,9 @@ def main():
 
     # 启动微型HTTP服务
     threading.Thread(target=start_http_server, daemon=True).start()
+    # 清空旧新闻日志
+    news_log = os.path.join(os.path.dirname(__file__), "_news_log.json")
+    with open(news_log, 'w') as f: json.dump({"time": "", "updates": []}, f)
 
     print("=" * 50)
     print("SpaceRPG4 场景检测器")
