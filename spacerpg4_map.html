@@ -3117,13 +3117,13 @@ async function sendChat() {
   try {
     var sp = buildSystemPrompt() + "\n\n## 函数调用协议\n"+
       "如果你需要精确数据，使用以下格式调用函数：\n"+
-      "[CALL:findPath]{\"from\":\"星系名\",\"to\":\"星系名\",\"mode\":\"shortest|norefuel\"}\n"+
+      "[CALL:findPath]{\"from\":\"起点\",\"to\":\"终点\",\"mode\":\"shortest|norefuel\",\"waypoints\":[\"途经1\"]}\n"+
       "[CALL:searchNPC]{\"name\":\"NPC名\"}\n"+
       "[CALL:searchProduct]{\"name\":\"产品名\"}\n"+
       "[CALL:findNearestShip]{\"shipName\":\"船名\",\"from\":\"起点星系\"}\n"+
       "[CALL:getSystemInfo]{\"name\":\"星系名\"}\n"+
       "调用后系统返回JSON结果，你再基于真实数据回答。不要在无数据时编造！\n"+
-      "注意：[CALL:xxx]必须单独一行。";
+      "用户提到途径/经过某地时必须在findPath中用waypoints参数！注意：[CALL:xxx]必须单独一行。";
     var r1 = await fetch(DEEPSEEK_URL, {
       method: "POST",
       headers: {"Content-Type":"application/json","Authorization":"Bearer "+key},
