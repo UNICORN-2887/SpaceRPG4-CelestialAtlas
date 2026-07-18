@@ -40,25 +40,33 @@ ADB_EXE_DEFAULT = r"D:\工程\MuMu Player 12\nx_main\adb.exe"
 ADB_DEVICE_DEFAULT = "emulator-5554"
 ADB_EXE, ADB_DEVICE, SCAN_INTERVAL, HTTP_PORT = _load_ocr_config()
 
-# 自动检测ADB设备
+# 自动检测ADB设备（实际测试连接）
 def _auto_detect_device():
     import subprocess as _sp
+    candidates = []
     try:
         r = _sp.run(f'"{ADB_EXE}" devices', shell=True, capture_output=True, text=True)
         for line in r.stdout.split('\n'):
             line = line.strip()
             if line and 'device' in line and 'List' not in line:
-                return line.split('\t')[0].split(' ')[0]
+                candidates.append(line.split('\t')[0].split(' ')[0])
     except: pass
+    # Also try common IP:port
+    for ip in ['127.0.0.1:16384', '127.0.0.1:7555']:
+        if ip not in candidates: candidates.append(ip)
+    # Test each candidate
+    for dev in candidates:
+        try:
+            t = _sp.run(f'"{ADB_EXE}" -s {dev} shell echo OK', shell=True, capture_output=True, text=True, timeout=5)
+            if 'OK' in t.stdout:
+                return dev
+        except: pass
     return None
 
 _auto = _auto_detect_device()
-if _auto and not ADB_DEVICE.startswith('127.'):
-    # Only override if the configured device doesn't exist but auto-detect found something
-    r = subprocess.run(f'"{ADB_EXE}" -s {ADB_DEVICE} shell echo ok', shell=True, capture_output=True, text=True)
-    if 'ok' not in r.stdout:
-        print(f"⚠️ 配置设备{ADB_DEVICE}不可用，自动切换为 {_auto}")
-        ADB_DEVICE = _auto
+if _auto and _auto != ADB_DEVICE:
+    print(f"⚠️ 配置设备{ADB_DEVICE}不可用，自动切换为 {_auto}")
+    ADB_DEVICE = _auto
 print(f"📱 ADB设备: {ADB_DEVICE}")
 TEMP_SCREENSHOT = os.path.join(os.path.dirname(__file__), "_ocr_temp_scene.png")
 REGION_JSON = os.path.join(os.path.dirname(__file__), "_scene_region.json")        # Bar/Trade 检测区
