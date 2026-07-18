@@ -103,13 +103,36 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self.send_response(404); self.end_headers()
 
+    def fuzzy_match_default(self, entry, defaults):
+        """模糊匹配：去空格完全相同 或 互相包含"""
+        e = entry.replace(' ', '').replace('\n', '')
+        for d in defaults:
+            d2 = d.replace(' ', '').replace('\n', '')
+            if e == d2: return True
+            if len(e) > 15 and len(d2) > 15 and (e.find(d2) >= 0 or d2.find(e) >= 0): return True
+        # 相似度>80%也视为匹配
+        for d in defaults:
+            if self.similarity(entry, d) >= 0.8: return True
+        return False
+
+    def similarity(self, a, b):
+        a = a.replace(' ', ''); b = b.replace(' ', '')
+        if not a or not b: return 0
+        common = 0
+        for i in range(min(len(a), len(b))):
+            if a[i] == b[i]: common += 1
+        return common / max(len(a), len(b))
+
     def get_all_entries(self):
         subs = fetch_submissions()
+        defaults = get_defaults()
+        # 第一步：过滤掉和默认条目模糊匹配的
         all_entries = {}
         for sub in subs:
             for cat in ["toolKB", "gameKB", "customRules"]:
                 for entry in sub.get(cat, []):
                     k = entry.strip()
+                    if self.fuzzy_match_default(k, defaults): continue  # 跳过默认条目
                     if k not in all_entries:
                         all_entries[k] = {"cat": cat, "entry": entry, "authors": []}
                     all_entries[k]["authors"].append(sub["author"])
