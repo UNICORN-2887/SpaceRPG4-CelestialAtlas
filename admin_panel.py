@@ -261,14 +261,20 @@ h1{color:#fff;font-size:20px}h1 span{color:var(--a)}
 </style></head><body>
 <h1>SpaceRPG4 <span>Admin Panel</span></h1>
 <p style="font-size:12px;color:#64748b">勾选通过 → 点击批准 → 自动写入 kb_config.html → git push 部署</p>
+阈值: <input type="range" id="threshold" min="30" max="95" value="72" step="1" style="width:120px;vertical-align:middle" oninput="document.getElementById('tv').textContent=(this.value/100).toFixed(2)">
+<span id="tv">0.72</span>
 <button class="btn btn-refresh" onclick="load()">🔄 刷新</button>
 <span id="loading">处理中...</span>
 <span id="status" class="status"></span>
+<span id="counts" style="font-size:12px;color:#64748b"></span>
 <div id="content"></div>
 <script>
 async function load(){
   document.getElementById("loading").style.display="inline";
-  var r=await fetch("/api/entries");var entries=await r.json();
+  var th=parseFloat(document.getElementById("threshold").value)/100;
+  var r=await fetch("/api/entries?t="+th);var entries=await r.json();
+  var raw=await fetch("/api/raw");var rawEntries=await raw.json();
+  document.getElementById("counts").textContent="原始:"+rawEntries.length+" → 过滤后:"+entries.length;
   var r2=await fetch("/api/defaults");var defaults=await r2.json();
   var defSet=new Set(defaults);
   var cats={toolKB:{name:"工具操作知识库",cls:"tool"},gameKB:{name:"游戏机制知识库",cls:"game"},customRules:{name:"自定义规则",cls:"rules"}};
