@@ -125,7 +125,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def ai_dedup_entries(self, entries_list):
         """用 DeepSeek 对所有条目做全局去重"""
-        if not DEEPSEEK_KEY or len(entries_list) < 2:
+        key = _load_key()
+        if not key or len(entries_list) < 2:
             return entries_list, []
         prompt = "以下是从多封邮件中提取的知识库条目，很多重复。找出本质相同的合并（保留最完整的那条）。\n\n"
         for i, e in enumerate(entries_list):
