@@ -152,10 +152,34 @@
 
 <script>
 const STORAGE_KEY = 'spacerpg4_kb_config';
+const _DEF_TOOL = [
+  '编辑器模式编辑星系/行星/设施/通道。地图模式分导航子模式和查看子模式。',
+  '工具中布置空间站：地图模式→导航子模式→单击灰色星域节点→左侧栏勾选。',
+  '导航子模式：单击起点→单击终点→自动BFS最短路径。Ctrl+单击添加途径点。Shift+单击标记障碍绕行。',
+  '两种寻路模式：最短距离(BFS)和无补给最短(需输入FTL)。蓝(0)/红(2)星系提供燃料。',
+  '工具栏搜索：星系名/星球名/NPC名/资源。资源搜索可选全局高亮或最近距离+价格排序。',
+  '领域按钮展示Voronoi派系势力图。适应画面按钮缩放。下载星图获取初始JSON。导入恢复备份。',
+];
+const _DEF_GAME = [
+  '游戏中建空间站：找舰队→存1M credits→离最近蓝色星球>=2跳的灰色星域→停下→布置空间站→运送150吨Metal。',
+  '蓝色和红色星球的星系提供燃料补给。灰色星域和绿/黄/淡蓝星球无补给。',
+  '6种派系：蓝色/绿色/红色/黄色/淡蓝色/灰色星域。颜色和派系相互独立。',
+  '酒吧新闻影响物价(OCR→AI分析)。贸易中心看本地价格(OCR→AI更新最低最高价)。买卖船只在船坞。',
+  '游戏中有265个星球390+通道。FTL跳跃消耗燃料，舰队有最大FTL上限。灰色星域无法创建星球。',
+  '船坞出售的舰船有购买限制条件(如OSC联盟专属)。探索任务需规划往返燃料。',
+];
+const _DEF_RULES = [
+  '回答风格：简洁、直接、用中文。用emoji辅助。',
+  '严格区分网页工具操作和游戏中操作。两者流程完全不同。',
+  '寻路必须调用findPath API获取真实路径，不要编造跳数。',
+  '设施/产品信息严格基于星图数据，不确定就说不知道。',
+  '贸易建议时综合考虑价格、距离、FTL限制，给出买入卖出方案。',
+  '舰船查询时同时告知购买限制条件(如派系要求)。',
+];
 const DEFAULTS = {
   apiName:'', apiKey:'',
   ocrConfig:{ adbPath:'D:\\工程\\MuMu Player 12\\nx_main\\adb.exe', deviceId:'emulator-5554', interval:1.0, port:8765 },
-  toolKB:[], gameKB:[], customRules:[],
+  toolKB: _DEF_TOOL, gameKB: _DEF_GAME, customRules: _DEF_RULES,
 };
 function emptyConfig(){ return { apiName:'',apiKey:'',ocrConfig:{ adbPath:'',deviceId:'emulator-5554',interval:1.0,port:8765 },toolKB:[],gameKB:[],customRules:[] }; }
 function loadConfig(){ try{ var r=localStorage.getItem(STORAGE_KEY); if(r) return JSON.parse(r); }catch(e){} return emptyConfig(); }
