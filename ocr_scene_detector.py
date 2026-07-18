@@ -114,18 +114,16 @@ def capture_screen():
         if not dev: continue
         if ':' in dev:
             subprocess.run(f'"{ADB_EXE}" connect {dev}', shell=True, capture_output=True)
-        # 直接用 Python 接收 PNG 二进制数据，不用 shell 重定向
-        cmd = f'"{ADB_EXE}" -s {dev} exec-out screencap -p'
-        r = subprocess.run(cmd, shell=True, capture_output=True)
-        if r.returncode == 0 and len(r.stdout) > 100:
-            with open(TEMP_SCREENSHOT, 'wb') as f:
-                f.write(r.stdout)
+        # 使用 shell 重定向写入文件（兼容性最好）
+        cmd = f'"{ADB_EXE}" -s {dev} exec-out screencap -p > "{TEMP_SCREENSHOT}"'
+        subprocess.run(cmd, shell=True)
+        if os.path.exists(TEMP_SCREENSHOT) and os.path.getsize(TEMP_SCREENSHOT) > 100:
             img = cv2.imread(TEMP_SCREENSHOT)
             if img is not None:
                 if dev != ADB_DEVICE:
                     print(f"⚠️ 切换设备: {ADB_DEVICE} → {dev}")
                 return img
-    print(f"❌ 所有设备截图均失败")
+    print("❌ 所有设备截图均失败")
     return None
 
 def save_region(region):
