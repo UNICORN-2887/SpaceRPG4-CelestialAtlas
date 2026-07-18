@@ -67,7 +67,7 @@ def fetch_submissions():
                         depth -= 1
                         if depth == 0: end = i; break
                 if end >= 0:
-                    raw = body[start:end+1].replace('\\"', '"')
+                    raw = body[start:end+1]
                     try:
                         data = json.loads(raw)
                         submissions.append({
