@@ -110,12 +110,21 @@ def pil_text(img, text, xy, size, color):
     img[:] = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 
 def capture_screen():
-    # 自动连接（支持 IP:port 格式）
-    if ':' in ADB_DEVICE and not ADB_DEVICE.startswith('emulator'):
-        subprocess.run(f'"{ADB_EXE}" connect {ADB_DEVICE}', shell=True, capture_output=True)
-    cmd = f'"{ADB_EXE}" -s {ADB_DEVICE} exec-out screencap -p > "{TEMP_SCREENSHOT}"'
-    subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    return cv2.imread(TEMP_SCREENSHOT)
+    # 先尝试配置的设备，失败则尝试备选
+    for dev in [ADB_DEVICE, '127.0.0.1:16384', 'emulator-5554']:
+        if not dev: continue
+        if ':' in dev:
+            subprocess.run(f'"{ADB_EXE}" connect {dev}', shell=True, capture_output=True)
+        cmd = f'"{ADB_EXE}" -s {dev} exec-out screencap -p > "{TEMP_SCREENSHOT}"'
+        r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if r.returncode == 0:
+            img = cv2.imread(TEMP_SCREENSHOT)
+            if img is not None:
+                if dev != ADB_DEVICE:
+                    print(f"⚠️ 切换设备: {ADB_DEVICE} → {dev}")
+                return img
+    print(f"❌ 所有设备截图均失败")
+    return None
 
 def save_region(region):
     with open(REGION_JSON, 'w') as f:
