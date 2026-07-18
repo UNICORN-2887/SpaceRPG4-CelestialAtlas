@@ -303,6 +303,7 @@ let state = {
   selectedNodeId:null, selectedColorIndex:0,
   startNodeId:null, endNodeId:null, waypointIds:[],
   pathNodeIds:[], pathEdgeIds:[], highlightedNodeIds:[],
+  blockedNodeIds:[],  // 障碍节点（寻路时绕开）
   showTerritory:false,
   mapSubMode:'nav',  // 'nav' (navigation) or 'view' (inspect)
   pathMode:'shortest', // 'shortest' or 'norefuel'
@@ -452,7 +453,11 @@ function importJSON(file) {
 function bfs(startId,endId) {
   if(startId===endId) return [startId];
   const queue=[startId],visited=new Set([startId]),parent={};
-  while(queue.length>0){const cur=queue.shift();if(cur===endId) break;for(const nb of getNeighbors(cur)){if(!visited.has(nb)){visited.add(nb);parent[nb]=cur;queue.push(nb);}}}
+  while(queue.length>0){const cur=queue.shift();if(cur===endId) break;for(const nb of getNeighbors(cur)){
+    // 跳过障碍节点（起点和终点除外）
+    if(state.blockedNodeIds.includes(nb) && nb!==startId && nb!==endId) continue;
+    if(!visited.has(nb)){visited.add(nb);parent[nb]=cur;queue.push(nb);}
+  }}
   if(parent[endId]===undefined&&startId!==endId) return null;
   const path=[];let node=endId;while(node!==undefined){path.unshift(node);node=parent[node];}
   return path[0]===startId?path:null;
@@ -853,6 +858,13 @@ function render() {
       wt.setAttribute('x',node.x); wt.setAttribute('y',node.y-NODE_RADIUS-8);
       wt.setAttribute('class','node-tag'); wt.setAttribute('fill','#ffaa00');
       wt.textContent='W'+(wpIdx+1); nodeG.appendChild(wt);
+    }
+    // Blocked node indicator
+    if (state.blockedNodeIds.includes(node.id)) {
+      const bt=document.createElementNS('http://www.w3.org/2000/svg','text');
+      bt.setAttribute('x',node.x); bt.setAttribute('y',node.y-NODE_RADIUS-8);
+      bt.setAttribute('class','node-tag'); bt.setAttribute('font-size','14px');
+      bt.textContent='⛔'; nodeG.appendChild(bt);
     }
     // Space station icon for gray nodes
     if (isGray(node) && node.hasStation) {
@@ -1263,7 +1275,7 @@ function renderPlanetTab() {
       html += '<div class="panel-hint">Ctrl+点击节点添加途径点</div>';
     }
     html += '<div class="panel-section"><div class="panel-label">💡 操作</div>';
-    html += '<div class="panel-hint"><kbd>单击</kbd> 设起点/终点<br><kbd>Ctrl+单击</kbd> 添加途径点<br><kbd>右键</kbd> 查看详情/空间站<br><kbd>点击空白</kbd> 清除</div>';
+    html += '<div class="panel-hint"><kbd>单击</kbd> 起点/终点<br><kbd>Ctrl+单击</kbd> 途径点<br><kbd>Shift+单击</kbd> 障碍⛔<br><kbd>右键</kbd> 详情/空间站<br><kbd>点击空白</kbd> 清除</div>';
     // 空间站
     const selGray = state.startNodeId ? getNodeById(state.startNodeId) : null;
     if (selGray && isGray(selGray)) {
@@ -2050,6 +2062,15 @@ function handleMapNodeClick(nodeId, e) {
     toggleWaypoint(nodeId);
     return;
   }
+  // Shift+Click = toggle obstacle
+  if (e && e.shiftKey) {
+    var idx = state.blockedNodeIds.indexOf(nodeId);
+    if (idx >= 0) { state.blockedNodeIds.splice(idx,1); setStatus('⛔ 已移除障碍: '+getNodeById(nodeId)?.name); }
+    else { state.blockedNodeIds.push(nodeId); setStatus('⛔ 已标记障碍: '+getNodeById(nodeId)?.name); }
+    if (state.startNodeId && state.endNodeId) computePath();
+    updatePathDisplay(); render();
+    return;
+  }
 
   if (!state.startNodeId) {
     state.startNodeId=nodeId; state.endNodeId=null;
@@ -2820,11 +2841,19 @@ if (!_kbToolStr) _kbToolStr = Object.values(ARK_KB.tool).join('\n');
 if (!_kbGameStr) _kbGameStr = Object.values(ARK_KB.game).join('\n');
 
 // ---- API Functions (pre-computed answers) ----
-function api_findPath(nameA, nameB, mode, waypointNames) {
+function api_findPath(nameA, nameB, mode, waypointNames, blockedNames) {
   mode = mode || 'shortest';
   var nA = fuzzyFindNode(nameA), nB = fuzzyFindNode(nameB);
   if (!nA || !nB) return null;
-  var oldMode = state.pathMode, oldFtl = state.ftlRange;
+  var oldBlocked = state.blockedNodeIds.slice();
+  // 临时设置障碍
+  if (blockedNames && blockedNames.length) {
+    for (var b = 0; b < blockedNames.length; b++) {
+      var bn = fuzzyFindNode(blockedNames[b]);
+      if (bn && bn.id !== nA.id && bn.id !== nB.id) state.blockedNodeIds.push(bn.id);
+    }
+  }
+  var oldMode = state.pathMode;
   state.pathMode = mode;
   // Resolve waypoints
   var wpIds = [];
@@ -2844,6 +2873,7 @@ function api_findPath(nameA, nameB, mode, waypointNames) {
     fullPath = fullPath.concat(seg);
   }
   state.pathMode = oldMode;
+  state.blockedNodeIds = oldBlocked; // 恢复
   var names = fullPath.map(function(id){ var n=getNodeById(id); return n?n.name:'?'; });
   var dist = fullPath.length - 1;
   var maxStreak = 0, cur = 0;
@@ -3074,7 +3104,7 @@ function executeAPICall(fnName, args) {
   try {
     var a = JSON.parse(args);
     if (fnName === 'findPath') {
-      var result = api_findPath(a.from, a.to, a.mode||'shortest', a.waypoints);
+      var result = api_findPath(a.from, a.to, a.mode||'shortest', a.waypoints, a.blocked);
       if (result && result.nodeIds && result.nodeIds.length > 0) {
         state.startNodeId = result.nodeIds[0];
         state.endNodeId = result.nodeIds[result.nodeIds.length - 1];
