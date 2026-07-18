@@ -1,0 +1,8 @@
+# SpaceRPG4 Celestial Atlas - Python 依赖
+# 安装: pip install -r requirements.txt
+
+easyocr>=1.7.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+requests>=2.28.0
